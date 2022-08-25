@@ -4,6 +4,7 @@ namespace Contracts.Interfaces
 {
     public interface IUnitOfWork
     {
+        IFridgeRepository Fridge { get; }
 
         Task Save();
     }

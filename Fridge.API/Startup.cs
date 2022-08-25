@@ -29,6 +29,9 @@ namespace Fridge.API
         {
             services.ConfigureCors();
             services.ConfigureSqlContext(Configuration);
+            services.ConfigureUnitOfWork();
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

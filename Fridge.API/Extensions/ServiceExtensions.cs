@@ -1,7 +1,9 @@
-﻿using Entities.EF;
+﻿using Contracts.Interfaces;
+using Entities.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Repository;
 
 namespace zFridge.API.Extensions
 {
@@ -23,7 +25,11 @@ namespace zFridge.API.Extensions
             services.AddDbContext<AppDbContext>(opts =>
                 opts.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
         }
-            
 
+        public static void ConfigureUnitOfWork(this IServiceCollection services)
+        {
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+        }
+            
     }
 }
