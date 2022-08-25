@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using zFridge.API.Extensions;
 
 namespace Fridge.API
 {
@@ -26,6 +27,8 @@ namespace Fridge.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureCors();
+            services.ConfigureSqlContext(Configuration);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -45,6 +48,8 @@ namespace Fridge.API
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors();
 
             app.UseRouting();
 
