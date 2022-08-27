@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Contracts.Interfaces;
 using Entities.EF;
@@ -32,5 +33,22 @@ namespace Repository
                 .Include(x => x.Products)
                 .SingleOrDefaultAsync();
         }
+
+        public void CreateFridge(Fridge fridge)
+        {
+            var fridgeModel = 
+                    FindByCondition(x => x.FridgeModel.Name == fridge.Name && x.FridgeModel.Year == fridge.FridgeModel.Year, false)
+                    .Select(x => x.FridgeModel)
+                    .FirstOrDefault();
+
+            if (fridgeModel is not null)
+            {
+                fridge.FridgeModel = fridgeModel;
+            }
+
+            Create(fridge);
+        }
+
+        public void DeleteFridge(Fridge fridge) => Delete(fridge);
     }
 }

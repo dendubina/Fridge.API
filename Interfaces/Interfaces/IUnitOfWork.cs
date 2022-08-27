@@ -4,8 +4,12 @@ namespace Contracts.Interfaces
 {
     public interface IUnitOfWork
     {
-        IFridgeRepository Fridge { get; }
+        IFridgeRepository Fridges { get; }
 
-        Task Save();
+        IFridgeProductRepository FridgeProducts { get; }
+
+        IProductRepository Products { get; }
+
+        Task SaveAsync();
     }
 }

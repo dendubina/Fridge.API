@@ -1,11 +1,7 @@
-﻿using System;
-
-namespace Entities.DTO.Fridge
+﻿namespace Entities.DTO.Fridges
 {
-    public class FridgeDto
+    public class FridgeForUpdateDto
     {
-        public Guid Id { get; set; }
-
         public string Name { get; set; }
 
         public string OwnerName { get; set; }

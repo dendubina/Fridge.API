@@ -11,7 +11,7 @@ namespace Repository
     {
         protected AppDbContext DbContext;
 
-        public RepositoryBase(AppDbContext repositoryContext)
+        protected RepositoryBase(AppDbContext repositoryContext)
         {
             DbContext = repositoryContext;
         }

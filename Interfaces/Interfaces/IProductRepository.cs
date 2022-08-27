@@ -1,6 +1,18 @@
-﻿namespace Contracts.Interfaces
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Entities.Models;
+
+namespace Contracts.Interfaces
 {
     public interface IProductRepository
     {
+        Task<IEnumerable<Product>> GetAllProductsAsync(bool trackChanges);
+
+        Task<Product> GetProductAsync(Guid productId, bool trackChanges);
+
+        void CreateProduct(Product product);
+
+        void DeleteProduct(Product product);
     }
 }
