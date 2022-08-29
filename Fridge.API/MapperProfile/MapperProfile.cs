@@ -12,10 +12,13 @@ namespace zFridge.API.MapperProfile
         {
             CreateMap<Entities.Models.Fridge, FridgeForReturnDto>()
                 .ForMember(dest => dest.ModelName, opt => opt.MapFrom(src => src.FridgeModel.Name))
-                .ForMember(dest => dest.ModelYear, opt => opt.MapFrom(src => src.FridgeModel.Year));
+                .ForMember(dest => dest.ModelYear, opt => opt.MapFrom(src => src.FridgeModel.Year))
+                .ForMember(dest => dest.FridgeProducts, opt => opt.MapFrom(src => src.Products));
+
 
             CreateMap<FridgeForCreateDto, Entities.Models.Fridge>()
-                .ForMember(dest => dest.FridgeModel, opts => opts.MapFrom(src => new FridgeModel { Name = src.ModelName, Year = src.ModelYear }));
+                .ForMember(dest => dest.FridgeModel, opts => opts.MapFrom(src => new FridgeModel { Name = src.ModelName, Year = src.ModelYear }))
+                .ForMember(dest => dest.Products, opts => opts.MapFrom(src => src.FridgeProducts));
             CreateMap<FridgeForUpdateDto, Entities.Models.Fridge>()
                 .ForMember(dest => dest.FridgeModel, opts => opts.MapFrom(src => new FridgeModel { Name = src.ModelName, Year = src.ModelYear }))
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
@@ -23,7 +26,7 @@ namespace zFridge.API.MapperProfile
 
             CreateMap<FridgeProductForManipulationDto, FridgeProduct>();
             CreateMap<FridgeProduct, FridgeProductForReturnDto>()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Product.Name));
+                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name));
 
 
             CreateMap<Product, ProductForReturnDto>();

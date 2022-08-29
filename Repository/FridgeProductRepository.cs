@@ -17,9 +17,7 @@ namespace Repository
 
         public async Task<IEnumerable<FridgeProduct>> GetFridgeProducts(Guid fridgeId, bool trackChanges)
         {
-            return await FindByCondition(x => x.FridgeId.Equals(fridgeId), trackChanges)
-                        .Include(x => x.Product)
-                        .ToListAsync();
+            return await FindByCondition(x => x.FridgeId.Equals(fridgeId), trackChanges).ToListAsync();
         }
 
         public async Task<FridgeProduct> GetFridgeProduct(Guid fridgeId, Guid productId, bool trackChanges)

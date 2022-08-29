@@ -22,6 +22,7 @@ namespace Repository
                 FindAll(trackChanges)
                .Include(x => x.FridgeModel)
                .Include(x => x.Products)
+               .ThenInclude(x => x.Product)
                .ToListAsync();
         }
 

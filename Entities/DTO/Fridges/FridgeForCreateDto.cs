@@ -1,4 +1,7 @@
-﻿namespace Entities.DTO.Fridges
+﻿using System.Collections.Generic;
+using Entities.DTO.FridgeProducts;
+
+namespace Entities.DTO.Fridges
 {
     public class FridgeForCreateDto 
     {
@@ -9,5 +12,7 @@
         public string ModelName { get; set; }
 
         public int ModelYear { get; set; }
+
+        public IEnumerable<FridgeProductForManipulationDto> FridgeProducts { get; set; }
     }
 }

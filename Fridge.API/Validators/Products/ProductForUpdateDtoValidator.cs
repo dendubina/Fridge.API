@@ -1,7 +1,7 @@
 ﻿using Entities.DTO.Products;
 using FluentValidation;
 
-namespace Entities.Validators.Products
+namespace zFridge.API.Validators.Products
 {
     public class ProductForUpdateDtoValidator : AbstractValidator<ProductForUpdateDto>
     {

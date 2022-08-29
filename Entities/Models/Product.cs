@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Models
@@ -12,5 +13,7 @@ namespace Entities.Models
 
         [Required]
         public int DefaultQuantity { get; set; }
+
+        public ICollection<FridgeProduct> Fridges { get; set; }
     }
 }

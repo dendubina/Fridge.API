@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Contracts.Interfaces;
 using Entities.DTO.Fridges;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using zFridge.API.Extensions;
 
 namespace zFridge.API.Controllers
 {
@@ -15,11 +17,13 @@ namespace zFridge.API.Controllers
     {
         private readonly IUnitOfWork _repository;
         private readonly IMapper _mapper;
+        private readonly IValidator<FridgeForCreateDto> _createFridgeValidator;
 
-        public FridgesController(IUnitOfWork repository, IMapper mapper)
+        public FridgesController(IUnitOfWork repository, IMapper mapper, IValidator<FridgeForCreateDto> createFridgeValidator)
         {
             _repository = repository;
             _mapper = mapper;
+            _createFridgeValidator = createFridgeValidator;
         }
 
         [HttpGet]
@@ -46,6 +50,14 @@ namespace zFridge.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateFridge([FromBody][Required] FridgeForCreateDto model)
         {
+            var result = await _createFridgeValidator.ValidateAsync(model);
+
+            if (!result.IsValid)
+            {
+                result.AddToModelState(ModelState);
+                return ValidationProblem(ModelState);
+            }
+
             var entity = _mapper.Map<Entities.Models.Fridge>(model);
 
              _repository.Fridges.CreateFridge(entity);
