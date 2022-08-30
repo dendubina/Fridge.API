@@ -11,7 +11,7 @@ namespace Contracts.Interfaces
 
         Task<FridgeProduct> GetFridgeProduct(Guid fridgeId, Guid productId, bool trackChanges);
 
-        void AddProductToFridge(Guid fridgeId, FridgeProduct fridgeProduct);
+        Task AddProductToFridge(Guid fridgeId, FridgeProduct fridgeProduct);
 
         void DeleteProductFromFridge(FridgeProduct fridgeProduct);
     }

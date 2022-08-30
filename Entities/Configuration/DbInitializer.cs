@@ -87,7 +87,7 @@ namespace Entities.Configuration
             }
 
             // Fridges
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 5; i++)
             {
                 int nameIndex = new Random((int)DateTime.Now.Ticks + i).Next(_fridgeNames.Length);
                 int ownerIndex = new Random((int)DateTime.Now.Ticks + i).Next(_fridgeOwners.Length);

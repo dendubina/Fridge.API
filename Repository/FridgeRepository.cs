@@ -32,6 +32,7 @@ namespace Repository
                 FindByCondition(x => x.Id.Equals(fridgeId), trackChanges)
                 .Include(x => x.FridgeModel)
                 .Include(x => x.Products)
+                .ThenInclude(x => x.Product)
                 .SingleOrDefaultAsync();
         }
 

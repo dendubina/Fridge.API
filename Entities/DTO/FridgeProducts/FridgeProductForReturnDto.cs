@@ -4,6 +4,8 @@ namespace Entities.DTO.FridgeProducts
 {
     public class FridgeProductForReturnDto
     {
+        public Guid Id { get; set; }
+
         public Guid FridgeId { get; set; }
 
         public Guid ProductId { get; set; }

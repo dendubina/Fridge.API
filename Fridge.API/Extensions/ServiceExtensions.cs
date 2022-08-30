@@ -1,12 +1,11 @@
 ﻿using Contracts.Interfaces;
 using Entities.EF;
 using FluentValidation;
-using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Repository;
-using ProductForCreateDtoValidator = zFridge.API.Validators.Products.ProductForCreateDtoValidator;
+using zFridge.API.Validators.Products;
 
 namespace zFridge.API.Extensions
 {
@@ -36,7 +35,6 @@ namespace zFridge.API.Extensions
 
         public static void ConfigureFluentValidation(this IServiceCollection services)
         {
-           // services.AddFluentValidationAutoValidation();
             ValidatorOptions.Global.LanguageManager.Enabled = false;
 
             services.AddValidatorsFromAssemblyContaining<ProductForCreateDtoValidator>();

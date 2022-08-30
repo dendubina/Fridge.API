@@ -17,17 +17,28 @@ namespace Repository
 
         public async Task<IEnumerable<FridgeProduct>> GetFridgeProducts(Guid fridgeId, bool trackChanges)
         {
-            return await FindByCondition(x => x.FridgeId.Equals(fridgeId), trackChanges).ToListAsync();
+            return await FindByCondition(x => x.FridgeId.Equals(fridgeId), trackChanges)
+                .Include(x => x.Product)
+                .ToListAsync();
         }
 
         public async Task<FridgeProduct> GetFridgeProduct(Guid fridgeId, Guid productId, bool trackChanges)
         {
             return await FindByCondition(x => x.FridgeId.Equals(fridgeId) && x.ProductId.Equals(productId), trackChanges)
-                        .SingleOrDefaultAsync();
+                .Include(x => x.Product)
+                .SingleOrDefaultAsync();
         }
 
-        public void AddProductToFridge(Guid fridgeId, FridgeProduct fridgeProduct)
+        public async Task AddProductToFridge(Guid fridgeId, FridgeProduct fridgeProduct)
         {
+            var productInFridge = await GetFridgeProduct(fridgeId, fridgeProduct.ProductId, trackChanges: true);
+
+            if (productInFridge is not null)
+            {
+                productInFridge.Quantity += fridgeProduct.Quantity;
+                return;
+            }
+
             fridgeProduct.FridgeId = fridgeId;
 
             Create(fridgeProduct);
