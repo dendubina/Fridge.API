@@ -14,6 +14,8 @@ namespace Entities.Models
         [Required]
         public int DefaultQuantity { get; set; }
 
+        public string ImageSource { get; set; }
+
         public ICollection<FridgeProduct> Fridges { get; set; }
     }
 }

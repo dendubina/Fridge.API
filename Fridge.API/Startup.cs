@@ -1,3 +1,5 @@
+using Contracts.Interfaces;
+using ImageService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +25,8 @@ namespace Fridge.API
             services.ConfigureCors();
             services.ConfigureSqlContext(Configuration);
             services.ConfigureUnitOfWork();
+
+            services.AddScoped<IImageService, ImageSaver> ();
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -52,6 +56,14 @@ namespace Fridge.API
             app.UseCors();
 
             app.UseRouting();
+
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers.Add("Cache-Control", "public, max-age=3600");
+                }
+            });
 
             app.UseAuthorization();
 

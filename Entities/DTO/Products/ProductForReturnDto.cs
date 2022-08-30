@@ -8,6 +8,8 @@ namespace Entities.DTO.Products
 
         public string Name { get; set; }
 
+        public string ImageSource { get; set; }
+
         public int DefaultQuantity { get; set; }
     }
 }

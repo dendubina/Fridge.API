@@ -110,6 +110,7 @@ namespace Entities.Configuration
                     Id = Guid.NewGuid(),
                     Name = _productsNamesAndPictures.Keys.ElementAt(i),
                     DefaultQuantity = new Random((int)DateTime.Now.Ticks + i).Next(5, 18),
+                    ImageSource = _productsNamesAndPictures.Values.ElementAt(i)
                 });
             }
 

@@ -6,7 +6,9 @@ using AutoMapper;
 using Contracts.Interfaces;
 using Entities.DTO.Products;
 using Entities.Models;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using zFridge.API.Extensions;
 
 namespace zFridge.API.Controllers
 {
@@ -16,11 +18,15 @@ namespace zFridge.API.Controllers
     {
         private readonly IUnitOfWork _repository;
         private readonly IMapper _mapper;
+        private readonly IValidator<ProductForManipulationDto> _productForCreateValidator;
+        private readonly IImageService _imageService;
 
-        public ProductsController(IUnitOfWork repository, IMapper mapper)
+        public ProductsController(IUnitOfWork repository, IMapper mapper, IValidator<ProductForManipulationDto> productForCreateValidator, IImageService imageService)
         {
             _repository = repository;
             _mapper = mapper;
+            _productForCreateValidator = productForCreateValidator;
+            _imageService = imageService;
         }
 
         [HttpGet]
@@ -45,9 +51,22 @@ namespace zFridge.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProduct([FromBody][Required] ProductForCreateDto model)
+        public async Task<IActionResult> CreateProduct([FromForm][Required] ProductForManipulationDto model)
         {
+            var result = await _productForCreateValidator.ValidateAsync(model);
+
+            if (!result.IsValid)
+            {
+                result.AddToModelState(ModelState);
+                return ValidationProblem(ModelState);
+            }
+
             var entity = _mapper.Map<Product>(model);
+
+            if (model.Image is not null)
+            {
+                entity.ImageSource = await _imageService.AddImageReturnPath(model.Image);
+            }
 
             _repository.Products.CreateProduct(entity);
             await _repository.SaveAsync();
@@ -75,13 +94,26 @@ namespace zFridge.API.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> UpdateProduct(Guid id, [FromBody][Required] ProductForUpdateDto model)
+        public async Task<IActionResult> UpdateProduct(Guid id, [FromForm][Required] ProductForManipulationDto model)
         {
             var entity = await _repository.Products.GetProductAsync(id, trackChanges: true);
 
             if (entity is null)
             {
                 return NotFound();
+            }
+
+            var result = await _productForCreateValidator.ValidateAsync(model);
+
+            if (!result.IsValid)
+            {
+                result.AddToModelState(ModelState);
+                return ValidationProblem(ModelState);
+            }
+
+            if (model.Image is not null)
+            {
+                entity.ImageSource = await _imageService.AddImageReturnPath(model.Image);
             }
 
             _mapper.Map(model, entity);

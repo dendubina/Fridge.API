@@ -26,13 +26,13 @@ namespace zFridge.API.MapperProfile
 
             CreateMap<FridgeProductForManipulationDto, FridgeProduct>();
             CreateMap<FridgeProduct, FridgeProductForReturnDto>()
-                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name));
+                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
+                .ForMember(dest => dest.ImageSource, opt => opt.MapFrom(src => src.Product.ImageSource));
 
 
             CreateMap<Product, ProductForReturnDto>();
-            CreateMap<ProductForUpdateDto, Product>()
-                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null)); ;
-            CreateMap<ProductForCreateDto, Product>();
+            CreateMap<ProductForManipulationDto, Product>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
         }
     }
 }
