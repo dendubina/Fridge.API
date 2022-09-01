@@ -45,7 +45,7 @@ namespace zFridge.API.Extensions
         {
             ValidatorOptions.Global.LanguageManager.Enabled = false;
 
-            services.AddValidatorsFromAssemblyContaining<ProductForCreateDtoValidator>();
+            services.AddValidatorsFromAssemblyContaining<ProductForManipulationDtoValidator>();
         }
 
         public static void ConfigureIdentity(this IServiceCollection services)

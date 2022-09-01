@@ -73,13 +73,11 @@ namespace zFridge.API.Controllers
         {
             var fridge = await _repository.Fridges.GetFridgeAsync(id, trackChanges: false);
 
-            if (fridge is null)
+            if (fridge is not null)
             {
-                return NotFound();
+                _repository.Fridges.DeleteFridge(fridge);
+                await _repository.SaveAsync();
             }
-
-            _repository.Fridges.DeleteFridge(fridge);
-            await _repository.SaveAsync();
 
             return NoContent();
         }

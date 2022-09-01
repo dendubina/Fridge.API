@@ -84,13 +84,11 @@ namespace zFridge.API.Controllers
         {
             var entity = await _repository.Products.GetProductAsync(id, trackChanges: false);
 
-            if (entity is null)
+            if (entity is not null)
             {
-                return NotFound();
+                _repository.Products.DeleteProduct(entity);
+                await _repository.SaveAsync();
             }
-
-            _repository.Products.DeleteProduct(entity);
-            await _repository.SaveAsync();
 
             return NoContent();
         }
@@ -124,7 +122,7 @@ namespace zFridge.API.Controllers
             return NoContent();
         }
 
-        [HttpPut("[action]")]
+        [HttpGet("[action]")]
         public IActionResult ChangeZeroQuantity()
         {
             _repository.FridgeProducts.ChangeZeroQuantity();

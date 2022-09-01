@@ -73,15 +73,13 @@ namespace zFridge.API.Controllers
         public async Task<IActionResult> DeleteProductFromFridge(Guid fridgeId, Guid productId)
         {
             var fridge = await _repository.Fridges.GetFridgeAsync(fridgeId, trackChanges: false);
-            var entity = await _repository.FridgeProducts.GetFridgeProduct(fridgeId, productId, trackChanges: false);
+            var fridgeProduct = await _repository.FridgeProducts.GetFridgeProduct(fridgeId, productId, trackChanges: false);
 
-            if (fridge is null || entity is null)
+            if (fridge is not null && fridgeProduct is not null)
             {
-                return NotFound();
+                _repository.FridgeProducts.DeleteProductFromFridge(fridgeProduct);
+                await _repository.SaveAsync();
             }
-
-            _repository.FridgeProducts.DeleteProductFromFridge(entity);
-            await _repository.SaveAsync();
 
             return NoContent();
         }

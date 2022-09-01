@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace zFridge.API.Validators.Products
 {
-    public class ProductForCreateDtoValidator : AbstractValidator<ProductForManipulationDto>
+    public class ProductForManipulationDtoValidator : AbstractValidator<ProductForManipulationDto>
     {
         private const double MaxImageSizeMB = 1;
 
@@ -39,7 +39,7 @@ namespace zFridge.API.Validators.Products
             } },
         };
 
-        public ProductForCreateDtoValidator()
+        public ProductForManipulationDtoValidator()
         {
             RuleFor(product => product.Name)
                 .NotEmpty();

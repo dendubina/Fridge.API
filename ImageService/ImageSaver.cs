@@ -24,8 +24,8 @@ namespace ImageService
             string folderToSave = _environment.WebRootPath + imagesFolder;
 
             string filename = Path.GetRandomFileName();
-
             filename = Path.GetFileNameWithoutExtension(filename);
+
             filename += Path.GetExtension(image.FileName);
 
             string fullPath = Path.Combine(folderToSave, filename);
