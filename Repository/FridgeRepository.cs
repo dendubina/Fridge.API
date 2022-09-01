@@ -52,5 +52,6 @@ namespace Repository
         }
 
         public void DeleteFridge(Fridge fridge) => Delete(fridge);
+        
     }
 }

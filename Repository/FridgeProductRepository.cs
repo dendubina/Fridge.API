@@ -46,5 +46,9 @@ namespace Repository
 
         public void DeleteProductFromFridge(FridgeProduct fridgeProduct) => Delete(fridgeProduct);
 
+        public void ChangeZeroQuantity()
+        {
+            DbContext.FridgeProducts.FromSqlRaw("EXEC dbo.ChangeZeroQuantity");
+        }
     }
 }

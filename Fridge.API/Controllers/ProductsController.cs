@@ -7,6 +7,7 @@ using Contracts.Interfaces;
 using Entities.DTO.Products;
 using Entities.Models;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using zFridge.API.Extensions;
 
@@ -78,6 +79,7 @@ namespace zFridge.API.Controllers
         }
 
         [HttpDelete("{id:guid}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteProduct(Guid id) 
         {
             var entity = await _repository.Products.GetProductAsync(id, trackChanges: false);
@@ -120,6 +122,14 @@ namespace zFridge.API.Controllers
             await _repository.SaveAsync();
 
             return NoContent();
+        }
+
+        [HttpPut("[action]")]
+        public IActionResult ChangeZeroQuantity()
+        {
+            _repository.FridgeProducts.ChangeZeroQuantity();
+
+            return Ok();
         }
     }
 }

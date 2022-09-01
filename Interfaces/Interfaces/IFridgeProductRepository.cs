@@ -14,5 +14,7 @@ namespace Contracts.Interfaces
         Task AddProductToFridge(Guid fridgeId, FridgeProduct fridgeProduct);
 
         void DeleteProductFromFridge(FridgeProduct fridgeProduct);
+
+        void ChangeZeroQuantity();
     }
 }

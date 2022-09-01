@@ -1,11 +1,11 @@
 using Contracts.Interfaces;
+using Entities.Options;
 using ImageService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using zFridge.API.Extensions;
 
 namespace Fridge.API
@@ -19,29 +19,32 @@ namespace Fridge.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<JwtOptions>(Configuration.GetSection(nameof(JwtOptions)));
+
             services.ConfigureCors();
+
             services.ConfigureSqlContext(Configuration);
+
             services.ConfigureUnitOfWork();
 
-            services.AddScoped<IImageService, ImageSaver> ();
+            services.AddScoped<IImageService, ImageSaver>();
+            services.AddScoped<IAuthService, AuthService.AuthService>();
 
             services.AddAutoMapper(typeof(Startup));
 
+            services.ConfigureIdentity();
+
+            services.ConfigureJwtAuth(Configuration.GetSection(nameof(JwtOptions)));
 
             services.AddControllers();
 
             services.ConfigureFluentValidation();
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Fridge.API", Version = "v1" });
-            });
+            services.ConfigureSwagger();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -57,7 +60,7 @@ namespace Fridge.API
 
             app.UseRouting();
 
-            app.UseStaticFiles(new StaticFileOptions()
+            app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = ctx =>
                 {
@@ -65,6 +68,7 @@ namespace Fridge.API
                 }
             });
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
