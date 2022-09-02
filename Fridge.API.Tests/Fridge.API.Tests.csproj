@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Fridge.API\zFridge.API.csproj" />
+    <ProjectReference Include="..\Fridge.API\Fridge.API.csproj" />
     <ProjectReference Include="..\Interfaces\Contracts.csproj" />
   </ItemGroup>
 

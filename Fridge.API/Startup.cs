@@ -1,5 +1,6 @@
 using Contracts.Interfaces;
 using Entities.Options;
+using Fridge.API.Extensions;
 using ImageService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -53,6 +54,8 @@ namespace Fridge.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Fridge.API v1"));
             }
+
+            app.ConfigureExceptionHandler();
 
             app.UseHttpsRedirection();
 

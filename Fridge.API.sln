@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32602.291
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zFridge.API", "Fridge.API\zFridge.API.csproj", "{F2DB1E1E-58C0-42AF-9216-40A4C01F5FFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fridge.API", "Fridge.API\Fridge.API.csproj", "{F2DB1E1E-58C0-42AF-9216-40A4C01F5FFC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Interfaces\Contracts.csproj", "{F7D0CAA4-C621-477D-B350-CF67FAA08AAA}"
 EndProject
@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageService", "ImageServic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthService", "AuthService\AuthService.csproj", "{E0489B61-CBC1-4060-9F3F-3D43C496FF9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fridge.API.Tests", "Fridge.API.Tests\Fridge.API.Tests.csproj", "{999AC7A6-357B-4D50-87E0-B33636C7B466}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fridge.API.Tests", "Fridge.API.Tests\Fridge.API.Tests.csproj", "{999AC7A6-357B-4D50-87E0-B33636C7B466}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
