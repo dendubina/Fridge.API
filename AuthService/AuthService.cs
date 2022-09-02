@@ -69,16 +69,6 @@ namespace AuthService
             };
         }
 
-        public Task<bool> ValidateSignIn(UserSignInDto user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> ValidateSignUp(UserSignUpDto user)
-        {
-            throw new NotImplementedException();
-        }
-
         private async Task<JwtSecurityToken> GenerateJwtToken(IdentityUser user)
         {
             var claims = new List<Claim>

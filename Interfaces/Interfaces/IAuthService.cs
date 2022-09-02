@@ -9,9 +9,5 @@ namespace Contracts.Interfaces
         Task<UserProfile> SignIn(UserSignInDto user);
 
         Task<UserProfile> SignUp(UserSignUpDto user);
-
-        Task<bool> ValidateSignIn(UserSignInDto user);
-
-        Task<bool> ValidateSignUp(UserSignUpDto user);
     }
 }
