@@ -1,43 +1,47 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.IO.Abstractions;
 using Contracts.Interfaces;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using ImageService.Options;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace ImageService
 {
     public class ImageSaver : IImageService
     {
         private readonly IWebHostEnvironment _environment;
-        private readonly IConfiguration _config;
+        private readonly ImageServiceOptions _options;
+        private readonly IFileSystem _fileSystem;
 
-        public ImageSaver(IWebHostEnvironment webHostEnvironment, IConfiguration config)
+        public ImageSaver(IWebHostEnvironment webHostEnvironment, IOptions<ImageServiceOptions> options, IFileSystem fileSystem)
         {
             _environment = webHostEnvironment;
-            _config = config;
+            _fileSystem = fileSystem;
+            _options = options.Value;
         }
 
-        public async Task<string> AddImageReturnPath(IFormFile image)
+        public async Task<string> AddImageGetPath(IFormFile image)
         {
-            string imagesFolder = _config["ImagesFolder"];
-            string folderToSave = _environment.WebRootPath + imagesFolder;
+            if (image is null)
+            {
+                throw new ArgumentException("Image must not be null", nameof(image));
+            }
 
-            string filename = Path.GetRandomFileName();
-            filename = Path.GetFileNameWithoutExtension(filename);
+            string folderToSave = Path.Combine(_environment.WebRootPath, _options.FolderToSave);
 
-            filename += Path.GetExtension(image.FileName);
+            string filename = $"{GetRandomFileName}{Path.GetExtension(image.FileName)}";
 
-            string fullPath = Path.Combine(folderToSave, filename);
-
-            await using (var stream = File.Create(fullPath))
+            await using (var stream = _fileSystem.File.Create(Path.Combine(folderToSave, filename)))
             {
                 await image.CopyToAsync(stream);
             }
 
-            string pathToImg = Path.Combine(imagesFolder, filename);
-
-            return "https://localhost:5001" + pathToImg;
+            return $"https://localhost:5001/{_options.FolderToSave}/{filename}";
         }
+
+        private static string GetRandomFileName => DateTime.Now.Ticks.ToString();
     }
 }

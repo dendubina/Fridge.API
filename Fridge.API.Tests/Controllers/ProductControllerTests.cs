@@ -128,7 +128,7 @@ namespace Fridge.API.Tests.Controllers
             await controller.CreateProduct(_productForManipulationExample);
 
             //Assert
-            _mockImageService.Verify(x => x.AddImageReturnPath(It.IsAny<IFormFile>()), Times.Never);
+            _mockImageService.Verify(x => x.AddImageGetPath(It.IsAny<IFormFile>()), Times.Never);
         }
 
         [Fact]

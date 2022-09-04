@@ -1,10 +1,12 @@
 ﻿using System;
-using System.IdentityModel.Tokens.Jwt;
+using System.IO.Abstractions;
 using System.Text;
 using Contracts.Interfaces;
 using Entities.EF;
 using Entities.Options;
 using FluentValidation;
+using ImageService;
+using ImageService.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -87,6 +89,14 @@ namespace zFridge.API.Extensions
                     ValidateLifetime = true,
                 };
             });
+        }
+
+        public static void ConfigureImageService(this IServiceCollection services, IConfiguration config)
+        {
+            services.Configure<ImageServiceOptions>(config.GetSection(nameof(ImageServiceOptions)));
+
+            services.AddScoped<IFileSystem, FileSystem>();
+            services.AddScoped<IImageService, ImageSaver>();
         }
 
         public static void ConfigureSwagger(this IServiceCollection services)

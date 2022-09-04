@@ -66,7 +66,7 @@ namespace zFridge.API.Controllers
 
             if (model.Image is not null)
             {
-                entity.ImageSource = await _imageService.AddImageReturnPath(model.Image);
+                entity.ImageSource = await _imageService.AddImageGetPath(model.Image);
             }
 
             _repository.Products.CreateProduct(entity);
@@ -113,7 +113,7 @@ namespace zFridge.API.Controllers
 
             if (model.Image is not null)
             {
-                entity.ImageSource = await _imageService.AddImageReturnPath(model.Image);
+                entity.ImageSource = await _imageService.AddImageGetPath(model.Image);
             }
 
             _mapper.Map(model, entity);

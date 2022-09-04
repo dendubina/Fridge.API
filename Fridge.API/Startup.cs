@@ -30,7 +30,6 @@ namespace Fridge.API
 
             services.ConfigureUnitOfWork();
 
-            services.AddScoped<IImageService, ImageSaver>();
             services.AddScoped<IAuthService, AuthService.AuthService>();
 
             services.AddAutoMapper(typeof(Startup));
@@ -38,6 +37,8 @@ namespace Fridge.API
             services.ConfigureIdentity();
 
             services.ConfigureJwtAuth(Configuration.GetSection(nameof(JwtOptions)));
+
+            services.ConfigureImageService(Configuration);
 
             services.AddControllers();
 

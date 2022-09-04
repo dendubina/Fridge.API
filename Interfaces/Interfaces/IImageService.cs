@@ -5,6 +5,6 @@ namespace Contracts.Interfaces
 {
     public interface IImageService
     {
-        Task<string> AddImageReturnPath(IFormFile image);
+        Task<string> AddImageGetPath(IFormFile image);
     }
 }
