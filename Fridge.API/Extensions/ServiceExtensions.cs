@@ -15,9 +15,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Repository;
-using zFridge.API.Validators.Products;
+using Fridge.API.Validators.Products;
 
-namespace zFridge.API.Extensions
+namespace Fridge.API.Extensions
 {
     public static class ServiceExtensions
     {
@@ -35,7 +35,7 @@ namespace zFridge.API.Extensions
         public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<AppDbContext>(opts =>
-                opts.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                opts.UseSqlServer(configuration.GetConnectionString("AzureDb")));
         }
 
         public static void ConfigureUnitOfWork(this IServiceCollection services)

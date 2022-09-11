@@ -4,7 +4,7 @@ using Entities.DTO.Fridges;
 using Entities.DTO.Products;
 using Entities.Models;
 
-namespace zFridge.API.MapperProfile
+namespace Fridge.API.MapperProfile
 {
     public class MapperProfile : Profile
     {

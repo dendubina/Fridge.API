@@ -7,9 +7,9 @@ using Contracts.Interfaces;
 using Entities.DTO.Fridges;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using zFridge.API.Extensions;
+using Fridge.API.Extensions;
 
-namespace zFridge.API.Controllers
+namespace Fridge.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

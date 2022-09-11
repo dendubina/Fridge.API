@@ -1,13 +1,12 @@
-﻿using Contracts.Interfaces;
-using Entities.DTO.User;
+﻿using Entities.DTO.User;
 using FluentValidation;
 
-namespace zFridge.API.Validators.User
+namespace Fridge.API.Validators.User
 {
     public class UserSignInDtoValidator : AbstractValidator<UserSignInDto>
     {
 
-        public UserSignInDtoValidator(IAuthService authService)
+        public UserSignInDtoValidator()
         {
             RuleFor(x => x.UserName)
                 .NotEmpty();

@@ -1,7 +1,7 @@
 ﻿using Entities.DTO.Fridges;
 using FluentValidation;
 
-namespace zFridge.API.Validators.Fridge
+namespace Fridge.API.Validators.Fridge
 {
     public class FridgeForUpdateDtoValidator : AbstractValidator<FridgeForUpdateDto>
     {

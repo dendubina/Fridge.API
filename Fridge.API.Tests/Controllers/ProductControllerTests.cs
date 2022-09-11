@@ -10,9 +10,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
-using zFridge.API.Controllers;
-using zFridge.API.MapperProfile;
-using zFridge.API.Validators.Products;
+using Fridge.API.Controllers;
+using Fridge.API.Validators.Products;
 
 namespace Fridge.API.Tests.Controllers
 {
@@ -22,7 +21,7 @@ namespace Fridge.API.Tests.Controllers
         private readonly Mock<IImageService> _mockImageService;
         private readonly IMapper _mapper;
 
-        private ProductForManipulationDto _productForManipulationExample = new ProductForManipulationDto
+        private ProductForManipulationDto _productForManipulationExample = new()
         {
             Name = "SomeName",
             DefaultQuantity = 1,
@@ -31,7 +30,7 @@ namespace Fridge.API.Tests.Controllers
 
         public ProductControllerTests()
         {
-            var mapperConfig = new MapperConfiguration(x => x.AddProfile(new MapperProfile()));
+            var mapperConfig = new MapperConfiguration(x => x.AddProfile(new MapperProfile.MapperProfile()));
 
             _mapper = mapperConfig.CreateMapper();
 
@@ -71,7 +70,6 @@ namespace Fridge.API.Tests.Controllers
             //Act
             var response = await controller.GetAllProducts() as OkObjectResult;
             var actual = response?.Value as IEnumerable<ProductForReturnDto>;
-
 
             //Assert
             actual.Should().BeEquivalentTo(expected);

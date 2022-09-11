@@ -9,9 +9,9 @@ using Entities.Models;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using zFridge.API.Extensions;
+using Fridge.API.Extensions;
 
-namespace zFridge.API.Controllers
+namespace Fridge.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

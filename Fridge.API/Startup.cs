@@ -1,13 +1,11 @@
 using Contracts.Interfaces;
 using Entities.Options;
 using Fridge.API.Extensions;
-using ImageService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using zFridge.API.Extensions;
 
 namespace Fridge.API
 {

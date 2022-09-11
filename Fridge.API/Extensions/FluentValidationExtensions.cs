@@ -1,7 +1,7 @@
 ﻿using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace zFridge.API.Extensions
+namespace Fridge.API.Extensions
 {
     public static class FluentValidationExtensions
     {

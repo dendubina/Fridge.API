@@ -8,9 +8,9 @@ using Contracts.Interfaces;
 using Entities.DTO.FridgeProducts;
 using Entities.Models;
 using FluentValidation;
-using zFridge.API.Extensions;
+using Fridge.API.Extensions;
 
-namespace zFridge.API.Controllers
+namespace Fridge.API.Controllers
 {
     [Route("api/fridges/{fridgeId:guid}/products")]
     [ApiController]

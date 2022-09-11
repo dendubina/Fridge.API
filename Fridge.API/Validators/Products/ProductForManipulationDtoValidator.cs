@@ -5,7 +5,7 @@ using Entities.DTO.Products;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 
-namespace zFridge.API.Validators.Products
+namespace Fridge.API.Validators.Products
 {
     public class ProductForManipulationDtoValidator : AbstractValidator<ProductForManipulationDto>
     {

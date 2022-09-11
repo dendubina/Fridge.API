@@ -1,3 +1,61 @@
+--Change zero quantity from task 6
+CREATE PROC ChangeZeroQuantity
+AS 
+DECLARE @contentType NVARCHAR(20) = 'application/json';
+DECLARE @postData NVARCHAR(1000);
+DECLARE @ret INT;
+DECLARE @token INT;
+DECLARE @url NVARCHAR(100);
+
+DECLARE @tempTableId INT;
+DECLARE @FridgeId NVARCHAR(50);
+DECLARE @ProductId NVARCHAR(50);
+DECLARE @Quantity INT;
+
+CREATE TABLE #TempTable(
+Id INT IDENTITY,
+FridgeId NVARCHAR(50),
+ProductId NVARCHAR(50),
+Quantity INT
+)
+
+INSERT INTO #TempTable (FridgeId, ProductId, Quantity)
+SELECT
+FridgeId,
+Products.Id as ProductId,
+DefaultQuantity as Quantity
+FROM FridgeProducts
+	JOIN Products ON ProductId = Products.Id
+WHERE Quantity = 0 AND ProductId = Products.Id
+
+EXEC @ret = sp_OACreate 'MSXML2.ServerXMLHTTP', @token OUT;
+
+SELECT TOP 1 @tempTableId = Id, @FridgeId = FridgeId, @ProductId = ProductId, @Quantity = Quantity
+FROM #TempTable
+
+WHILE(@@ROWCOUNT > 0)
+BEGIN
+	SET @url = 'https://localhost:5001/api/fridges/'+ @FridgeId + '/products'
+
+	SET @postData = '{"ProductId": "' + @ProductId + '",' +
+					 '"Quantity": "' + CONVERT(NVARCHAR, @Quantity) + '"}'	
+
+	EXEC @ret = sp_OAMethod @token, 'open', NULL, 'PUT', @url, 'false';
+	EXEC @ret = sp_OAMethod @token, 'setRequestHeader', NULL, 'Content-type', @contentType;
+
+	EXEC @ret = sp_OAMethod @token, 'send', NULL, @postData
+
+	DELETE FROM #TempTable WHERE Id=@tempTableId
+
+	SELECT TOP 1 @tempTableId = Id, @FridgeId = FridgeId, @ProductId = ProductId, @Quantity = Quantity
+	FROM #TempTable
+END
+
+DROP TABLE #TempTable
+
+EXEC @ret = sp_OADestroy @token;
+
+
 --Fridge name starts with A
 SELECT
 (Fridges.Name + ' ' + FridgeModels.Name) AS FridgeName,
@@ -59,6 +117,7 @@ FROM FridgeProducts
 	JOIN Products ON FridgeProducts.ProductId = Products.Id
 WHERE FridgeProducts.Quantity > Products.DefaultQuantity
 GROUP BY Fridges.Id, Fridges.Name
+
 
 --Ñontaining products that quantity is more than default with count
 SELECT

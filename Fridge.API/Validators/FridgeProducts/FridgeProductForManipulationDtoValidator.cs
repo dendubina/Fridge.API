@@ -4,7 +4,7 @@ using Contracts.Interfaces;
 using Entities.DTO.FridgeProducts;
 using FluentValidation;
 
-namespace zFridge.API.Validators.FridgeProducts
+namespace Fridge.API.Validators.FridgeProducts
 {
 
     public class FridgeProductForManipulationDtoValidator : AbstractValidator<FridgeProductForManipulationDto>

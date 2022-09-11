@@ -1,7 +1,7 @@
 ﻿using Entities.DTO.User;
 using FluentValidation;
 
-namespace zFridge.API.Validators.User
+namespace Fridge.API.Validators.User
 {
     public class UserSignUpDtoValidator : AbstractValidator<UserSignUpDto>
     {
