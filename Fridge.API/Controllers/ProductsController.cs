@@ -19,14 +19,14 @@ namespace Fridge.API.Controllers
     {
         private readonly IUnitOfWork _repository;
         private readonly IMapper _mapper;
-        private readonly IValidator<ProductForManipulationDto> _productForCreateValidator;
+        private readonly IValidator<ProductForManipulationDto> _productForManipulateValidator;
         private readonly IImageService _imageService;
 
-        public ProductsController(IUnitOfWork repository, IMapper mapper, IValidator<ProductForManipulationDto> productForCreateValidator, IImageService imageService)
+        public ProductsController(IUnitOfWork repository, IMapper mapper, IValidator<ProductForManipulationDto> productForManipulateValidator, IImageService imageService)
         {
             _repository = repository;
             _mapper = mapper;
-            _productForCreateValidator = productForCreateValidator;
+            _productForManipulateValidator = productForManipulateValidator;
             _imageService = imageService;
         }
 
@@ -54,12 +54,12 @@ namespace Fridge.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromForm][Required] ProductForManipulationDto model)
         {
-            var result = await _productForCreateValidator.ValidateAsync(model);
+            var result = await _productForManipulateValidator.ValidateAsync(model);
 
             if (!result.IsValid)
             {
                 result.AddToModelState(ModelState);
-                return ValidationProblem(ModelState);
+                return ValidationProblem();
             }
 
             var entity = _mapper.Map<Product>(model);
@@ -103,7 +103,7 @@ namespace Fridge.API.Controllers
                 return NotFound();
             }
 
-            var result = await _productForCreateValidator.ValidateAsync(model);
+            var result = await _productForManipulateValidator.ValidateAsync(model);
 
             if (!result.IsValid)
             {

@@ -17,6 +17,7 @@ namespace Fridge.API.Tests.Controllers
 {
     public class ProductControllerTests
     {
+        private readonly ProductsController _controller;
         private readonly Mock<IUnitOfWork> _mockUnitOfWork;
         private readonly Mock<IImageService> _mockImageService;
         private readonly IMapper _mapper;
@@ -36,6 +37,8 @@ namespace Fridge.API.Tests.Controllers
 
             _mockUnitOfWork = new Mock<IUnitOfWork>();
             _mockImageService = new Mock<IImageService>();
+
+            _controller = new ProductsController(_mockUnitOfWork.Object, _mapper, new ProductForManipulationDtoValidator(), _mockImageService.Object);
         }
 
         [Fact]
@@ -45,10 +48,8 @@ namespace Fridge.API.Tests.Controllers
             _mockUnitOfWork.Setup(x => x.Products.GetAllProductsAsync(It.IsAny<bool>()))
                 .ReturnsAsync(new List<Product>());
 
-            var controller = new ProductsController(_mockUnitOfWork.Object, _mapper,  null, null);
-
             //Act
-            var response = await controller.GetAllProducts() as OkObjectResult;
+            var response = await _controller.GetAllProducts() as OkObjectResult;
             var actual = response?.Value as IEnumerable<ProductForReturnDto>;
 
             //Assert
@@ -65,10 +66,8 @@ namespace Fridge.API.Tests.Controllers
             _mockUnitOfWork.Setup(x => x.Products.GetAllProductsAsync(It.IsAny<bool>()))
                 .ReturnsAsync(dataSample);
 
-            var controller = new ProductsController(_mockUnitOfWork.Object, _mapper, null, null);
-
             //Act
-            var response = await controller.GetAllProducts() as OkObjectResult;
+            var response = await _controller.GetAllProducts() as OkObjectResult;
             var actual = response?.Value as IEnumerable<ProductForReturnDto>;
 
             //Assert
@@ -84,10 +83,8 @@ namespace Fridge.API.Tests.Controllers
             _mockUnitOfWork.Setup(x => x.Products.GetProductAsync(It.IsAny<Guid>(), It.IsAny<bool>()))
                 .ReturnsAsync(expected);
 
-            var controller = new ProductsController(_mockUnitOfWork.Object, _mapper, null, null);
-
             //Act
-            var response = await controller.GetProduct(Guid.NewGuid());
+            var response = await _controller.GetProduct(Guid.NewGuid());
 
             //Assert
             response.Should().BeOfType(typeof(NotFoundResult));
@@ -104,10 +101,8 @@ namespace Fridge.API.Tests.Controllers
             _mockUnitOfWork.Setup(x => x.Products.GetProductAsync(It.IsAny<Guid>(), It.IsAny<bool>()))
                 .ReturnsAsync(product);
 
-            var controller = new ProductsController(_mockUnitOfWork.Object, _mapper, null, null);
-
             //Act
-            var response = await controller.GetProduct(Guid.NewGuid()) as OkObjectResult;
+            var response = await _controller.GetProduct(Guid.NewGuid()) as OkObjectResult;
             var actual = response?.Value as ProductForReturnDto;
 
             //Assert
@@ -120,10 +115,8 @@ namespace Fridge.API.Tests.Controllers
             //Arrange
             _mockUnitOfWork.Setup(x => x.Products.CreateProduct(It.IsAny<Product>()));
 
-            var controller = new ProductsController(_mockUnitOfWork.Object, _mapper, new ProductForManipulationDtoValidator(), _mockImageService.Object);
-
             //Act
-            await controller.CreateProduct(_productForManipulationExample);
+            await _controller.CreateProduct(_productForManipulationExample);
 
             //Assert
             _mockImageService.Verify(x => x.AddImageGetPath(It.IsAny<IFormFile>()), Times.Never);
@@ -135,13 +128,24 @@ namespace Fridge.API.Tests.Controllers
             //Arrange
             _mockUnitOfWork.Setup(x => x.Products.CreateProduct(It.IsAny<Product>()));
 
-            var controller = new ProductsController(_mockUnitOfWork.Object, _mapper, new ProductForManipulationDtoValidator(), _mockImageService.Object);
-
             //Act
-            var actual = await controller.CreateProduct(_productForManipulationExample);
+            var actual = await _controller.CreateProduct(_productForManipulationExample);
 
             //Assert
             actual.Should().BeOfType(typeof(CreatedAtRouteResult));
+        }
+
+        [Fact]
+        public async void CreateProduct_Should_Return_BadRequest_When_Valid_Parameter()
+        {
+            //Arrange
+            _productForManipulationExample.DefaultQuantity = 0;
+
+            //Act
+            var actual = await _controller.CreateProduct(_productForManipulationExample);
+
+            //Assert
+            actual.Should().BeOfType(typeof(BadRequestObjectResult));
         }
 
         [Fact]
@@ -149,10 +153,9 @@ namespace Fridge.API.Tests.Controllers
         {
             //Arrange
             _mockUnitOfWork.Setup(x => x.Products.DeleteProduct(It.IsAny<Product>()));
-            var controller = new ProductsController(_mockUnitOfWork.Object, null, null, null);
 
             //Act
-            var actual = await controller.DeleteProduct(Guid.NewGuid());
+            var actual = await _controller.DeleteProduct(Guid.NewGuid());
 
             //Assert
             actual.Should().BeOfType(typeof(NoContentResult));
@@ -163,10 +166,9 @@ namespace Fridge.API.Tests.Controllers
         {
             //Arrange
             _mockUnitOfWork.Setup(x => x.Products.DeleteProduct(It.IsAny<Product>()));
-            var controller = new ProductsController(_mockUnitOfWork.Object, null, null, null);
 
             //Act
-            await controller.DeleteProduct(Guid.NewGuid());
+            await _controller.DeleteProduct(Guid.NewGuid());
 
             //Assert
             _mockUnitOfWork.Verify(x => x.Products.DeleteProduct(It.IsAny<Product>()), Times.Never);
@@ -179,10 +181,8 @@ namespace Fridge.API.Tests.Controllers
             _mockUnitOfWork.Setup(x => x.Products.GetProductAsync(It.IsAny<Guid>(), It.IsAny<bool>()))
                 .ReturnsAsync(new Product());
 
-            var controller = new ProductsController(_mockUnitOfWork.Object, _mapper, new ProductForManipulationDtoValidator(), _mockImageService.Object);
-
             //Act
-            var actual = await controller.UpdateProduct(Guid.NewGuid(), _productForManipulationExample);
+            var actual = await _controller.UpdateProduct(Guid.NewGuid(), _productForManipulationExample);
 
             //Assert
             actual.Should().BeOfType(typeof(NoContentResult));
@@ -194,10 +194,8 @@ namespace Fridge.API.Tests.Controllers
             //Arrange
             _mockUnitOfWork.Setup(x => x.Products.GetProductAsync(It.IsAny<Guid>(), It.IsAny<bool>()));
 
-            var controller = new ProductsController(_mockUnitOfWork.Object, _mapper, new ProductForManipulationDtoValidator(), _mockImageService.Object);
-
             //Act
-            var actual = await controller.UpdateProduct(Guid.NewGuid(), _productForManipulationExample);
+            var actual = await _controller.UpdateProduct(Guid.NewGuid(), _productForManipulationExample);
 
             //Assert
             actual.Should().BeOfType(typeof(NotFoundResult));
