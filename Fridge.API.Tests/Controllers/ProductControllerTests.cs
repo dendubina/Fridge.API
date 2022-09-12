@@ -136,19 +136,6 @@ namespace Fridge.API.Tests.Controllers
         }
 
         [Fact]
-        public async void CreateProduct_Should_Return_BadRequest_When_Valid_Parameter()
-        {
-            //Arrange
-            _productForManipulationExample.DefaultQuantity = 0;
-
-            //Act
-            var actual = await _controller.CreateProduct(_productForManipulationExample);
-
-            //Assert
-            actual.Should().BeOfType(typeof(BadRequestObjectResult));
-        }
-
-        [Fact]
         public async void DeleteProduct_Should_Return_NoContent()
         {
             //Arrange
