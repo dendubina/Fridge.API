@@ -1,16 +1,11 @@
+using Contracts.Interfaces;
+using Entities.Options;
+using Fridge.API.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Fridge.API
 {
@@ -23,18 +18,33 @@ namespace Fridge.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<JwtOptions>(Configuration.GetSection(nameof(JwtOptions)));
+
+            services.ConfigureCors();
+
+            services.ConfigureSqlContext(Configuration);
+
+            services.ConfigureUnitOfWork();
+
+            services.AddScoped<IAuthService, AuthService.AuthService>();
+
+            services.AddAutoMapper(typeof(Startup));
+
+            services.ConfigureIdentity();
+
+            services.ConfigureJwtAuth(Configuration.GetSection(nameof(JwtOptions)));
+
+            services.ConfigureImageService(Configuration);
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Fridge.API", Version = "v1" });
-            });
+
+            services.ConfigureFluentValidation();
+
+            services.ConfigureSwagger();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -44,10 +54,23 @@ namespace Fridge.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Fridge.API v1"));
             }
 
+            app.ConfigureExceptionHandler();
+
             app.UseHttpsRedirection();
+
+            app.UseCors();
 
             app.UseRouting();
 
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers.Add("Cache-Control", "public, max-age=3600");
+                }
+            });
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
