@@ -1,4 +1,3 @@
-using Contracts.Interfaces;
 using Entities.Options;
 using Fridge.API.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -28,11 +27,7 @@ namespace Fridge.API
 
             services.ConfigureUnitOfWork();
 
-            services.AddScoped<IAuthService, AuthService.AuthService>();
-
             services.AddAutoMapper(typeof(Startup));
-
-            services.ConfigureIdentity();
 
             services.ConfigureJwtAuth(Configuration.GetSection(nameof(JwtOptions)));
 
