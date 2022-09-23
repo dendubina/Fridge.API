@@ -8,7 +8,6 @@ using FluentValidation;
 using ImageService;
 using ImageService.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,7 +34,7 @@ namespace Fridge.API.Extensions
         public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<AppDbContext>(opts =>
-                opts.UseSqlServer(configuration.GetConnectionString("AzureDb")));
+                opts.UseSqlServer(configuration.GetConnectionString("LocalDb")));
         }
 
         public static void ConfigureUnitOfWork(this IServiceCollection services)
@@ -48,22 +47,6 @@ namespace Fridge.API.Extensions
             ValidatorOptions.Global.LanguageManager.Enabled = false;
 
             services.AddValidatorsFromAssemblyContaining<ProductForManipulationDtoValidator>();
-        }
-
-        public static void ConfigureIdentity(this IServiceCollection services)
-        {
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
-
-            services.Configure<IdentityOptions>(options =>
-            {
-                options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 3;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-            });
         }
 
         public static void ConfigureJwtAuth(this IServiceCollection services, IConfigurationSection jwtOptionsSection)
@@ -80,8 +63,9 @@ namespace Fridge.API.Extensions
                 options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = jwtOptions.JwtIssuer,
-                    ValidAudience = jwtOptions.JwtAudience,
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.JwtSecretKey)),
                     ValidateIssuerSigningKey = true,
 
