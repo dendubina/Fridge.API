@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32602.291
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fridges.Auth", "Fridges.Auth.csproj", "{04AE2B78-45AF-4239-ADFB-2B2FB6851DAE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04AE2B78-45AF-4239-ADFB-2B2FB6851DAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04AE2B78-45AF-4239-ADFB-2B2FB6851DAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04AE2B78-45AF-4239-ADFB-2B2FB6851DAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04AE2B78-45AF-4239-ADFB-2B2FB6851DAE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {27AF1F3E-0F11-43BC-8532-65DC6D95C8DC}
+	EndGlobalSection
+EndGlobal
