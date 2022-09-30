@@ -1,8 +1,8 @@
-﻿using Fridge.Auth.EF.Entities;
+﻿using FridgeManager.AuthMicroService.EF.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Fridge.Auth.EF
+namespace FridgeManager.AuthMicroService.EF
 {
     public class AppDbContext : IdentityDbContext<ApplicationUser>
     {

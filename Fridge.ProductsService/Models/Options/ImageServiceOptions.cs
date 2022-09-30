@@ -1,5 +1,5 @@
 ﻿
-namespace Fridge.ProductsService.Models.Options
+namespace FridgeManager.ProductsMicroService.Models.Options
 {
     public class ImageServiceOptions
     {

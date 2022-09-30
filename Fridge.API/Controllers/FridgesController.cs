@@ -6,10 +6,10 @@ using AutoMapper;
 using Contracts.Interfaces;
 using Entities.DTO.Fridges;
 using FluentValidation;
+using FridgeManager.FridgesMicroService.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Fridge.API.Extensions;
 
-namespace Fridge.API.Controllers
+namespace FridgeManager.FridgesMicroService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

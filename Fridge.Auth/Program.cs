@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Fridge.Auth
+namespace FridgeManager.AuthMicroService
 {
     public class Program
     {

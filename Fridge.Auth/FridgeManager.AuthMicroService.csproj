@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Fridge.Shared\Fridge.Shared.csproj" />
+    <ProjectReference Include="..\Fridge.Shared\FridgeManager.Shared.csproj" />
   </ItemGroup>
 
 </Project>

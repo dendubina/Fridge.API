@@ -1,13 +1,13 @@
-using Fridge.API.Extensions;
-using Fridge.API.Validators.Fridge;
-using Fridge.Shared.Extensions;
+using FridgeManager.FridgesMicroService.Extensions;
+using FridgeManager.FridgesMicroService.Validators.Fridge;
+using FridgeManager.Shared.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Fridge.API
+namespace FridgeManager.FridgesMicroService
 {
     public class Startup
     {

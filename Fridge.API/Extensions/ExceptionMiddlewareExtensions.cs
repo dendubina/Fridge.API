@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 
-namespace Fridge.API.Extensions
+namespace FridgeManager.FridgesMicroService.Extensions
 {
     public static class ExceptionMiddlewareExtensions
     {

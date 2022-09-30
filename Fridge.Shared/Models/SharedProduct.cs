@@ -1,7 +1,7 @@
 ﻿using System;
-using Fridge.Shared.Models.Constants;
+using FridgeManager.Shared.Models.Constants;
 
-namespace Fridge.Shared.Models
+namespace FridgeManager.Shared.Models
 {
     public class SharedProduct
     {

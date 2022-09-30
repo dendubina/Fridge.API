@@ -1,4 +1,4 @@
-﻿namespace Fridge.Shared.Models.Constants
+﻿namespace FridgeManager.Shared.Models.Constants
 {
     public enum ActionType
     {

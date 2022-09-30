@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32602.291
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fridge.API", "Fridge.API\Fridge.API.csproj", "{F2DB1E1E-58C0-42AF-9216-40A4C01F5FFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeManager.FridgesMicroService", "Fridge.API\FridgeManager.FridgesMicroService.csproj", "{F2DB1E1E-58C0-42AF-9216-40A4C01F5FFC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Interfaces\Contracts.csproj", "{F7D0CAA4-C621-477D-B350-CF67FAA08AAA}"
 EndProject
@@ -11,11 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entiti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{43038FFC-D10A-4A17-A649-520FDE600550}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fridge.Auth", "Fridge.Auth\Fridge.Auth.csproj", "{AD96EB7B-4322-4652-9C82-C5DF68042CD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeManager.AuthMicroService", "Fridge.Auth\FridgeManager.AuthMicroService.csproj", "{AD96EB7B-4322-4652-9C82-C5DF68042CD0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fridge.ProductsService", "Fridge.ProductsService\Fridge.ProductsService.csproj", "{417AFF5C-CC30-4E33-97E9-EBBDD21D4B5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeManager.ProductsMicroService", "Fridge.ProductsService\FridgeManager.ProductsMicroService.csproj", "{417AFF5C-CC30-4E33-97E9-EBBDD21D4B5A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fridge.Shared", "Fridge.Shared\Fridge.Shared.csproj", "{DFA41338-7616-4745-8FDF-D62BFD38EE61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeManager.Shared", "Fridge.Shared\FridgeManager.Shared.csproj", "{DFA41338-7616-4745-8FDF-D62BFD38EE61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

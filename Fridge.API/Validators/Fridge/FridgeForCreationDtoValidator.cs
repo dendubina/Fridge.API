@@ -1,9 +1,9 @@
 ﻿using Contracts.Interfaces;
 using Entities.DTO.Fridges;
 using FluentValidation;
-using Fridge.API.Validators.FridgeProducts;
+using FridgeManager.FridgesMicroService.Validators.FridgeProducts;
 
-namespace Fridge.API.Validators.Fridge
+namespace FridgeManager.FridgesMicroService.Validators.Fridge
 {
     public class FridgeForCreationDtoValidator : AbstractValidator<FridgeForCreateDto>
     {

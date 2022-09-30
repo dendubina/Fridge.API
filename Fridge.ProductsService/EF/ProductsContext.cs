@@ -1,8 +1,8 @@
-﻿using Fridge.ProductsService.Configuration;
-using Fridge.ProductsService.EF.Entities;
+﻿using FridgeManager.ProductsMicroService.Configuration;
+using FridgeManager.ProductsMicroService.EF.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Fridge.ProductsService.EF
+namespace FridgeManager.ProductsMicroService.EF
 {
     public class ProductsContext : DbContext
     {

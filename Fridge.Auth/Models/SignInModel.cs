@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Fridge.Auth.Models
+namespace FridgeManager.AuthMicroService.Models
 {
     public class SignInModel
     {

@@ -1,7 +1,7 @@
 ﻿using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace Fridge.API.Extensions
+namespace FridgeManager.FridgesMicroService.Extensions
 {
     public static class FluentValidationExtensions
     {

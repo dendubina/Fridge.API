@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fridge.ProductsService.Models
+namespace FridgeManager.ProductsMicroService.Models
 {
     public class ProductForReturn
     {

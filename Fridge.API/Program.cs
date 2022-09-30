@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
-using Serilog.Filters;
 
-namespace Fridge.API
+namespace FridgeManager.FridgesMicroService
 {
     public class Program
     {

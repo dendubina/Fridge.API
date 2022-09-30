@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Identity;
 
-namespace Fridge.Auth.EF.Entities
+namespace FridgeManager.AuthMicroService.EF.Entities
 {
     public class ApplicationUser : IdentityUser
     {

@@ -2,10 +2,10 @@
 using System.IO;
 using System.Linq;
 using FluentValidation;
-using Fridge.ProductsService.Models;
+using FridgeManager.ProductsMicroService.Models;
 using Microsoft.AspNetCore.Http;
 
-namespace Fridge.ProductsService.Validators
+namespace FridgeManager.ProductsMicroService.Validators
 {
     public class ProductForManipulationValidator : AbstractValidator<ProductForManipulation>
     {

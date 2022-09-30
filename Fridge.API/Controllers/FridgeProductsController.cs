@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
@@ -8,9 +7,10 @@ using Contracts.Interfaces;
 using Entities.DTO.FridgeProducts;
 using Entities.EF.Entities;
 using FluentValidation;
-using Fridge.API.Extensions;
+using FridgeManager.FridgesMicroService.Extensions;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Fridge.API.Controllers
+namespace FridgeManager.FridgesMicroService.Controllers
 {
     [Route("api/fridges/{fridgeId:guid}/products")]
     [ApiController]

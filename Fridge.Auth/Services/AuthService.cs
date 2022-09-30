@@ -5,14 +5,14 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Fridge.Auth.EF.Entities;
-using Fridge.Auth.Models;
-using Fridge.Auth.Options;
+using FridgeManager.AuthMicroService.EF.Entities;
+using FridgeManager.AuthMicroService.Models;
+using FridgeManager.AuthMicroService.Options;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Fridge.Auth.Services
+namespace FridgeManager.AuthMicroService.Services
 {
     public class AuthService : IAuthService
     {

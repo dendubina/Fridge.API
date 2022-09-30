@@ -1,10 +1,10 @@
 using System.IO.Abstractions;
-using Fridge.ProductsService.Contracts;
-using Fridge.ProductsService.EF;
-using Fridge.ProductsService.Models.Options;
-using Fridge.ProductsService.Services;
-using Fridge.ProductsService.Validators;
-using Fridge.Shared.Extensions;
+using FridgeManager.ProductsMicroService.Contracts;
+using FridgeManager.ProductsMicroService.EF;
+using FridgeManager.ProductsMicroService.Models.Options;
+using FridgeManager.ProductsMicroService.Services;
+using FridgeManager.ProductsMicroService.Validators;
+using FridgeManager.Shared.Extensions;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Fridge.ProductsService
+namespace FridgeManager.ProductsMicroService
 {
     public class Startup
     {

@@ -3,7 +3,7 @@ using Entities.DTO.FridgeProducts;
 using Entities.DTO.Fridges;
 using Entities.EF.Entities;
 
-namespace Fridge.API.MapperProfile
+namespace FridgeManager.FridgesMicroService.MapperProfile
 {
     public class MapperProfile : Profile
     {

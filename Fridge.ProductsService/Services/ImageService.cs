@@ -2,13 +2,13 @@
 using System.IO;
 using System.IO.Abstractions;
 using System.Threading.Tasks;
-using Fridge.ProductsService.Contracts;
-using Fridge.ProductsService.Models.Options;
+using FridgeManager.ProductsMicroService.Contracts;
+using FridgeManager.ProductsMicroService.Models.Options;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 
-namespace Fridge.ProductsService.Services
+namespace FridgeManager.ProductsMicroService.Services
 {
     public class ImageService : IImageService
     {

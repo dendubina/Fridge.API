@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fridge.Auth.Options
+namespace FridgeManager.AuthMicroService.Options
 {
     public class JwtOptions
     {

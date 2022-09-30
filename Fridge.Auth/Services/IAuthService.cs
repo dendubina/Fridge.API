@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Fridge.Auth.Models;
+using FridgeManager.AuthMicroService.Models;
 
-namespace Fridge.Auth.Services
+namespace FridgeManager.AuthMicroService.Services
 {
     public interface IAuthService
     {
