@@ -1,10 +1,10 @@
 ﻿using Contracts.Interfaces;
 using Entities.EF;
-using Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Fridge.Shared.Entities;
 
 namespace Repository
 {

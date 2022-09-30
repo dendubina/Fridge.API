@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Contracts.Interfaces;
 using Entities.DTO.FridgeProducts;
-using Entities.Models;
 using FluentValidation;
 using Fridge.API.Extensions;
+using Fridge.Shared.Entities;
 
 namespace Fridge.API.Controllers
 {

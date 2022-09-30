@@ -4,19 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Contracts.Interfaces;
 using Entities.EF;
-using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
-    public class FridgeRepository : RepositoryBase<Fridge>, IFridgeRepository
+    public class FridgeRepository : RepositoryBase<Fridge.Shared.Entities.Fridge>, IFridgeRepository
     {
         public FridgeRepository(AppDbContext context) : base(context)
         {
             
         }
 
-        public async Task<IEnumerable<Fridge>> GetAllFridgesAsync(bool trackChanges)
+        public async Task<IEnumerable<Fridge.Shared.Entities.Fridge>> GetAllFridgesAsync(bool trackChanges)
         {
             return await
                 FindAll(trackChanges)
@@ -26,7 +25,7 @@ namespace Repository
                .ToListAsync();
         }
 
-        public async Task<Fridge> GetFridgeAsync(Guid fridgeId, bool trackChanges)
+        public async Task<Fridge.Shared.Entities.Fridge> GetFridgeAsync(Guid fridgeId, bool trackChanges)
         {
             return await
                 FindByCondition(x => x.Id.Equals(fridgeId), trackChanges)
@@ -36,7 +35,7 @@ namespace Repository
                 .SingleOrDefaultAsync();
         }
 
-        public void CreateFridge(Fridge fridge)
+        public void CreateFridge(Fridge.Shared.Entities.Fridge fridge)
         {
             var fridgeModel = 
                     FindByCondition(x => x.FridgeModel.Name == fridge.Name && x.FridgeModel.Year == fridge.FridgeModel.Year, false)
@@ -51,7 +50,7 @@ namespace Repository
             Create(fridge);
         }
 
-        public void DeleteFridge(Fridge fridge) => Delete(fridge);
+        public void DeleteFridge(Fridge.Shared.Entities.Fridge fridge) => Delete(fridge);
         
     }
 }

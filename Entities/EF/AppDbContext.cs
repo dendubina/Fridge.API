@@ -1,4 +1,4 @@
-﻿using Entities.Models;
+﻿using Fridge.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Entities.EF
@@ -10,7 +10,7 @@ namespace Entities.EF
             
         }
 
-        public DbSet<Fridge> Fridges { get; set; }
+        public DbSet<Fridge.Shared.Entities.Fridge> Fridges { get; set; }
 
         public DbSet<FridgeModel> FridgeModels { get; set; }
 

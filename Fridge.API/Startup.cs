@@ -1,5 +1,6 @@
-using Entities.Options;
 using Fridge.API.Extensions;
+using Fridge.API.Validators.Fridge;
+using Fridge.Shared.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,8 +20,6 @@ namespace Fridge.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<JwtOptions>(Configuration.GetSection(nameof(JwtOptions)));
-
             services.ConfigureCors();
 
             services.ConfigureSqlContext(Configuration);
@@ -29,13 +28,9 @@ namespace Fridge.API
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.ConfigureJwtAuth(Configuration.GetSection(nameof(JwtOptions)));
-
-            services.ConfigureImageService(Configuration);
-
             services.AddControllers();
-
-            services.ConfigureFluentValidation();
+            
+            services.ConfigureFluentValidationFromAssemblyContaining<FridgeForCreationDtoValidator>();
 
             services.ConfigureSwagger();
         }
@@ -56,14 +51,6 @@ namespace Fridge.API
             app.UseCors();
 
             app.UseRouting();
-
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                OnPrepareResponse = ctx =>
-                {
-                    ctx.Context.Response.Headers.Add("Cache-Control", "public, max-age=3600");
-                }
-            });
 
             app.UseAuthentication();
             app.UseAuthorization();

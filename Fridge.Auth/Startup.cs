@@ -2,6 +2,7 @@ using Fridge.Auth.EF;
 using Fridge.Auth.EF.Entities;
 using Fridge.Auth.Options;
 using Fridge.Auth.Services;
+using Fridge.Shared.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -47,10 +48,8 @@ namespace Fridge.Auth
             });
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Fridge.Auth", Version = "v1" });
-            });
+
+            services.ConfigureSwagger();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
