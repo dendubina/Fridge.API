@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Fridge.Shared.Entities
+namespace Entities.EF.Entities
 {
     public class Product
     {

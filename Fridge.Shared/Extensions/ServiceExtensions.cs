@@ -22,7 +22,7 @@ namespace Fridge.Shared.Extensions
 
         public static void ConfigureJwtAuth(this IServiceCollection services)
         {
-            var secretKey = Environment.GetEnvironmentVariable("SECRET");
+            var secretKey = Environment.GetEnvironmentVariable("SECRET", EnvironmentVariableTarget.Machine);
 
             services.AddAuthentication(options =>
             {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Fridge.Shared.Entities;
+using Fridge.ProductsService.EF.Entities;
 
 namespace Fridge.ProductsService.Contracts
 {

@@ -6,12 +6,12 @@ namespace Contracts.Interfaces
 {
     public interface IFridgeRepository
     {
-        Task<IEnumerable<Fridge.Shared.Entities.Fridge>> GetAllFridgesAsync(bool trackChanges);
+        Task<IEnumerable<Entities.EF.Entities.Fridge>> GetAllFridgesAsync(bool trackChanges);
 
-        Task<Fridge.Shared.Entities.Fridge> GetFridgeAsync(Guid fridgeId, bool trackChanges);
+        Task<Entities.EF.Entities.Fridge> GetFridgeAsync(Guid fridgeId, bool trackChanges);
 
-        void CreateFridge(Fridge.Shared.Entities.Fridge fridge);
+        void CreateFridge(Entities.EF.Entities.Fridge fridge);
 
-        void DeleteFridge(Fridge.Shared.Entities.Fridge fridge);
+        void DeleteFridge(Entities.EF.Entities.Fridge fridge);
     }
 }

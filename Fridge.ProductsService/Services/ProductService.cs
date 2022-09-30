@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Fridge.ProductsService.Contracts;
 using Fridge.ProductsService.EF;
-using Fridge.Shared.Entities;
+using Fridge.ProductsService.EF.Entities;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
 namespace Fridge.ProductsService.Services
@@ -11,10 +12,12 @@ namespace Fridge.ProductsService.Services
     public class ProductService : IProductService
     {
         private readonly ProductsContext _dbContext;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public ProductService(ProductsContext dbContext)
+        public ProductService(ProductsContext dbContext, IPublishEndpoint publishEndpoint)
         {
             _dbContext = dbContext;
+            _publishEndpoint = publishEndpoint;
         }
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
@@ -28,8 +31,8 @@ namespace Fridge.ProductsService.Services
             await using var transaction = await _dbContext.Database.BeginTransactionAsync();
 
             _dbContext.Products.Update(product);
-
             await _dbContext.SaveChangesAsync();
+
             await transaction.CommitAsync();
         }
 
@@ -37,9 +40,10 @@ namespace Fridge.ProductsService.Services
         {
             await using var transaction = await _dbContext.Database.BeginTransactionAsync();
 
-            _dbContext.Products.Add(product);
-
+            await _dbContext.Products.AddAsync(product);
+            await _publishEndpoint.Publish(product);
             await _dbContext.SaveChangesAsync();
+
             await transaction.CommitAsync();
         }
 
@@ -48,8 +52,8 @@ namespace Fridge.ProductsService.Services
             await using var transaction = await _dbContext.Database.BeginTransactionAsync();
 
             _dbContext.Products.Remove(product);
-
             await _dbContext.SaveChangesAsync();
+
             await transaction.CommitAsync();
         }
     }

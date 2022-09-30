@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Fridge.Shared.Entities
+namespace Entities.EF.Entities
 {
     public class Fridge
     {

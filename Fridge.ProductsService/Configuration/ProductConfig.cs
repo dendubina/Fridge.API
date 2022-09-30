@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Fridge.Shared.Entities;
+using Fridge.ProductsService.EF.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Fridge.Shared.Entities
+namespace Fridge.ProductsService.EF.Entities
 {
-    public class FridgeModel
+    public class Product
     {
         public Guid Id { get; set; }
 
@@ -12,8 +11,8 @@ namespace Fridge.Shared.Entities
         public string Name { get; set; }
 
         [Required]
-        public int Year { get; set; }
+        public int DefaultQuantity { get; set; }
 
-        public ICollection<Fridge> Fridges { get; set; }
+        public string ImageSource { get; set; }
     }
 }

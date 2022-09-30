@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using Fridge.ProductsService.Models;
-using Fridge.Shared.Entities;
+using Fridge.ProductsService.EF.Entities;
 
-namespace Fridge.ProductsService.MapperProfile
+namespace Fridge.ProductsService.Models.Mapper
 {
     internal class MapperProfile : Profile
     {

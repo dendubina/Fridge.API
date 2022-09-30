@@ -1,5 +1,5 @@
 ﻿using Fridge.ProductsService.Configuration;
-using Fridge.Shared.Entities;
+using Fridge.ProductsService.EF.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Fridge.ProductsService.EF

@@ -1,10 +1,13 @@
+using System;
 using System.IO.Abstractions;
+using System.Text;
 using Fridge.ProductsService.Contracts;
 using Fridge.ProductsService.EF;
 using Fridge.ProductsService.Models.Options;
 using Fridge.ProductsService.Services;
 using Fridge.ProductsService.Validators;
 using Fridge.Shared.Extensions;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +40,19 @@ namespace Fridge.ProductsService
             services.Configure<ImageServiceOptions>(Configuration.GetSection(nameof(ImageServiceOptions)));
             services.AddScoped<IFileSystem, FileSystem>();
             services.AddScoped<IImageService, ImageService>();
+
+            services.AddMassTransit(x =>
+            {
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host("localhost", "/", h =>
+                    {
+                        h.Username("user");
+                        h.Password("user");
+                    });
+                    cfg.ConfigureEndpoints(context);
+                });
+            });
 
             services.ConfigureJwtAuth();
 

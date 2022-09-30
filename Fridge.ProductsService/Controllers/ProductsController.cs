@@ -4,15 +4,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using AutoMapper;
 using Fridge.ProductsService.Contracts;
+using Fridge.ProductsService.EF.Entities;
 using Fridge.ProductsService.Models;
-using Fridge.Shared.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fridge.ProductsService.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -65,7 +65,7 @@ namespace Fridge.ProductsService.Controllers
         }
 
         [HttpDelete("{id:guid}")]
-        [Authorize(Roles = "admin")]
+        [Authorize]
         public async Task<IActionResult> DeleteProduct(Guid id)
         {
             var entity = await _productService.GetProductAsync(id);

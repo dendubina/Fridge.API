@@ -3,7 +3,7 @@ using Entities.EF;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Fridge.Shared.Entities;
+using Entities.EF.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository
