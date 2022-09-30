@@ -1,6 +1,6 @@
-﻿using Contracts.Interfaces;
-using Entities.DTO.Fridges;
-using FluentValidation;
+﻿using FluentValidation;
+using FridgeManager.FridgesMicroService.Contracts;
+using FridgeManager.FridgesMicroService.DTO.Fridges;
 using FridgeManager.FridgesMicroService.Validators.FridgeProducts;
 
 namespace FridgeManager.FridgesMicroService.Validators.Fridge

@@ -1,5 +1,5 @@
-﻿using Entities.DTO.Fridges;
-using FluentValidation;
+﻿using FluentValidation;
+using FridgeManager.FridgesMicroService.DTO.Fridges;
 
 namespace FridgeManager.FridgesMicroService.Validators.Fridge
 {

@@ -1,12 +1,12 @@
-﻿using Contracts.Interfaces;
-using Entities.EF;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Entities.EF.Entities;
+using FridgeManager.FridgesMicroService.Contracts;
+using FridgeManager.FridgesMicroService.EF;
+using FridgeManager.FridgesMicroService.EF.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Repository
+namespace FridgeManager.FridgesMicroService.Services
 {
     public class FridgeProductRepository : RepositoryBase<FridgeProduct>, IFridgeProductRepository
     {
@@ -44,11 +44,7 @@ namespace Repository
             Create(fridgeProduct);
         }
 
-        public void DeleteProductFromFridge(FridgeProduct fridgeProduct) => Delete(fridgeProduct);
-
-        public void ChangeZeroQuantity()
-        {
-            DbContext.FridgeProducts.FromSqlRaw("EXEC dbo.ChangeZeroQuantity");
-        }
+        public void DeleteProductFromFridge(FridgeProduct fridgeProduct)
+            => Delete(fridgeProduct);
     }
 }

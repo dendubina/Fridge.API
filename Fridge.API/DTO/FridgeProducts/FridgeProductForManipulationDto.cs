@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Entities.DTO.FridgeProducts
+namespace FridgeManager.FridgesMicroService.DTO.FridgeProducts
 {
     public class FridgeProductForManipulationDto
     {

@@ -1,9 +1,9 @@
-﻿using Contracts.Interfaces;
-using Entities.EF;
+﻿using FridgeManager.FridgesMicroService.Contracts;
+using FridgeManager.FridgesMicroService.EF;
+using FridgeManager.FridgesMicroService.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Repository;
 
 namespace FridgeManager.FridgesMicroService.Extensions
 {

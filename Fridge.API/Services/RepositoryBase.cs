@@ -1,11 +1,11 @@
-﻿using Contracts.Interfaces;
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using Entities.EF;
+using FridgeManager.FridgesMicroService.Contracts;
+using FridgeManager.FridgesMicroService.EF;
 using Microsoft.EntityFrameworkCore;
 
-namespace Repository
+namespace FridgeManager.FridgesMicroService.Services
 {
     public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {

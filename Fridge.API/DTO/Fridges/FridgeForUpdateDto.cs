@@ -1,4 +1,4 @@
-﻿namespace Entities.DTO.Fridges
+﻿namespace FridgeManager.FridgesMicroService.DTO.Fridges
 {
     public class FridgeForUpdateDto
     {

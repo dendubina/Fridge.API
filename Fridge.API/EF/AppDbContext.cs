@@ -1,8 +1,7 @@
-﻿using Entities.EF.Entities;
+﻿using FridgeManager.FridgesMicroService.EF.Entities;
 using Microsoft.EntityFrameworkCore;
 
-
-namespace Entities.EF
+namespace FridgeManager.FridgesMicroService.EF
 {
     public class AppDbContext : DbContext
     {

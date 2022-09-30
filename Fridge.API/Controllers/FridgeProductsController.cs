@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using AutoMapper;
-using Contracts.Interfaces;
-using Entities.DTO.FridgeProducts;
-using Entities.EF.Entities;
-using FluentValidation;
-using FridgeManager.FridgesMicroService.Extensions;
+using FridgeManager.FridgesMicroService.Contracts;
+using FridgeManager.FridgesMicroService.DTO.FridgeProducts;
+using FridgeManager.FridgesMicroService.EF.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FridgeManager.FridgesMicroService.Controllers
@@ -16,16 +14,13 @@ namespace FridgeManager.FridgesMicroService.Controllers
     [ApiController]
     public class FridgeProductsController : ControllerBase
     {
-        private readonly IValidator<FridgeProductForManipulationDto> _fridgeProductValidator;
-
         private readonly IUnitOfWork _repository;
         private readonly IMapper _mapper;
 
-        public FridgeProductsController(IUnitOfWork repository, IMapper mapper, IValidator<FridgeProductForManipulationDto> fridgeProductValidator)
+        public FridgeProductsController(IUnitOfWork repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _fridgeProductValidator = fridgeProductValidator;
         }
 
         [HttpGet]
@@ -87,19 +82,19 @@ namespace FridgeManager.FridgesMicroService.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateProductInFridge(Guid fridgeId, [Required][FromBody] FridgeProductForManipulationDto model)
         {
-            var result = await _fridgeProductValidator.ValidateAsync(model);
-
-            if (!result.IsValid)
-            {
-                result.AddToModelState(ModelState);
-                return ValidationProblem(ModelState);
-            }
-
             var fridge = await _repository.Fridges.GetFridgeAsync(fridgeId, trackChanges: false);
 
             if (fridge is null)
             {
                 return NotFound();
+            }
+
+            var product = await _repository.Products.GetProductAsync(model.ProductId, trackChanges: false);
+
+            if (product is null)
+            {
+                ModelState.AddModelError(nameof(model.ProductId), $"product with id '{model.ProductId}' doesn't exists");
+                return ValidationProblem(ModelState);
             }
 
             var entity = await _repository.FridgeProducts.GetFridgeProduct(fridgeId, model.ProductId, trackChanges: true);

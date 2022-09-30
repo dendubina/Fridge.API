@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Entities.EF.Entities
+namespace FridgeManager.FridgesMicroService.EF.Entities
 {
     public class Fridge
     {

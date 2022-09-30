@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Entities.DTO.FridgeProducts
+namespace FridgeManager.FridgesMicroService.DTO.FridgeProducts
 {
     public class FridgeProductForReturnDto
     {
@@ -11,6 +11,7 @@ namespace Entities.DTO.FridgeProducts
         public Guid ProductId { get; set; }
 
         public string ProductName { get; set; }
+
         public string ImageSource { get; set; }
 
         public int Quantity { get; set; }

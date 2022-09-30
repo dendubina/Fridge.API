@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Entities.EF.Entities
+namespace FridgeManager.FridgesMicroService.EF.Entities
 {
     public class Product
     {
@@ -14,6 +14,5 @@ namespace Entities.EF.Entities
         public int DefaultQuantity { get; set; }
 
         public string ImageSource { get; set; }
-
     }
 }

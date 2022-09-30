@@ -1,8 +1,8 @@
-﻿using Contracts.Interfaces;
-using Entities.EF;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using FridgeManager.FridgesMicroService.Contracts;
+using FridgeManager.FridgesMicroService.EF;
 
-namespace Repository
+namespace FridgeManager.FridgesMicroService.Services
 {
     public class UnitOfWork : IUnitOfWork
     {

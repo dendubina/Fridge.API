@@ -5,12 +5,6 @@ VisualStudioVersion = 16.0.32602.291
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeManager.FridgesMicroService", "Fridge.API\FridgeManager.FridgesMicroService.csproj", "{F2DB1E1E-58C0-42AF-9216-40A4C01F5FFC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Interfaces\Contracts.csproj", "{F7D0CAA4-C621-477D-B350-CF67FAA08AAA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{4BD464E3-C620-48FD-95BE-B300D0E65E4B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{43038FFC-D10A-4A17-A649-520FDE600550}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeManager.AuthMicroService", "Fridge.Auth\FridgeManager.AuthMicroService.csproj", "{AD96EB7B-4322-4652-9C82-C5DF68042CD0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeManager.ProductsMicroService", "Fridge.ProductsService\FridgeManager.ProductsMicroService.csproj", "{417AFF5C-CC30-4E33-97E9-EBBDD21D4B5A}"
@@ -27,18 +21,6 @@ Global
 		{F2DB1E1E-58C0-42AF-9216-40A4C01F5FFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2DB1E1E-58C0-42AF-9216-40A4C01F5FFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2DB1E1E-58C0-42AF-9216-40A4C01F5FFC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F7D0CAA4-C621-477D-B350-CF67FAA08AAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F7D0CAA4-C621-477D-B350-CF67FAA08AAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F7D0CAA4-C621-477D-B350-CF67FAA08AAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F7D0CAA4-C621-477D-B350-CF67FAA08AAA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4BD464E3-C620-48FD-95BE-B300D0E65E4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4BD464E3-C620-48FD-95BE-B300D0E65E4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4BD464E3-C620-48FD-95BE-B300D0E65E4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4BD464E3-C620-48FD-95BE-B300D0E65E4B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{43038FFC-D10A-4A17-A649-520FDE600550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43038FFC-D10A-4A17-A649-520FDE600550}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43038FFC-D10A-4A17-A649-520FDE600550}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43038FFC-D10A-4A17-A649-520FDE600550}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AD96EB7B-4322-4652-9C82-C5DF68042CD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AD96EB7B-4322-4652-9C82-C5DF68042CD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD96EB7B-4322-4652-9C82-C5DF68042CD0}.Release|Any CPU.ActiveCfg = Release|Any CPU

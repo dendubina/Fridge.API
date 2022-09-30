@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Contracts.Interfaces;
-using Entities.DTO.Fridges;
-using FluentValidation;
-using FridgeManager.FridgesMicroService.Extensions;
+using FridgeManager.FridgesMicroService.Contracts;
+using FridgeManager.FridgesMicroService.DTO.FridgeProducts;
+using FridgeManager.FridgesMicroService.DTO.Fridges;
+using FridgeManager.FridgesMicroService.EF.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FridgeManager.FridgesMicroService.Controllers
@@ -17,13 +18,11 @@ namespace FridgeManager.FridgesMicroService.Controllers
     {
         private readonly IUnitOfWork _repository;
         private readonly IMapper _mapper;
-        private readonly IValidator<FridgeForCreateDto> _createFridgeValidator;
 
-        public FridgesController(IUnitOfWork repository, IMapper mapper, IValidator<FridgeForCreateDto> createFridgeValidator)
+        public FridgesController(IUnitOfWork repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _createFridgeValidator = createFridgeValidator;
         }
 
         [HttpGet]
@@ -50,15 +49,16 @@ namespace FridgeManager.FridgesMicroService.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateFridge([FromBody][Required] FridgeForCreateDto model)
         {
-            var result = await _createFridgeValidator.ValidateAsync(model);
+            var result = await FindProductsThatDoesntExist(model.FridgeProducts);
+            var list = result.ToList();
 
-            if (!result.IsValid)
+            if (list.Any())
             {
-                result.AddToModelState(ModelState);
-                return ValidationProblem(ModelState);
+                var message = string.Join(", ", list.Select(x => x.ToString()));
+                ModelState.AddModelError(nameof(model.FridgeProducts), $"products with ids {message} not found");
             }
 
-            var entity = _mapper.Map<Shared.Entities.Fridge>(model);
+            var entity = _mapper.Map<Fridge>(model);
 
              _repository.Fridges.CreateFridge(entity);
             await _repository.SaveAsync();
@@ -96,6 +96,24 @@ namespace FridgeManager.FridgesMicroService.Controllers
             await _repository.SaveAsync();
 
             return NoContent();
+        }
+
+        private async Task<IEnumerable<Guid>> FindProductsThatDoesntExist(IEnumerable<FridgeProductForManipulationDto> fridgeProducts)
+        {
+            var result = new List<Guid>();
+
+            if (fridgeProducts is not null && fridgeProducts.Any())
+            {
+                var productsIds = fridgeProducts.Select(x => x.ProductId).ToArray();
+
+                var existedProducts = await _repository.Products.FindByIdsAsync(productsIds);
+
+                var existedIds = existedProducts.Select(x => x.Id);
+
+                result = productsIds.Except(existedIds).ToList();
+            }
+
+            return result;
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Entities.DTO.FridgeProducts;
+using FridgeManager.FridgesMicroService.DTO.FridgeProducts;
 
-namespace Entities.DTO.Fridges
+namespace FridgeManager.FridgesMicroService.DTO.Fridges
 {
     public class FridgeForReturnDto
     {
