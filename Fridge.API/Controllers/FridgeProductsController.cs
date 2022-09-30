@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Contracts.Interfaces;
 using Entities.DTO.FridgeProducts;
-using Entities.Models;
+using Entities.EF.Entities;
 using FluentValidation;
 using Fridge.API.Extensions;
 

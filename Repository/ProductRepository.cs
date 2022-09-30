@@ -1,9 +1,9 @@
 ﻿using Contracts.Interfaces;
 using Entities.EF;
-using Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Entities.EF.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository

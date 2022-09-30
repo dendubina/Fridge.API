@@ -58,7 +58,7 @@ namespace Fridge.API.Controllers
                 return ValidationProblem(ModelState);
             }
 
-            var entity = _mapper.Map<Entities.Models.Fridge>(model);
+            var entity = _mapper.Map<Shared.Entities.Fridge>(model);
 
              _repository.Fridges.CreateFridge(entity);
             await _repository.SaveAsync();
