@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fridge.ProductsService", "F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fridge.Shared", "Fridge.Shared\Fridge.Shared.csproj", "{DFA41338-7616-4745-8FDF-D62BFD38EE61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumerTest", "ConsumerTest\ConsumerTest.csproj", "{7C239882-D912-4D6C-844D-5B010EA23408}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +51,6 @@ Global
 		{DFA41338-7616-4745-8FDF-D62BFD38EE61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFA41338-7616-4745-8FDF-D62BFD38EE61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFA41338-7616-4745-8FDF-D62BFD38EE61}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7C239882-D912-4D6C-844D-5B010EA23408}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C239882-D912-4D6C-844D-5B010EA23408}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C239882-D912-4D6C-844D-5B010EA23408}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C239882-D912-4D6C-844D-5B010EA23408}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

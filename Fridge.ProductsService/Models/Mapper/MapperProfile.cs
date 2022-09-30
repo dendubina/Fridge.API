@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Fridge.ProductsService.EF.Entities;
+using Fridge.Shared.Models;
 
 namespace Fridge.ProductsService.Models.Mapper
 {
@@ -11,6 +12,8 @@ namespace Fridge.ProductsService.Models.Mapper
 
             CreateMap<ProductForManipulation, Product>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
+            CreateMap<Product, SharedProduct>();
         }
     }
 }

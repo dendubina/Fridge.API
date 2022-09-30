@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Fridge.ProductsService.Contracts;
 using Fridge.ProductsService.EF;
 using Fridge.ProductsService.EF.Entities;
+using Fridge.Shared.Models;
+using Fridge.Shared.Models.Constants;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,11 +16,13 @@ namespace Fridge.ProductsService.Services
     {
         private readonly ProductsContext _dbContext;
         private readonly IPublishEndpoint _publishEndpoint;
+        private readonly IMapper _mapper;
 
-        public ProductService(ProductsContext dbContext, IPublishEndpoint publishEndpoint)
+        public ProductService(ProductsContext dbContext, IPublishEndpoint publishEndpoint, IMapper mapper)
         {
             _dbContext = dbContext;
             _publishEndpoint = publishEndpoint;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
@@ -31,6 +36,7 @@ namespace Fridge.ProductsService.Services
             await using var transaction = await _dbContext.Database.BeginTransactionAsync();
 
             _dbContext.Products.Update(product);
+            await _publishEndpoint.Publish(MapSharedProduct(product, ActionType.Update));
             await _dbContext.SaveChangesAsync();
 
             await transaction.CommitAsync();
@@ -41,7 +47,7 @@ namespace Fridge.ProductsService.Services
             await using var transaction = await _dbContext.Database.BeginTransactionAsync();
 
             await _dbContext.Products.AddAsync(product);
-            await _publishEndpoint.Publish(product);
+            await _publishEndpoint.Publish(MapSharedProduct(product, ActionType.Create));
             await _dbContext.SaveChangesAsync();
 
             await transaction.CommitAsync();
@@ -52,9 +58,16 @@ namespace Fridge.ProductsService.Services
             await using var transaction = await _dbContext.Database.BeginTransactionAsync();
 
             _dbContext.Products.Remove(product);
+            await _publishEndpoint.Publish(MapSharedProduct(product, ActionType.Delete));
             await _dbContext.SaveChangesAsync();
 
             await transaction.CommitAsync();
+        }
+
+        private SharedProduct MapSharedProduct(Product product, ActionType operation)
+        {
+            return _mapper.Map<Product, SharedProduct>(product,
+                options => options.Items[nameof(ActionType)] = operation);
         }
     }
 }
