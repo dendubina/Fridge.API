@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using FridgeManager.FridgesMicroService.Contracts;
 using FridgeManager.FridgesMicroService.DTO.Fridges;
 using FridgeManager.FridgesMicroService.Validators.FridgeProducts;
 
@@ -7,7 +6,7 @@ namespace FridgeManager.FridgesMicroService.Validators.Fridge
 {
     public class FridgeForCreationDtoValidator : AbstractValidator<FridgeForCreateDto>
     {
-        public FridgeForCreationDtoValidator(IUnitOfWork unitOfWork)
+        public FridgeForCreationDtoValidator()
         {
             RuleFor(fridge => fridge.Name)
                 .NotNull()
@@ -26,7 +25,7 @@ namespace FridgeManager.FridgesMicroService.Validators.Fridge
                 .WithMessage("ModelYear must be greater than 0");
 
             RuleForEach(fridge => fridge.FridgeProducts)
-                .SetValidator(new FridgeProductForManipulationDtoValidator(unitOfWork))
+                .SetValidator(new FridgeProductForManipulationDtoValidator())
                 .When(fridge => fridge.FridgeProducts is not null);
         }
     }

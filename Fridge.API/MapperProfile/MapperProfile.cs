@@ -2,6 +2,7 @@
 using FridgeManager.FridgesMicroService.DTO.FridgeProducts;
 using FridgeManager.FridgesMicroService.DTO.Fridges;
 using FridgeManager.FridgesMicroService.EF.Entities;
+using FridgeManager.Shared.Models;
 
 namespace FridgeManager.FridgesMicroService.MapperProfile
 {
@@ -27,6 +28,8 @@ namespace FridgeManager.FridgesMicroService.MapperProfile
             CreateMap<FridgeProduct, FridgeProductForReturnDto>()
                 .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
                 .ForMember(dest => dest.ImageSource, opt => opt.MapFrom(src => src.Product.ImageSource));
+
+            CreateMap<SharedProduct, Product>();
         }
     }
 }
