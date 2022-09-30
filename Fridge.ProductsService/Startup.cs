@@ -1,6 +1,4 @@
-using System;
 using System.IO.Abstractions;
-using System.Text;
 using Fridge.ProductsService.Contracts;
 using Fridge.ProductsService.EF;
 using Fridge.ProductsService.Models.Options;
