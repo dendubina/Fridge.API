@@ -34,8 +34,7 @@ namespace FridgeManager.FridgesMicroService.Services.Consumers
                     break;
 
                 case ActionType.Update:
-                    var entity = await _repository.Products.GetProductAsync(product.Id, trackChanges: true);
-                    _mapper.Map(context.Message, entity);
+                    _repository.Products.UpdateProduct(product);
                     break;
 
                 default:

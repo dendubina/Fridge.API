@@ -29,45 +29,36 @@ namespace FridgeManager.ProductsMicroService.Services
             => await _dbContext.Products.AsNoTracking().ToListAsync();
 
         public async Task<Product> GetProductAsync(Guid productId)
-            => await _dbContext.Products.AsNoTracking().FirstOrDefaultAsync(x => x.Id == productId);
+            => await _dbContext.Products.AsNoTracking().FirstOrDefaultAsync(x => x.Id.Equals(productId));
 
         public async Task UpdateProduct(Product product)
         {
-            await using var transaction = await _dbContext.Database.BeginTransactionAsync();
-
             _dbContext.Products.Update(product);
             await _publishEndpoint.Publish(MapSharedProduct(product, ActionType.Update));
-            await _dbContext.SaveChangesAsync();
 
-            await transaction.CommitAsync();
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task CreateProduct(Product product)
         {
-            await using var transaction = await _dbContext.Database.BeginTransactionAsync();
-
             await _dbContext.Products.AddAsync(product);
             await _publishEndpoint.Publish(MapSharedProduct(product, ActionType.Create));
-            await _dbContext.SaveChangesAsync();
 
-            await transaction.CommitAsync();
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task DeleteProduct(Product product)
         {
-            await using var transaction = await _dbContext.Database.BeginTransactionAsync();
-
             _dbContext.Products.Remove(product);
             await _publishEndpoint.Publish(MapSharedProduct(product, ActionType.Delete));
-            await _dbContext.SaveChangesAsync();
 
-            await transaction.CommitAsync();
+            await _dbContext.SaveChangesAsync();
         }
 
         private SharedProduct MapSharedProduct(Product product, ActionType operation)
         {
             return _mapper.Map<Product, SharedProduct>(product,
-                options => options.Items[nameof(ActionType)] = operation);
+                options => options.AfterMap((_, dest) => dest.ActionType = operation));
         }
     }
 }
