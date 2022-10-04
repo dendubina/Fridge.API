@@ -37,7 +37,7 @@ namespace FridgeManager.FridgesMicroService.Extensions
                         h.Password("user");
                     });
 
-                    cfg.UseMessageRetry(r => r.Interval(100, TimeSpan.FromSeconds(1)));
+                    cfg.UseMessageRetry(r => r.Interval(10, TimeSpan.FromSeconds(10)));
 
                     cfg.ConfigureEndpoints(context);
                 });
