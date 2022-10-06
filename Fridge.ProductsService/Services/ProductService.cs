@@ -14,29 +14,51 @@ namespace FridgeManager.ProductsMicroService.Services
 {
     public class ProductService : IProductService
     {
-        public Task CreateProduct(Product product)
+        private readonly ProductsContext _dbContext;
+        private readonly IPublishEndpoint _publishEndpoint;
+        private readonly IMapper _mapper;
+
+        public ProductService(ProductsContext dbContext, IPublishEndpoint publishEndpoint, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
+            _publishEndpoint = publishEndpoint;
+            _mapper = mapper;
         }
 
-        public Task DeleteProduct(Product product)
+        public async Task<IEnumerable<Product>> GetAllProductsAsync()
+            => await _dbContext.Products.AsNoTracking().ToListAsync();
+
+        public async Task<Product> GetProductAsync(Guid productId)
+            => await _dbContext.Products.AsNoTracking().FirstOrDefaultAsync(x => x.Id.Equals(productId));
+
+        public async Task UpdateProduct(Product product)
         {
-            throw new NotImplementedException();
+            _dbContext.Products.Update(product);
+            await _publishEndpoint.Publish(MapSharedProduct(product, ActionType.Update));
+
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<Product>> GetAllProductsAsync()
+        public async Task CreateProduct(Product product)
         {
-            throw new NotImplementedException();
+            await _dbContext.Products.AddAsync(product);
+            await _publishEndpoint.Publish(MapSharedProduct(product, ActionType.Create));
+
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<Product> GetProductAsync(Guid productId)
+        public async Task DeleteProduct(Product product)
         {
-            throw new NotImplementedException();
+            _dbContext.Products.Remove(product);
+            await _publishEndpoint.Publish(MapSharedProduct(product, ActionType.Delete));
+
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task UpdateProduct(Product product)
+        private SharedProduct MapSharedProduct(Product product, ActionType operation)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<Product, SharedProduct>(product,
+                options => options.AfterMap((_, dest) => dest.ActionType = operation));
         }
     }
 }

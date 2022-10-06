@@ -16,5 +16,7 @@ namespace FridgeManager.FridgesMicroService.Contracts
         void CreateProduct(Product product);
 
         void DeleteProduct(Product product);
+
+        void UpdateProduct(Product product);
     }
 }

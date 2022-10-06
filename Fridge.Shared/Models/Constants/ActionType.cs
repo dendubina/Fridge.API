@@ -2,7 +2,6 @@
 {
     public enum ActionType
     {
-        NoAction,
         Create,
         Update,
         Delete,
