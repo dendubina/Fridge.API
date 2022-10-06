@@ -1,6 +1,10 @@
 using System.IO;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
@@ -23,11 +27,22 @@ namespace FridgeManager.OcelotApiGateway
                 })
                 .ConfigureServices(s => {
                     s.AddOcelot();
+                    s.AddHealthChecks();
                 })
                 .UseIISIntegration()
                 .Configure(app =>
                 {
+                    app.UseRouting();
+                    app.UseEndpoints(endpoints =>
+                    {
+                        endpoints.MapHealthChecks("/ocelotHealthCheck", new HealthCheckOptions
+                        {
+                            Predicate = _ => true,
+                            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                        });
+                    });
                     app.UseOcelot().Wait();
+                    
                 })
                 .Build()
                 .Run();

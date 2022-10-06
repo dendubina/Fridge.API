@@ -19,5 +19,11 @@ namespace FridgeManager.FridgesMicroService.Extensions
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
+
+        public static void ConfigureHealthChecks(this IServiceCollection services)
+        {
+            services.AddHealthChecks()
+                .AddDbContextCheck<AppDbContext>("Fridges Micro Service DbContext");
+        }
     }
 }

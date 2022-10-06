@@ -5,8 +5,10 @@ using FridgeManager.ProductsMicroService.Models.Options;
 using FridgeManager.ProductsMicroService.Services;
 using FridgeManager.ProductsMicroService.Validators;
 using FridgeManager.Shared.Extensions;
+using HealthChecks.UI.Client;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +28,9 @@ namespace FridgeManager.ProductsMicroService
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHealthChecks()
+                .AddDbContextCheck<ProductsContext>("Products Micro Service DbContext");
+
             services.AddScoped<IProductService, ProductService>();
 
             services.AddDbContext<ProductsContext>(opts =>
@@ -86,6 +91,7 @@ namespace FridgeManager.ProductsMicroService
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.ConfigureHealthChecksOptions("/productsMicroServiceHC");
             });
         }
     }

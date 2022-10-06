@@ -24,6 +24,9 @@ namespace FridgeManager.AuthMicroService
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHealthChecks()
+                .AddDbContextCheck<AppDbContext>("Auth Micro Service DbContext");
+
             services.Configure<JwtOptions>(Configuration.GetSection(nameof(JwtOptions)));
 
             services.AddScoped<IAuthService, AuthService>();
@@ -69,6 +72,7 @@ namespace FridgeManager.AuthMicroService
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.ConfigureHealthChecksOptions("/authMicroServiceHC");
             });
         }
     }
