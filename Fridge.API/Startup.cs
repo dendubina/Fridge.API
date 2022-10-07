@@ -35,6 +35,8 @@ namespace FridgeManager.FridgesMicroService
             
             services.ConfigureFluentValidationFromAssemblyContaining<FridgeForCreationDtoValidator>();
 
+            services.ConfigureMassTransit();
+
             services.ConfigureSwagger();
         }
 

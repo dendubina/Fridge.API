@@ -36,5 +36,7 @@ namespace FridgeManager.FridgesMicroService.Services
         public void CreateProduct(Product product) => Create(product);
 
         public void DeleteProduct(Product product) => Delete(product);
+
+        public void UpdateProduct(Product product) => DbContext.Products.Update(product);
     }
 }

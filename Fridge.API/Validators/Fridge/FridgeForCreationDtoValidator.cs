@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using FridgeManager.FridgesMicroService.Contracts;
 using FridgeManager.FridgesMicroService.DTO.Fridges;
 using FridgeManager.FridgesMicroService.Validators.FridgeProducts;
 
