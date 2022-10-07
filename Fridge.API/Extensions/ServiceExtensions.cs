@@ -1,6 +1,9 @@
-﻿using FridgeManager.FridgesMicroService.Contracts;
+﻿using System;
+using FridgeManager.FridgesMicroService.Contracts;
 using FridgeManager.FridgesMicroService.EF;
 using FridgeManager.FridgesMicroService.Services;
+using FridgeManager.FridgesMicroService.Services.Consumers;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +21,33 @@ namespace FridgeManager.FridgesMicroService.Extensions
         public static void ConfigureUnitOfWork(this IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+        }
+
+        public static void ConfigureMassTransit(this IServiceCollection services)
+        {
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<ProductConsumer>();
+
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host("localhost", "/", h =>
+                    {
+                        h.Username("user");
+                        h.Password("user");
+                    });
+
+                    cfg.UseMessageRetry(r => r.Interval(10, TimeSpan.FromSeconds(10)));
+
+                    cfg.ConfigureEndpoints(context);
+                });
+            });
+
+            services.AddOptions<MassTransitHostOptions>().Configure(options =>
+            {
+                options.WaitUntilStarted = true;
+                options.StartTimeout = TimeSpan.FromSeconds(5);
+            });
         }
     }
 }

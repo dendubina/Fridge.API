@@ -1,3 +1,4 @@
+using System;
 using System.IO.Abstractions;
 using FridgeManager.ProductsMicroService.Contracts;
 using FridgeManager.ProductsMicroService.EF;
@@ -50,6 +51,12 @@ namespace FridgeManager.ProductsMicroService
                     });
                     cfg.ConfigureEndpoints(context);
                 });
+            });
+
+            services.AddOptions<MassTransitHostOptions>().Configure(options =>
+            {
+                options.WaitUntilStarted = true;
+                options.StartTimeout = TimeSpan.FromSeconds(5);
             });
 
             services.ConfigureJwtAuth();
