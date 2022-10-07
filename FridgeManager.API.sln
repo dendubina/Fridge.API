@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeManager.ProductsMicro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeManager.Shared", "Fridge.Shared\FridgeManager.Shared.csproj", "{DFA41338-7616-4745-8FDF-D62BFD38EE61}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeManager.OcelotApiGateway", "FridgeManager.OcelotApiGateway\FridgeManager.OcelotApiGateway.csproj", "{D79A5A0F-116E-4944-A3A6-1E2F7FCC041E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeManager.HealthChecks", "FridgeManager.HealthChecks\FridgeManager.HealthChecks.csproj", "{30A0E7F0-0D68-4238-9C68-B85DF9C78AFA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{DFA41338-7616-4745-8FDF-D62BFD38EE61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFA41338-7616-4745-8FDF-D62BFD38EE61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFA41338-7616-4745-8FDF-D62BFD38EE61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D79A5A0F-116E-4944-A3A6-1E2F7FCC041E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D79A5A0F-116E-4944-A3A6-1E2F7FCC041E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D79A5A0F-116E-4944-A3A6-1E2F7FCC041E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D79A5A0F-116E-4944-A3A6-1E2F7FCC041E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30A0E7F0-0D68-4238-9C68-B85DF9C78AFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30A0E7F0-0D68-4238-9C68-B85DF9C78AFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30A0E7F0-0D68-4238-9C68-B85DF9C78AFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30A0E7F0-0D68-4238-9C68-B85DF9C78AFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
