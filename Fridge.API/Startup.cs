@@ -1,3 +1,4 @@
+using FridgeManager.FridgesMicroService.EF;
 using FridgeManager.FridgesMicroService.Extensions;
 using FridgeManager.FridgesMicroService.Validators.Fridge;
 using FridgeManager.Shared.Extensions;
@@ -20,6 +21,8 @@ namespace FridgeManager.FridgesMicroService
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureHealthChecks();
+
             services.ConfigureCors();
 
             services.ConfigureSqlContext(Configuration);
@@ -60,6 +63,7 @@ namespace FridgeManager.FridgesMicroService
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.ConfigureHealthChecksOptions("/fridgesMicroServiceHC");
             });
         }
     }

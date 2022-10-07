@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Text;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -85,6 +90,17 @@ namespace FridgeManager.Shared.Extensions
                     }
                 });
             });
+        }
+
+        public static IEndpointRouteBuilder ConfigureHealthChecksOptions(this IEndpointRouteBuilder builder, string pattern)
+        {
+            builder.MapHealthChecks(pattern, new HealthCheckOptions
+            {
+                Predicate = _ => true,
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+            });
+
+            return builder;
         }
     }
 }
