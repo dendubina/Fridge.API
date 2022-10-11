@@ -58,11 +58,11 @@ namespace FridgeManager.ProductsMicroService
                 });
             });
 
-            services.AddOptions<MassTransitHostOptions>().Configure(options =>
+           /* services.AddOptions<MassTransitHostOptions>().Configure(options =>
             {
                 options.WaitUntilStarted = true;
                 options.StartTimeout = TimeSpan.FromSeconds(5);
-            });
+            });*/
 
             services.ConfigureJwtAuth();
 

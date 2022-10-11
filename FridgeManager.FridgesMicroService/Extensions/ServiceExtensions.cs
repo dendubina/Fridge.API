@@ -49,11 +49,11 @@ namespace FridgeManager.FridgesMicroService.Extensions
                 });
             });
 
-            services.AddOptions<MassTransitHostOptions>().Configure(options =>
+            /*services.AddOptions<MassTransitHostOptions>().Configure(options =>
             {
                 options.WaitUntilStarted = true;
                 options.StartTimeout = TimeSpan.FromSeconds(5);
-            });
+            });*/
         }
     }
 }
