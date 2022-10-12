@@ -1,4 +1,3 @@
-using FridgeManager.FridgesMicroService.EF;
 using FridgeManager.FridgesMicroService.Extensions;
 using FridgeManager.FridgesMicroService.Validators.Fridge;
 using FridgeManager.Shared.Extensions;
@@ -7,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace FridgeManager.FridgesMicroService
 {
@@ -49,7 +49,7 @@ namespace FridgeManager.FridgesMicroService
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Fridge.API v1"));
             }
 
-            app.ConfigureExceptionHandler();
+            app.UseSerilogRequestLogging();
 
             app.UseHttpsRedirection();
 

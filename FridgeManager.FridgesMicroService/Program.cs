@@ -1,8 +1,10 @@
 using System;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
+using Serilog.Sinks.MSSqlServer;
 
 namespace FridgeManager.FridgesMicroService
 {
@@ -10,10 +12,19 @@ namespace FridgeManager.FridgesMicroService
     {
         public static void Main(string[] args)
         {
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: false)
+                .Build();
+
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                .Enrich.FromLogContext()
+                .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
+                .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+                .MinimumLevel.Override("MassTransit", LogEventLevel.Warning)
                 .WriteTo.Console()
+                .WriteTo.MSSqlServer(
+                    connectionString: config.GetConnectionString("LocalDb"),
+                    sinkOptions: new MSSqlServerSinkOptions { TableName = "Logs", AutoCreateSqlTable = true }
+                    )
                 .CreateLogger();
 
             try

@@ -1,10 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using FridgeManager.FridgesMicroService.Contracts;
 using FridgeManager.FridgesMicroService.EF.Entities;
 using FridgeManager.Shared.Models;
 using FridgeManager.Shared.Models.Constants;
 using MassTransit;
+using Microsoft.Extensions.Logging;
 
 namespace FridgeManager.FridgesMicroService.Services.Consumers
 {
@@ -12,11 +14,12 @@ namespace FridgeManager.FridgesMicroService.Services.Consumers
     {
         private readonly IUnitOfWork _repository;
         private readonly IMapper _mapper;
-
-        public ProductConsumer(IUnitOfWork repository, IMapper mapper)
+        private readonly ILogger<ProductConsumer> _logger;
+        public ProductConsumer(IUnitOfWork repository, IMapper mapper, ILogger<ProductConsumer> logger)
         {
             _repository = repository;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task Consume(ConsumeContext<SharedProduct> context)
@@ -42,6 +45,7 @@ namespace FridgeManager.FridgesMicroService.Services.Consumers
             }
 
             await _repository.SaveAsync();
+            _logger.LogInformation("Product with id {Id} has been consumed. Action: {action}", product.Id, context.Message.ActionType);
         }
     }
 }
