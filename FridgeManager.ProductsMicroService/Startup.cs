@@ -1,4 +1,3 @@
-using System;
 using System.IO.Abstractions;
 using FridgeManager.ProductsMicroService.Contracts;
 using FridgeManager.ProductsMicroService.EF;
@@ -6,10 +5,8 @@ using FridgeManager.ProductsMicroService.Models.Options;
 using FridgeManager.ProductsMicroService.Services;
 using FridgeManager.ProductsMicroService.Validators;
 using FridgeManager.Shared.Extensions;
-using HealthChecks.UI.Client;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

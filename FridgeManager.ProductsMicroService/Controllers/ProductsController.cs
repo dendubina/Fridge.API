@@ -57,7 +57,7 @@ namespace FridgeManager.ProductsMicroService.Controllers
                 entity.ImageSource = await _imageService.AddImageGetPath(model.Image);
             }
 
-            await _productService.CreateProduct(entity);
+            await _productService.CreateProductAsync(entity);
 
             var productToReturn = _mapper.Map<ProductForReturn>(entity);
 
@@ -72,7 +72,7 @@ namespace FridgeManager.ProductsMicroService.Controllers
 
             if (entity is not null)
             {
-                await _productService.DeleteProduct(entity);
+                await _productService.DeleteProductAsync(entity);
             }
 
             return NoContent();
@@ -94,7 +94,7 @@ namespace FridgeManager.ProductsMicroService.Controllers
             }
 
             _mapper.Map(model, entity);
-            await _productService.UpdateProduct(entity);
+            await _productService.UpdateProductAsync(entity);
 
             return NoContent();
         }
