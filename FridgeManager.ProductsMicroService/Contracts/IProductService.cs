@@ -11,10 +11,10 @@ namespace FridgeManager.ProductsMicroService.Contracts
 
         Task<Product> GetProductAsync(Guid productId);
 
-        Task UpdateProduct(Product product);
+        Task UpdateProductAsync(Product product);
 
-        Task CreateProduct(Product product);
+        Task CreateProductAsync(Product product);
 
-        Task DeleteProduct(Product product);
+        Task DeleteProductAsync(Product product);
     }
 }

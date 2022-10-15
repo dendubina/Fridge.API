@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using FridgeManager.FridgesMicroService.Contracts;
 using FridgeManager.FridgesMicroService.EF.Entities;
@@ -15,6 +14,7 @@ namespace FridgeManager.FridgesMicroService.Services.Consumers
         private readonly IUnitOfWork _repository;
         private readonly IMapper _mapper;
         private readonly ILogger<ProductConsumer> _logger;
+
         public ProductConsumer(IUnitOfWork repository, IMapper mapper, ILogger<ProductConsumer> logger)
         {
             _repository = repository;

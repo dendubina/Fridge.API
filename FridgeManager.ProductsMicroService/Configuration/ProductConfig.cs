@@ -8,7 +8,7 @@ namespace FridgeManager.ProductsMicroService.Configuration
 {
     public class ProductConfig : IEntityTypeConfiguration<Product>
     {
-        static readonly List<Product> products = new()
+        private static readonly List<Product> Products = new()
         {
             new Product
             {
@@ -49,7 +49,7 @@ namespace FridgeManager.ProductsMicroService.Configuration
 
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.HasData(products);
+            builder.HasData(Products);
         }
     }
 }

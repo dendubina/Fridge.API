@@ -31,7 +31,7 @@ namespace FridgeManager.ProductsMicroService.Services
         public async Task<Product> GetProductAsync(Guid productId)
             => await _dbContext.Products.AsNoTracking().FirstOrDefaultAsync(x => x.Id.Equals(productId));
 
-        public async Task UpdateProduct(Product product)
+        public async Task UpdateProductAsync(Product product)
         {
             _dbContext.Products.Update(product);
             await _publishEndpoint.Publish(MapSharedProduct(product, ActionType.Update));
@@ -39,7 +39,7 @@ namespace FridgeManager.ProductsMicroService.Services
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task CreateProduct(Product product)
+        public async Task CreateProductAsync(Product product)
         {
             await _dbContext.Products.AddAsync(product);
             await _publishEndpoint.Publish(MapSharedProduct(product, ActionType.Create));
@@ -47,7 +47,7 @@ namespace FridgeManager.ProductsMicroService.Services
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteProduct(Product product)
+        public async Task DeleteProductAsync(Product product)
         {
             _dbContext.Products.Remove(product);
             await _publishEndpoint.Publish(MapSharedProduct(product, ActionType.Delete));
