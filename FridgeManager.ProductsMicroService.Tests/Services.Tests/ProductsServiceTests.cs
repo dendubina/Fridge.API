@@ -5,6 +5,7 @@ using AutoFixture;
 using AutoFixture.Xunit2;
 using AutoMapper;
 using FluentAssertions;
+using FridgeManager.ProductsMicroService.Contracts;
 using FridgeManager.ProductsMicroService.EF;
 using FridgeManager.ProductsMicroService.EF.Entities;
 using FridgeManager.ProductsMicroService.Mapper;
@@ -22,7 +23,7 @@ namespace FridgeManager.ProductsMicroService.Tests.Services.Tests
     public class ProductsServiceTests : IClassFixture<DatabaseFixture>
     {
         private readonly Fixture _fixture = new();
-        private readonly ProductService _productsService;
+        private readonly IProductService _productsService;
         private readonly ProductsContext _dbContext;
         private readonly Mock<IPublishEndpoint> _publishEndpointMock;
         private readonly MapperConfiguration _mapperConfig = new(x => x.AddProfile(typeof(MapperProfile)));
@@ -34,7 +35,7 @@ namespace FridgeManager.ProductsMicroService.Tests.Services.Tests
 
             _dbContext = dbFixture.DbContext;
 
-            _productsService = new(dbFixture.DbContext, _publishEndpointMock.Object, _mapperConfig.CreateMapper());
+            _productsService = new ProductService(dbFixture.DbContext, _publishEndpointMock.Object, _mapperConfig.CreateMapper());
         }
 
         [Fact]
@@ -44,10 +45,10 @@ namespace FridgeManager.ProductsMicroService.Tests.Services.Tests
             var productsInDb = await _dbContext.Products.ToListAsync();
 
             //Act
-            var actualProducts = await _productsService.GetAllProductsAsync();
+            var actualCount = await _productsService.GetAllProductsAsync();
 
             //Assert
-            actualProducts.Count().Should().Be(productsInDb.Count);
+            actualCount.Count().Should().Be(productsInDb.Count);
         }
 
         [Fact]
