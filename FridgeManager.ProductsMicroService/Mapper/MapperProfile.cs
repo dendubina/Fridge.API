@@ -5,7 +5,7 @@ using FridgeManager.Shared.Models;
 
 namespace FridgeManager.ProductsMicroService.Mapper
 {
-    internal class MapperProfile : Profile
+    public class MapperProfile : Profile
     {
         public MapperProfile()
         {
