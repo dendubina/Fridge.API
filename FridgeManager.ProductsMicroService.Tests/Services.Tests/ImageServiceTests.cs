@@ -69,7 +69,6 @@ namespace FridgeManager.ProductsMicroService.Tests.Services.Tests
 
             //Assert
             actual.Should().MatchRegex(regex);
-           // Assert.Matches(regex, actual);
         }
     }
 }
