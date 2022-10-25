@@ -91,7 +91,8 @@ namespace AuthMicroService.Tests.Integration_tests
         {
             //Arrange
             var model = CreateValidSignUpModel();
-            var userProfile = _dataFixture.Build<UserProfile>()
+            var userProfile = _dataFixture
+                .Build<UserProfile>()
                 .With(x => x.UserName, model.UserName)
                 .With(x => x.Email, model.Email)
                 .Create();
