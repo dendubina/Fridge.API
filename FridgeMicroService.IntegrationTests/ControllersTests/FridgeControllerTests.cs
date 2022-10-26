@@ -193,6 +193,8 @@ namespace FridgeMicroService.IntegrationTests.ControllersTests
             //Act
             var response = await _fridgeServiceClient.PostAsJsonAsync(FridgeControllerRoute, fridge);
 
+            output.WriteLine( await response.Content.ReadAsStringAsync());
+
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
@@ -202,8 +204,6 @@ namespace FridgeMicroService.IntegrationTests.ControllersTests
         {
             //Arrange
             var existedProductId = Guid.Parse("d3ef9d36-026e-4569-8558-25a204f1f13a");
-            var routeRegex =
-                new Regex("[(http(s)?):\\/\\/)localhost:5003]\\/api\\/Fridges\\/(^([0-9A-Fa-f]{8}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{12})$)");
 
             var products = _dataFixture
                 .Build<FridgeProductForManipulationDto>()
@@ -219,15 +219,46 @@ namespace FridgeMicroService.IntegrationTests.ControllersTests
             //Act
             var response = await _fridgeServiceClient.PostAsJsonAsync(FridgeControllerRoute, fridge);
 
-            output.WriteLine(response.Headers.Location?.AbsoluteUri);
-            
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.Created);
-            
-            response.Headers.Location?.AbsoluteUri.Should().MatchRegex(routeRegex);
         }
 
+        [Fact]
+        public async Task DeleteFridge_Should_Return_NoContent()
+        {
+            //Act
+            var response = await _fridgeServiceClient.DeleteAsync($"{FridgeControllerRoute}/{Guid.NewGuid()}");
 
+            //Assert
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        }
+
+        [Fact]
+        public async Task UpdateFridge_Should_Return_NoContent_When_Fridge_Found()
+        {
+            //Arrange
+            var existedFridgeId = Guid.Parse("3f7d308e-14e1-4542-46d0-08dab71c6a9d");
+            var model = _dataFixture.Create<FridgeForUpdateDto>();
+
+            //Act
+            var response = await _fridgeServiceClient.PutAsJsonAsync($"{FridgeControllerRoute}/{existedFridgeId}", model);
+
+            //Assert
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        }
+
+        [Fact]
+        public async Task UpdateFridge_Should_Return_NotFound_When_Fridge_NotFound()
+        {
+            //Arrange
+            var model = _dataFixture.Create<FridgeForUpdateDto>();
+
+            //Act
+            var response = await _fridgeServiceClient.PutAsJsonAsync($"{FridgeControllerRoute}/{Guid.NewGuid()}", model);
+
+            //Assert
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        }
 
         public static IEnumerable<object[]> BasicInvalidStrings
             => new List<object[]>

@@ -49,13 +49,13 @@ namespace FridgeManager.FridgesMicroService.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateFridge([FromBody][Required] FridgeForCreateDto model)
         {
-            var result = await FindProductsThatDoesntExist(model.FridgeProducts);
-            var list = result.ToList();
+            var notFoundProducts = await FindProductsThatDoesntExist(model.FridgeProducts);
 
-            if (list.Any())
+            if (notFoundProducts.Any())
             {
-                var message = string.Join(", ", list.Select(x => x.ToString()));
+                var message = string.Join(", ", notFoundProducts.Select(x => x.ToString()));
                 ModelState.AddModelError(nameof(model.FridgeProducts), $"products with ids {message} not found");
+                return ValidationProblem(ModelState);
             }
 
             var entity = _mapper.Map<Fridge>(model);
