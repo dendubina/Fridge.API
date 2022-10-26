@@ -109,14 +109,15 @@ namespace FridgeMicroService.IntegrationTests.ControllersTests
         public async Task AddProductsToFridge_Should_Return_Ok_When_Valid_Request()
         {
             //Arrange
-            var product = new FridgeProductForManipulationDto()
+            var fridgeIdToUpdate = "859e4d86-bd70-49f5-6927-08dab71f5042";
+            var product = new FridgeProductForManipulationDto
             {
                 ProductId = Guid.Parse("d3ef9d36-026e-4569-8558-25a204f1f13a"),
                 Quantity = 1,
             };
 
             //Act
-            var response = await _fridgeServiceClient.PostAsJsonAsync(GetRouteToFridgeProducts(ExistedFridgeId), product);
+            var response = await _fridgeServiceClient.PostAsJsonAsync(GetRouteToFridgeProducts(fridgeIdToUpdate), product);
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -162,7 +163,7 @@ namespace FridgeMicroService.IntegrationTests.ControllersTests
         public async Task UpdateProductInFridge_Should_Return_NoContent_When_Valid_Request()
         {
             //Arrange
-            var product = new FridgeProductForManipulationDto()
+            var product = new FridgeProductForManipulationDto
             {
                 ProductId = Guid.Parse("d3ef9d36-026e-4569-8558-25a204f1f13a"),
                 Quantity = 1,

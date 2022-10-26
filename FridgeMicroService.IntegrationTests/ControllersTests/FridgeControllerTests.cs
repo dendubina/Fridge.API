@@ -18,10 +18,12 @@ namespace FridgeMicroService.IntegrationTests.ControllersTests
         private const string FridgeControllerRoute = "api/fridges";
 
         private readonly HttpClient _fridgeServiceClient;
+        private readonly FridgeMicroServiceFixture _fridgeMicroServiceFixture;
         private readonly Fixture _dataFixture = new();
 
         public FridgeControllerTests(FridgeMicroServiceFixture fixture)
         {
+            _fridgeMicroServiceFixture = fixture;
             _fridgeServiceClient = fixture.FridgeServiceClient;
         }
 
@@ -231,11 +233,10 @@ namespace FridgeMicroService.IntegrationTests.ControllersTests
         public async Task UpdateFridge_Should_Return_NoContent_When_Fridge_Found()
         {
             //Arrange
-            var existedFridgeId = Guid.Parse("3f7d308e-14e1-4542-46d0-08dab71c6a9d");
             var model = _dataFixture.Create<FridgeForUpdateDto>();
 
             //Act
-            var response = await _fridgeServiceClient.PutAsJsonAsync($"{FridgeControllerRoute}/{existedFridgeId}", model);
+            var response = await _fridgeServiceClient.PutAsJsonAsync($"{FridgeControllerRoute}/{_fridgeMicroServiceFixture.FridgeToUpdateId}", model);
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);

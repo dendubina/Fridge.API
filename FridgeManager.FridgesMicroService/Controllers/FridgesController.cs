@@ -98,6 +98,37 @@ namespace FridgeManager.FridgesMicroService.Controllers
             return NoContent();
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [HttpDelete("purge")]
+        public async Task<IActionResult> DeleteTestFridge()
+        {
+            var fridges = await _repository.Fridges
+                .GetByCondition(x => x.Name == "TestFridge", trackChanges: false);
+
+            if (fridges.Any())
+            {
+                _repository.Fridges.DeleteFridge(fridges.First());
+                await _repository.SaveAsync();
+            }
+
+            return NoContent();
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [HttpPut("{id:guid}/purge")]
+        public async Task<IActionResult> UpdateTestFridge(Guid fridgeId, [FromBody][Required] FridgeForUpdateDto model)
+        {
+            var fridge = await _repository.Fridges.GetFridgeAsync(Guid.Parse("859e4d86-bd70-49f5-6927-08dab71f5042"), trackChanges: true);
+
+            if (fridge is not null)
+            {
+                _mapper.Map(model, fridge);
+                await _repository.SaveAsync();
+            }
+
+            return NoContent();
+        }
+
         private async Task<IEnumerable<Guid>> FindProductsThatDoesntExist(IEnumerable<FridgeProductForManipulationDto> fridgeProducts)
         {
             var result = new List<Guid>();
