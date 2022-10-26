@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoFixture;
 using FluentAssertions;
@@ -11,7 +10,6 @@ using FridgeManager.FridgesMicroService.DTO.FridgeProducts;
 using FridgeManager.FridgesMicroService.DTO.Fridges;
 using FridgeMicroService.IntegrationTests.Fixtures;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace FridgeMicroService.IntegrationTests.ControllersTests
 {
@@ -21,11 +19,9 @@ namespace FridgeMicroService.IntegrationTests.ControllersTests
 
         private readonly HttpClient _fridgeServiceClient;
         private readonly Fixture _dataFixture = new();
-        private readonly ITestOutputHelper output;
 
-        public FridgeControllerTests(FridgeMicroServiceFixture fixture, ITestOutputHelper output)
+        public FridgeControllerTests(FridgeMicroServiceFixture fixture)
         {
-            this.output = output;
             _fridgeServiceClient = fixture.FridgeServiceClient;
         }
 
@@ -192,8 +188,6 @@ namespace FridgeMicroService.IntegrationTests.ControllersTests
 
             //Act
             var response = await _fridgeServiceClient.PostAsJsonAsync(FridgeControllerRoute, fridge);
-
-            output.WriteLine( await response.Content.ReadAsStringAsync());
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
