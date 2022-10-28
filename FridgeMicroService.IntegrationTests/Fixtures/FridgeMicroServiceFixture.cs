@@ -3,18 +3,24 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using FridgeManager.FridgesMicroService.DTO.Fridges;
+using FridgeMicroService.IntegrationTests.Configuration;
 using Xunit;
 
 namespace FridgeMicroService.IntegrationTests.Fixtures
 {
     public class FridgeMicroServiceFixture : IAsyncLifetime
     {
-        public string FridgeToUpdateId => "859e4d86-bd70-49f5-6927-08dab71f5042";
+        public string FridgeToUpdateId { get; private set; }
 
-        public HttpClient FridgeServiceClient { get; } = new() { BaseAddress = new Uri("https://localhost:5003") };
+        public HttpClient FridgeServiceClient { get; } = new();
 
         public Task InitializeAsync()
-            => Task.CompletedTask;
+        {
+            FridgeServiceClient.BaseAddress = new Uri(ConfigurationAccessor.Config["BasePath"]);
+            FridgeToUpdateId = ConfigurationAccessor.Config["FridgeIdToUpdate"];
+
+            return Task.CompletedTask;
+        }
 
         public async Task DisposeAsync()
         {

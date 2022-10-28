@@ -24,8 +24,10 @@ namespace AuthMicroService.Tests.Integration_tests.Fixtures
                 {
                     builder.ConfigureServices(services =>
                     {
-                        var authService = services.Single(x => x.ServiceType == typeof(IAuthService));
+                        var authService = services.First(x => x.ServiceType == typeof(IAuthService));
+
                         services.Remove(authService);
+
                         services.AddScoped(_ => AuthServiceMock.Object);
                     });
                 });

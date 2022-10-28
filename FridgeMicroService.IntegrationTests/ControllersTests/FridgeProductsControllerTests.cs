@@ -147,7 +147,7 @@ namespace FridgeMicroService.IntegrationTests.ControllersTests
         }
 
         [Fact]
-        public async Task UpdateProductInFridge_Should_Return_BadRequst_When_Product_NotFound()
+        public async Task UpdateProductInFridge_Should_Return_BadRequest_When_Product_NotFound()
         {
             //Arrange
             var product = _dataFixture.Create<FridgeProductForManipulationDto>();
