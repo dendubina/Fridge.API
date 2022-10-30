@@ -5,16 +5,19 @@ using FridgeManager.Shared.Models;
 
 namespace FridgeManager.ProductsMicroService.Mapper
 {
-    internal class MapperProfile : Profile
+    public class MapperProfile : Profile
     {
         public MapperProfile()
         {
             CreateMap<Product, ProductForReturn>();
 
             CreateMap<ProductForManipulation, Product>()
-                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+                .ForMember(x => x.Id, opt => opt.Ignore())
+                .ForMember(x => x.ImageSource, opt => opt.Ignore())
+                .ForMember(x => x.Name, opt => opt.Condition(x => x.Name is not null));
 
-            CreateMap<Product, SharedProduct>();
+            CreateMap<Product, SharedProduct>()
+                .ForMember(x => x.ActionType, opt => opt.Ignore());
         }
     }
 }

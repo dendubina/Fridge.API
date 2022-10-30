@@ -81,8 +81,6 @@ namespace FridgeManager.ProductsMicroService.Validators
         }
 
         private bool IsValidImageSize(IFormFile file)
-        {
-            return !(file.Length > 1048576 * MaxImageSizeMB); // 1 MB * MaxImageSize
-        }
+            => !(file.Length > 1048576 * MaxImageSizeMB); // 1 MB * MaxImageSize
     }
 }
