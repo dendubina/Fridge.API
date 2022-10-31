@@ -6,7 +6,7 @@
 - Entity Framework
 - RabbitMQ (MassTransit)
 - Ocelot
-- Automapper, FluentValidation, XUnit, FluentAssertions, AutoFixture
+- Serilog, Automapper, FluentValidation, XUnit, FluentAssertions, AutoFixture
 
 
 ### Структура базы данных: 
