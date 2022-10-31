@@ -1,5 +1,14 @@
 ## Задание на создание небольшого Web Api проекта
 
+### Используемые технологии и библиотеки:
+- ASP.NET Core WebApi
+- MS SQL Server
+- Entity Framework
+- RabbitMQ (MassTransit)
+- Ocelot
+- Automapper, FluentValidation, XUnit, FluentAssertions, AutoFixture
+
+
 ### Структура базы данных: 
 ![Alt text](/dbimg.jpg?raw=true "Optional Title")
 
