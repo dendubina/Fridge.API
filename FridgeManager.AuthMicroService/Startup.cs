@@ -2,6 +2,7 @@ using FridgeManager.AuthMicroService.EF;
 using FridgeManager.AuthMicroService.EF.Entities;
 using FridgeManager.AuthMicroService.Options;
 using FridgeManager.AuthMicroService.Services;
+using FridgeManager.AuthMicroService.Services.Interfaces;
 using FridgeManager.Shared.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

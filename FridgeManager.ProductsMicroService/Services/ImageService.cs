@@ -39,7 +39,7 @@ namespace FridgeManager.ProductsMicroService.Services
                 await image.CopyToAsync(stream);
             }
 
-            return $"https://localhost:5001/{_options.FolderToSave}/{filename}";
+            return $"https://localhost:5002/{_options.FolderToSave}/{filename}";
         }
 
         private static string GetRandomFileName => DateTime.Now.Ticks.ToString();
