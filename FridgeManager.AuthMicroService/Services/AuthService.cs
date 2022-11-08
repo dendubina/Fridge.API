@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using FridgeManager.AuthMicroService.EF.Constants;
 using FridgeManager.AuthMicroService.EF.Entities;
 using FridgeManager.AuthMicroService.Models;
 using FridgeManager.AuthMicroService.Options;
@@ -32,7 +33,7 @@ namespace FridgeManager.AuthMicroService.Services
         {
             var user = await _userManager.FindByNameAsync(userData.UserName);
 
-            if (user is null)
+            if (user is null || user.Status == UserStatuses.Blocked)
             {
                 throw new InvalidOperationException("User not found");
             }
