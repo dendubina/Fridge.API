@@ -33,7 +33,7 @@ namespace FridgeManager.AuthMicroService.Services
         {
             var user = await _userManager.FindByNameAsync(userData.UserName);
 
-            if (user is null || user.Status == UserStatuses.Blocked)
+            if (user is null || user.Status == UserStatus.Blocked)
             {
                 throw new InvalidOperationException("User not found");
             }
@@ -45,7 +45,9 @@ namespace FridgeManager.AuthMicroService.Services
                 throw new InvalidOperationException("Invalid user name or password");
             }
 
+
             user.LastSignInDate = DateTime.Now;
+            await AddDefaultRolesAsync(user);
             await _userManager.UpdateAsync(user);
 
             return await CreateProfile(user);
@@ -59,6 +61,7 @@ namespace FridgeManager.AuthMicroService.Services
                 Email = userData.Email,
                 SignUpDate = DateTime.Now,
                 LastSignInDate = DateTime.Now,
+                Status = UserStatus.Active,
             };
 
             var result = await _userManager.CreateAsync(userToCreate, userData.Password);
@@ -72,6 +75,9 @@ namespace FridgeManager.AuthMicroService.Services
 
             return await CreateProfile(await _userManager.FindByNameAsync(userData.UserName));
         }
+
+        private async Task AddDefaultRolesAsync(ApplicationUser user)
+            => await _userManager.AddToRolesAsync(user, new[] { RoleNames.Admin.ToString(), RoleNames.User.ToString() });
 
         private async Task<UserProfile> CreateProfile(ApplicationUser user)
         {

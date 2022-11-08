@@ -1,3 +1,4 @@
+using System;
 using FridgeManager.AuthMicroService.EF;
 using FridgeManager.AuthMicroService.EF.Entities;
 using FridgeManager.AuthMicroService.Options;
@@ -31,11 +32,12 @@ namespace FridgeManager.AuthMicroService
             services.Configure<JwtOptions>(Configuration.GetSection(nameof(JwtOptions)));
 
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddDbContext<AppDbContext>(opts =>
                 opts.UseSqlServer(Configuration.GetConnectionString("LocalDb")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -49,6 +51,8 @@ namespace FridgeManager.AuthMicroService
 
                 options.User.RequireUniqueEmail = false;
             });
+
+            services.ConfigureJwtAuth();
 
             services.AddControllers();
 
@@ -68,6 +72,7 @@ namespace FridgeManager.AuthMicroService
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

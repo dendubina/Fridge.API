@@ -27,6 +27,18 @@
         }
       ]
     },
+    {
+      "UpstreamPathTemplate": "/users/test",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/users/test",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ]
+    },
 
     {
       "UpstreamPathTemplate": "/api/products",

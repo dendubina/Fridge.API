@@ -6,7 +6,7 @@ namespace FridgeManager.AuthMicroService.EF.Entities
 {
     public class ApplicationUser : IdentityUser<Guid>
     {
-        public UserStatuses Status { get; set; }
+        public UserStatus Status { get; set; }
 
         public DateTime SignUpDate { get; set; }
 
