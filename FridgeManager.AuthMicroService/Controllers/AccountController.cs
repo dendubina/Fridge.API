@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using FridgeManager.AuthMicroService.Models;
-using FridgeManager.AuthMicroService.Services;
+using FridgeManager.AuthMicroService.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FridgeManager.AuthMicroService.Controllers

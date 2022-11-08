@@ -15,6 +15,5 @@ namespace FridgeManager.AuthMicroService.Models
         public DateTime SignUpDate { get; set; }
 
         public string JwtToken { get; set; }
-
     }
 }

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using FridgeManager.AuthMicroService.EF.Entities;
 using FridgeManager.AuthMicroService.Models;
 using FridgeManager.AuthMicroService.Options;
+using FridgeManager.AuthMicroService.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

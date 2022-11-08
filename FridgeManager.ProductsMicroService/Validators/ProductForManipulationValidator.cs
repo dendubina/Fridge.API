@@ -71,13 +71,19 @@ namespace FridgeManager.ProductsMicroService.Validators
                 return false;
             }
 
-            using var reader = new BinaryReader(file.OpenReadStream());
+            using (var reader = new BinaryReader(file.OpenReadStream()))
+            {
+                var signatures = _fileSignatures[extension];
 
-            var signatures = _fileSignatures[extension];
+                var headerBytes = reader.ReadBytes(signatures.Max(m => m.Length));
 
-            var headerBytes = reader.ReadBytes(signatures.Max(m => m.Length));
+                if (signatures.Any(signature => headerBytes.Take(signature.Length).SequenceEqual(signature)))
+                {
+                    return true;
+                }
+            }
 
-            return signatures.Any(signature => headerBytes.Take(signature.Length).SequenceEqual(signature));
+            return false;
         }
 
         private bool IsValidImageSize(IFormFile file)

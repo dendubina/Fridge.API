@@ -26,12 +26,23 @@ namespace FridgeManager.OcelotApiGateway
                         .AddEnvironmentVariables();
                 })
                 .ConfigureServices(s => {
+
+                    s.AddCors(options =>
+                    {
+                        options.AddDefaultPolicy(builder =>
+                            builder
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader());
+                    });
+
                     s.AddOcelot();
                     s.AddHealthChecks();
                 })
                 .UseIISIntegration()
                 .Configure(app =>
                 {
+                    app.UseCors();
                     app.UseRouting();
                     app.UseEndpoints(endpoints =>
                     {

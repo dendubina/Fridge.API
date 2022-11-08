@@ -45,7 +45,7 @@ namespace FridgeManager.FridgesMicroService.Services
 
             if (fridgeModel is not null)
             {
-                fridge.FridgeModel = fridgeModel;
+                fridge.FridgeModelId = fridgeModel.Id;
             }
 
             Create(fridge);

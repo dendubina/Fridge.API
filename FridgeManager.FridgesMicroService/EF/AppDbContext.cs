@@ -10,7 +10,7 @@ namespace FridgeManager.FridgesMicroService.EF
             
         }
 
-        public DbSet<Entities.Fridge> Fridges { get; set; }
+        public DbSet<Fridge> Fridges { get; set; }
 
         public DbSet<FridgeModel> FridgeModels { get; set; }
 
