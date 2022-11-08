@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using FridgeManager.FridgesMicroService.Contracts;
 using FridgeManager.FridgesMicroService.EF;
@@ -17,24 +18,25 @@ namespace FridgeManager.FridgesMicroService.Services
         }
 
         public async Task<IEnumerable<Fridge>> GetAllFridgesAsync(bool trackChanges)
-        {
-            return await
-                FindAll(trackChanges)
-               .Include(x => x.FridgeModel)
-               .Include(x => x.Products)
-               .ThenInclude(x => x.Product)
-               .ToListAsync();
-        }
+            => await FindAll(trackChanges)
+                    .Include(x => x.FridgeModel)
+                    .Include(x => x.Products)
+                    .ThenInclude(x => x.Product)
+                    .ToListAsync();
 
         public async Task<Fridge> GetFridgeAsync(Guid fridgeId, bool trackChanges)
-        {
-            return await
-                FindByCondition(x => x.Id.Equals(fridgeId), trackChanges)
-                .Include(x => x.FridgeModel)
-                .Include(x => x.Products)
-                .ThenInclude(x => x.Product)
-                .SingleOrDefaultAsync();
-        }
+            => await FindByCondition(x => x.Id.Equals(fridgeId), trackChanges)
+                    .Include(x => x.FridgeModel)
+                    .Include(x => x.Products)
+                    .ThenInclude(x => x.Product)
+                    .SingleOrDefaultAsync();
+
+        public async Task<IEnumerable<Fridge>> GetByCondition(Expression<Func<Fridge, bool>> expression, bool trackChanges)
+            => await FindByCondition(expression, trackChanges)
+                    .Include(x => x.FridgeModel)
+                    .Include(x => x.Products)
+                    .ThenInclude(x => x.Product)
+                    .ToListAsync();
 
         public void CreateFridge(Fridge fridge)
         {
@@ -52,6 +54,5 @@ namespace FridgeManager.FridgesMicroService.Services
         }
 
         public void DeleteFridge(Fridge fridge) => Delete(fridge);
-        
     }
 }

@@ -4,6 +4,7 @@ namespace FridgeManager.AuthMicroService.Models
 {
     public class SignInModel
     {
+        [Required]
         [MinLength(3)]
         public string UserName { get; set; }
 
