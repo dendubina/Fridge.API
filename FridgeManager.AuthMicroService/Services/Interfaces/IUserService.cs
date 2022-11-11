@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FridgeManager.AuthMicroService.EF.Entities;
-using FridgeManager.AuthMicroService.Models;
+using FridgeManager.AuthMicroService.Models.DTO;
 
 namespace FridgeManager.AuthMicroService.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<IEnumerable<ApplicationUser>> GetAllAsync();
+        Task<UserToReturn> FindByIdAsync(Guid userId);
 
-        Task<ApplicationUser> GetUserAsync(Guid userId);
+        Task<IEnumerable<UserToReturn>> GetAllAsync();
 
-        Task BlockUserAsync(ApplicationUser user);
+        Task BlockUserAsync(Guid userId);
 
-        Task UnblockUserAsync(ApplicationUser user);
+        Task UnblockUserAsync(Guid userId);
 
         Task UpdateUserAsync(UserToUpdate user);
     }

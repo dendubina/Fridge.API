@@ -1,28 +1,28 @@
 ﻿using System;
 using FridgeManager.AuthMicroService.EF.Constants;
-using Microsoft.AspNetCore.Identity;
+using FridgeManager.AuthMicroService.EF.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FridgeManager.AuthMicroService.EF.Config
 {
-    public class RolesConfig : IEntityTypeConfiguration<IdentityRole<Guid>>
+    public class RolesConfig : IEntityTypeConfiguration<ApplicationRole>
     {
-        private static readonly IdentityRole<Guid>[] Roles =
+        private static readonly ApplicationRole[] Roles =
         {
-            new IdentityRole<Guid>()
+            new ApplicationRole()
             {
                 Id = Guid.NewGuid(),
                 Name = RoleNames.User.ToString(),
                 NormalizedName = RoleNames.User.ToString().ToUpper(),
             },
-            new IdentityRole<Guid>()
+            new ApplicationRole()
             {
                 Id = Guid.NewGuid(),
                 Name = RoleNames.Admin.ToString(),
                 NormalizedName = RoleNames.Admin.ToString().ToUpper(),
             },
-            new IdentityRole<Guid>()
+            new ApplicationRole()
             {
                 Id = Guid.NewGuid(),
                 Name = RoleNames.Tester.ToString(),
@@ -31,7 +31,7 @@ namespace FridgeManager.AuthMicroService.EF.Config
         };
            
 
-        public void Configure(EntityTypeBuilder<IdentityRole<Guid>> builder)
+        public void Configure(EntityTypeBuilder<ApplicationRole> builder)
         {
             builder.HasData(Roles);
         }

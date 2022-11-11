@@ -94,15 +94,6 @@ namespace FridgeManager.AuthMicroService.Services
 
         private async Task<JwtSecurityToken> GenerateJwtToken(ApplicationUser user)
         {
-            var claims = new List<Claim>
-            {
-                new(ClaimTypes.Name, user.UserName),
-                new(ClaimTypes.Email, user.Email),
-            };
-
-            var roles = await _userManager.GetRolesAsync(user);
-            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
-
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("SECRET", EnvironmentVariableTarget.Machine)));
 
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -110,10 +101,24 @@ namespace FridgeManager.AuthMicroService.Services
             var expires = DateTime.Now.Add(_jwtOptions.TokenExpirationTime);
 
             return new JwtSecurityToken(
-                claims: claims,
+                claims: await GetClaims(user),
                 expires: expires,
                 signingCredentials: credentials
             );
+        }
+
+        private async Task<IEnumerable<Claim>> GetClaims(ApplicationUser user)
+        {
+            var claims = new List<Claim>
+            {
+                new(JwtRegisteredClaimNames.Email, user.Email),
+                new(JwtRegisteredClaimNames.UniqueName, user.UserName),
+            };
+
+            var roles = await _userManager.GetRolesAsync(user);
+            claims.AddRange(roles.Select(role => new Claim("role", role)));
+
+            return claims;
         }
     }
 }

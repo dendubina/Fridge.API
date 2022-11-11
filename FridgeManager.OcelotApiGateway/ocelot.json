@@ -28,9 +28,9 @@
       ]
     },
     {
-      "UpstreamPathTemplate": "/users/test",
+      "UpstreamPathTemplate": "/api/users",
       "UpstreamHttpMethod": [ "Get" ],
-      "DownstreamPathTemplate": "/users/test",
+      "DownstreamPathTemplate": "/api/users",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
