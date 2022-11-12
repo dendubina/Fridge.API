@@ -15,6 +15,10 @@ namespace FridgeManager.AuthMicroService.Services.Interfaces
 
         Task UnblockUserAsync(Guid userId);
 
+        Task AddAdminAsync(Guid userId);
+
+        Task RemoveAdminAsync(Guid userId);
+
         Task UpdateUserAsync(UserToUpdate user);
     }
 }

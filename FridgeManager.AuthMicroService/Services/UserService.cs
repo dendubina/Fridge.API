@@ -35,6 +35,21 @@ namespace FridgeManager.AuthMicroService.Services
         public Task UnblockUserAsync(Guid userId)
             => ChangeStatusAsync(userId, UserStatus.Active);
 
+        public async Task AddAdminAsync(Guid userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+
+            await _userManager.AddToRoleAsync(user, RoleNames.Admin.ToString());
+        }
+
+        public async Task RemoveAdminAsync(Guid userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+
+            await _userManager.RemoveFromRoleAsync(user, RoleNames.Admin.ToString());
+        }
+
+
         public async Task UpdateUserAsync(UserToUpdate user)
         {
             var entityUser = await _userManager.FindByIdAsync(user.Id.ToString());
@@ -42,7 +57,14 @@ namespace FridgeManager.AuthMicroService.Services
             entityUser.UserName = user.UserName;
             entityUser.Email = user.Email;
 
-            await _userManager.UpdateAsync(entityUser);
+            var result = await _userManager.UpdateAsync(entityUser);
+
+            if (!result.Succeeded)
+            {
+                var message = string.Join(Environment.NewLine, result.Errors.Select(x => x.Description));
+
+                throw new InvalidOperationException(message);
+            }
         }
 
         private async Task ChangeStatusAsync(Guid userId, UserStatus status)
@@ -57,6 +79,7 @@ namespace FridgeManager.AuthMicroService.Services
         private static IQueryable<UserToReturn> SelectUserToReturn(IQueryable<ApplicationUser> query)
             => query.Select(user => new UserToReturn
             {
+                Id = user.Id,
                 UserName = user.UserName,
                 Email = user.Email,
                 Status = user.Status,
