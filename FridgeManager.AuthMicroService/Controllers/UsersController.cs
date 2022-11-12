@@ -45,7 +45,7 @@ namespace FridgeManager.AuthMicroService.Controllers
                 return NotFound();
             }
 
-            await _userService.BlockUserAsync(userId);
+            await _userService.ChangeStatusAsync(userId, UserStatus.Blocked);
 
             return NoContent();
         }
@@ -61,7 +61,7 @@ namespace FridgeManager.AuthMicroService.Controllers
                 return NotFound();
             }
 
-            await _userService.UnblockUserAsync(userId);
+            await _userService.ChangeStatusAsync(userId, UserStatus.Active);
 
             return NoContent();
         }
@@ -77,7 +77,7 @@ namespace FridgeManager.AuthMicroService.Controllers
                 return NotFound();
             }
 
-            await _userService.AddAdminAsync(userId);
+            await _userService.AddRoleAsync(userId, RoleNames.Admin);
             return NoContent();
         }
 
@@ -92,7 +92,7 @@ namespace FridgeManager.AuthMicroService.Controllers
                 return NotFound();
             }
 
-            await _userService.RemoveAdminAsync(userId);
+            await _userService.RemoveRoleAsync(userId, RoleNames.Admin);
             return NoContent();
         }
 

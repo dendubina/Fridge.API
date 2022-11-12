@@ -29,26 +29,28 @@ namespace FridgeManager.AuthMicroService.Services
         public async Task<IEnumerable<UserToReturn>> GetAllAsync()
             => await SelectUserToReturn(_userManager.Users).ToListAsync();
 
-        public Task BlockUserAsync(Guid userId)
-            => ChangeStatusAsync(userId, UserStatus.Blocked);
-
-        public Task UnblockUserAsync(Guid userId)
-            => ChangeStatusAsync(userId, UserStatus.Active);
-
-        public async Task AddAdminAsync(Guid userId)
+        public async Task ChangeStatusAsync(Guid userId, UserStatus status)
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
 
-            await _userManager.AddToRoleAsync(user, RoleNames.Admin.ToString());
+            user.Status = status;
+
+            await _userManager.UpdateAsync(user);
         }
 
-        public async Task RemoveAdminAsync(Guid userId)
+        public async Task AddRoleAsync(Guid userId, RoleNames role)
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
 
-            await _userManager.RemoveFromRoleAsync(user, RoleNames.Admin.ToString());
+            await _userManager.AddToRoleAsync(user, role.ToString());
         }
 
+        public async Task RemoveRoleAsync(Guid userId, RoleNames role)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+
+            await _userManager.RemoveFromRoleAsync(user, role.ToString());
+        }
 
         public async Task UpdateUserAsync(UserToUpdate user)
         {
@@ -65,15 +67,6 @@ namespace FridgeManager.AuthMicroService.Services
 
                 throw new InvalidOperationException(message);
             }
-        }
-
-        private async Task ChangeStatusAsync(Guid userId, UserStatus status)
-        {
-            var user = await _userManager.FindByIdAsync(userId.ToString());
-
-            user.Status = status;
-
-            await _userManager.UpdateAsync(user);
         }
 
         private static IQueryable<UserToReturn> SelectUserToReturn(IQueryable<ApplicationUser> query)

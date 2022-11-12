@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using FridgeManager.AuthMicroService.EF.Constants;
 using FridgeManager.AuthMicroService.Models.DTO;
 
 namespace FridgeManager.AuthMicroService.Services.Interfaces
@@ -11,13 +12,11 @@ namespace FridgeManager.AuthMicroService.Services.Interfaces
 
         Task<IEnumerable<UserToReturn>> GetAllAsync();
 
-        Task BlockUserAsync(Guid userId);
+        Task ChangeStatusAsync(Guid userId, UserStatus status);
 
-        Task UnblockUserAsync(Guid userId);
+        Task AddRoleAsync(Guid userId, RoleNames role);
 
-        Task AddAdminAsync(Guid userId);
-
-        Task RemoveAdminAsync(Guid userId);
+        Task RemoveRoleAsync(Guid userId, RoleNames role);
 
         Task UpdateUserAsync(UserToUpdate user);
     }
