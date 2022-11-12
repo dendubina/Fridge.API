@@ -88,11 +88,11 @@ namespace FridgeManager.AuthMicroService.Services
                 Email = user.Email,
                 SignUpDate = user.SignUpDate,
                 LastSignInDate = user.LastSignInDate,
-                JwtToken = new JwtSecurityTokenHandler().WriteToken(await GenerateJwtToken(user))
+                JwtToken = new JwtSecurityTokenHandler().WriteToken(await GenerateJwtTokenAsync(user))
             };
         }
 
-        private async Task<JwtSecurityToken> GenerateJwtToken(ApplicationUser user)
+        private async Task<JwtSecurityToken> GenerateJwtTokenAsync(ApplicationUser user)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("SECRET", EnvironmentVariableTarget.Machine)));
 
@@ -101,13 +101,13 @@ namespace FridgeManager.AuthMicroService.Services
             var expires = DateTime.Now.Add(_jwtOptions.TokenExpirationTime);
 
             return new JwtSecurityToken(
-                claims: await GetClaims(user),
+                claims: await GetClaimsAsync(user),
                 expires: expires,
                 signingCredentials: credentials
             );
         }
 
-        private async Task<IEnumerable<Claim>> GetClaims(ApplicationUser user)
+        private async Task<IEnumerable<Claim>> GetClaimsAsync(ApplicationUser user)
         {
             var claims = new List<Claim>
             {
