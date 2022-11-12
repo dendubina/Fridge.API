@@ -45,9 +45,6 @@ namespace FridgeManager.AuthMicroService.Services
                 throw new InvalidOperationException("Invalid user name or password");
             }
 
-
-            user.LastSignInDate = DateTime.Now;
-            await AddDefaultRolesAsync(user);
             await _userManager.UpdateAsync(user);
 
             return await CreateProfile(user);
@@ -59,8 +56,6 @@ namespace FridgeManager.AuthMicroService.Services
             {
                 UserName = userData.UserName,
                 Email = userData.Email,
-                SignUpDate = DateTime.Now,
-                LastSignInDate = DateTime.Now,
                 Status = UserStatus.Active,
             };
 
@@ -73,6 +68,7 @@ namespace FridgeManager.AuthMicroService.Services
                 throw new InvalidOperationException(message);
             }
 
+            await AddDefaultRolesAsync(userToCreate);
             return await CreateProfile(await _userManager.FindByNameAsync(userData.UserName));
         }
 
@@ -80,17 +76,13 @@ namespace FridgeManager.AuthMicroService.Services
             => await _userManager.AddToRolesAsync(user, new[] { RoleNames.Admin.ToString(), RoleNames.User.ToString() });
 
         private async Task<UserProfile> CreateProfile(ApplicationUser user)
-        {
-            return new UserProfile
+            => new UserProfile
             {
                 Id = user.Id,
                 UserName = user.UserName,
                 Email = user.Email,
-                SignUpDate = user.SignUpDate,
-                LastSignInDate = user.LastSignInDate,
                 JwtToken = new JwtSecurityTokenHandler().WriteToken(await GenerateJwtTokenAsync(user))
             };
-        }
 
         private async Task<JwtSecurityToken> GenerateJwtTokenAsync(ApplicationUser user)
         {

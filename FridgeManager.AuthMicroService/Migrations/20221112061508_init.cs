@@ -27,8 +27,6 @@ namespace FridgeManager.AuthMicroService.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
-                    SignUpDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastSignInDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -158,17 +156,17 @@ namespace FridgeManager.AuthMicroService.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("58ad8592-cfe7-4059-8648-2681b568cf50"), "f70d1771-cee4-429b-8412-8d769a2d5789", "User", "USER" });
+                values: new object[] { new Guid("0f2e668f-9378-47a7-8aaf-831b46921073"), "fd658cd7-7695-4584-9e42-f6dbd245d469", "User", "USER" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("8239c0e6-5daf-48e8-b878-f0910d978e2b"), "7cb4c9e0-b741-4adb-be3a-efb2c3acc9c7", "Admin", "ADMIN" });
+                values: new object[] { new Guid("71efaeea-3b0b-49e4-a0fe-136bb7c1d29c"), "bc6b577c-a361-4ab9-8606-cc8db61e567e", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("d4a77455-2456-4ad3-8db5-44544f08c66a"), "3d5cff3c-b76d-4d46-bcab-bce79a9b02fb", "Tester", "TESTER" });
+                values: new object[] { new Guid("eaebb81d-d857-4928-82a2-2528d9148aa4"), "e8272450-45c8-41ce-90ab-f6dc9396864e", "Tester", "TESTER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

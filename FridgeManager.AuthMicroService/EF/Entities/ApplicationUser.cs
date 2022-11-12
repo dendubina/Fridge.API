@@ -9,10 +9,6 @@ namespace FridgeManager.AuthMicroService.EF.Entities
     {
         public UserStatus Status { get; set; }
 
-        public DateTime SignUpDate { get; set; }
-
-        public DateTime LastSignInDate { get; set; }
-
         public ICollection<UserRole> UserRoles { get; set; }
     }
 }

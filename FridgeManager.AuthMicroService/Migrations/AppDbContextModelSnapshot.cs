@@ -49,22 +49,22 @@ namespace FridgeManager.AuthMicroService.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("58ad8592-cfe7-4059-8648-2681b568cf50"),
-                            ConcurrencyStamp = "f70d1771-cee4-429b-8412-8d769a2d5789",
+                            Id = new Guid("0f2e668f-9378-47a7-8aaf-831b46921073"),
+                            ConcurrencyStamp = "fd658cd7-7695-4584-9e42-f6dbd245d469",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = new Guid("8239c0e6-5daf-48e8-b878-f0910d978e2b"),
-                            ConcurrencyStamp = "7cb4c9e0-b741-4adb-be3a-efb2c3acc9c7",
+                            Id = new Guid("71efaeea-3b0b-49e4-a0fe-136bb7c1d29c"),
+                            ConcurrencyStamp = "bc6b577c-a361-4ab9-8606-cc8db61e567e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("d4a77455-2456-4ad3-8db5-44544f08c66a"),
-                            ConcurrencyStamp = "3d5cff3c-b76d-4d46-bcab-bce79a9b02fb",
+                            Id = new Guid("eaebb81d-d857-4928-82a2-2528d9148aa4"),
+                            ConcurrencyStamp = "e8272450-45c8-41ce-90ab-f6dc9396864e",
                             Name = "Tester",
                             NormalizedName = "TESTER"
                         });
@@ -89,9 +89,6 @@ namespace FridgeManager.AuthMicroService.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastSignInDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -118,9 +115,6 @@ namespace FridgeManager.AuthMicroService.Migrations
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("SignUpDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
