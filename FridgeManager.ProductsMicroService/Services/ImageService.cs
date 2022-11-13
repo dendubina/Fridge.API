@@ -12,7 +12,7 @@ using Microsoft.Extensions.Options;
 
 namespace FridgeManager.ProductsMicroService.Services
 {
-    public class ImageService : IImageService
+    public class ImageService : IImageService, IDisposable
     {
         private readonly IWebHostEnvironment _environment;
         private readonly ImageServiceOptions _options;
@@ -72,6 +72,9 @@ namespace FridgeManager.ProductsMicroService.Services
 
             return $"https://localhost:5002/{_options.FolderToSave}/{filename}";
         }
+
+        public void Dispose()
+            => _storageClient.Dispose();
 
         private static string GetRandomFileName(IFormFile file) => $"{DateTime.Now.Ticks}{Path.GetExtension(file.FileName)}";
     }
