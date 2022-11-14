@@ -1,62 +1,25 @@
-using System.IO;
-using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Ocelot.DependencyInjection;
-using Ocelot.Middleware;
+using Microsoft.Extensions.Hosting;
 
 namespace FridgeManager.OcelotApiGateway
 {
     public class Program
     {
-        public static void Main()
-        {
-            new WebHostBuilder()
-                .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
+        public static void Main(string[] args)
+        { 
+            CreateHostBuilder(args).Build().Run();
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
-                    config
-                        .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
-                        .AddJsonFile("appsettings.json", true, true)
-                        .AddJsonFile("ocelot.json")
-                        .AddEnvironmentVariables();
+                    config.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
                 })
-                .ConfigureServices(s => {
-
-                    s.AddCors(options =>
-                    {
-                        options.AddDefaultPolicy(builder =>
-                            builder
-                            .AllowAnyOrigin()
-                            .AllowAnyMethod()
-                            .AllowAnyHeader());
-                    });
-
-                    s.AddOcelot();
-                    s.AddHealthChecks();
-                })
-                .UseIISIntegration()
-                .Configure(app =>
+                .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    app.UseCors();
-                    app.UseRouting();
-                    app.UseEndpoints(endpoints =>
-                    {
-                        endpoints.MapHealthChecks("/ocelotHealthCheck", new HealthCheckOptions
-                        {
-                            Predicate = _ => true,
-                            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-                        });
-                    });
-                    app.UseOcelot().Wait();
-                    
-                })
-                .Build()
-                .Run();
-        }
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }

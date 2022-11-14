@@ -9,20 +9,87 @@ services:
         environment:
             - RABBITMQ_DEFAULT_USER=user
             - RABBITMQ_DEFAULT_PASS=user
-        image: 'rabbitmq:3.10-management'
+        image: 'rabbitmq:latest'
 
   auth_service:
+        build:           
+          dockerfile: FridgeManager.AuthMicroService/Dockerfile
+        environment:
+          - "ASPNETCORE_URLS=https://+"
+          - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+          - ASPNETCORE_Kestrel__Certificates__Default__Password=mypass123
+        volumes:
+            - ~/.aspnet/https:/https:ro
         ports:
-            - '5001:80'
-        container_name: auth_service
-        image: auth_service
-        restart: on-failure
+            - '5001:443'
+        container_name: auth_service_container
+        image: auth_service_image
 
-  fridge_web:      
-    ports:
-      - 3000:3000
-    environment:
-      - CHOKIDAR_USEPOLLING=true
-    image: fridge_web:dev
+  products_service:
+        build:           
+          dockerfile: FridgeManager.ProductsMicroService/Dockerfile
+        environment:
+          - "ASPNETCORE_URLS=https://+"
+          - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+          - ASPNETCORE_Kestrel__Certificates__Default__Password=mypass123
+        volumes:
+            - ~/.aspnet/https:/https:ro
+        ports:
+            - '5002:443'
+        container_name: products_service_container
+        image: products_service_image
+        depends_on:
+             - rabbitmq
 
-    
+  fridge_service:
+        build:           
+          dockerfile: FridgeManager.FridgesMicroService/Dockerfile
+        environment:
+          - "ASPNETCORE_URLS=https://+"
+          - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+          - ASPNETCORE_Kestrel__Certificates__Default__Password=mypass123
+        volumes:
+            - ~/.aspnet/https:/https:ro
+        ports:
+            - '5003:443'
+        container_name: fridges_service_container
+        image: fridges_service_image
+        depends_on:
+            - rabbitmq
+
+  gateway_service:
+        build:           
+          dockerfile: FridgeManager.OcelotApiGateway/Dockerfile
+        environment:
+          - "ASPNETCORE_URLS=https://+"
+          - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+          - ASPNETCORE_Kestrel__Certificates__Default__Password=mypass123
+        volumes:
+            - ~/.aspnet/https:/https:ro
+        ports:
+            - '5005:443'
+        container_name: gateway_container
+        image: gateway_image
+        depends_on:
+            - auth_service
+            - products_service
+            - fridge_service
+
+  health_service:
+        build:           
+          dockerfile: FridgeManager.HealthChecks/Dockerfile
+        environment:
+          - "ASPNETCORE_URLS=https://+"
+          - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+          - ASPNETCORE_Kestrel__Certificates__Default__Password=mypass123
+        volumes:
+            - ~/.aspnet/https:/https:ro
+        ports:
+            - '5006:443'
+        container_name: health_container
+        image: health_image
+        depends_on:
+            - auth_service
+            - products_service
+            - fridge_service
+            - gateway_service    
