@@ -15,17 +15,6 @@ namespace FridgeManager.Shared.Extensions
 {
     public static class ServiceExtensions
     {
-        public static void ConfigureCors(this IServiceCollection services)
-        {
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(builder =>
-                    builder.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
-            });
-        }
-
         public static void ConfigureFluentValidationFromAssemblyContaining<T>(this IServiceCollection services)
         {
             ValidatorOptions.Global.LanguageManager.Enabled = false;

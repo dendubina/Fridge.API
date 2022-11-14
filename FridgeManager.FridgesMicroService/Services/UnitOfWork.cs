@@ -57,6 +57,7 @@ namespace FridgeManager.FridgesMicroService.Services
             }
         }
 
-        public async Task SaveAsync() => await _context.SaveChangesAsync();
+        public Task SaveAsync()
+            => _context.SaveChangesAsync();
     }
 }
