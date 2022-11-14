@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net.Http;
 using FridgeManager.AuthMicroService;
-using FridgeManager.AuthMicroService.Services;
+using FridgeManager.AuthMicroService.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;

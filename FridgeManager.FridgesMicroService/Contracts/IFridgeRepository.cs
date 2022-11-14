@@ -12,7 +12,7 @@ namespace FridgeManager.FridgesMicroService.Contracts
 
         Task<Fridge> GetFridgeAsync(Guid fridgeId, bool trackChanges);
 
-        Task<IEnumerable<Fridge>> GetByCondition(Expression<Func<Fridge, bool>> expression, bool trackChanges);
+        Task<IEnumerable<Fridge>> GetByConditionAsync(Expression<Func<Fridge, bool>> expression, bool trackChanges);
 
         void CreateFridge(Fridge fridge);
 

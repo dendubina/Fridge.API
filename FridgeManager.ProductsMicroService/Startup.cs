@@ -1,6 +1,7 @@
 using System.IO.Abstractions;
 using FridgeManager.ProductsMicroService.Contracts;
 using FridgeManager.ProductsMicroService.EF;
+using FridgeManager.ProductsMicroService.Extensions;
 using FridgeManager.ProductsMicroService.Models.Options;
 using FridgeManager.ProductsMicroService.Services;
 using FridgeManager.ProductsMicroService.Validators;
@@ -26,40 +27,20 @@ namespace FridgeManager.ProductsMicroService
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHealthChecks()
-                .AddDbContextCheck<ProductsContext>("Products Micro Service DbContext");
+            services.ConfigureHealthChecks();
 
-            services.AddScoped<IProductService, ProductService>();
-
-            services.AddDbContext<ProductsContext>(opts =>
-                opts.UseSqlServer(Configuration.GetConnectionString("LocalDb")));
+            services.ConfigureDbContext(Configuration);
 
             services.ConfigureFluentValidationFromAssemblyContaining<ProductForManipulationValidator>();
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.Configure<ImageServiceOptions>(Configuration.GetSection(nameof(ImageServiceOptions)));
+            services.ConfigureImageService(Configuration);
+
+            services.ConfigureMessageBroker();
+
+            services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IFileSystem, FileSystem>();
-            services.AddScoped<IImageService, ImageService>();
-
-            services.AddMassTransit(x =>
-            {
-                x.UsingRabbitMq((context, cfg) =>
-                {
-                    cfg.Host("localhost", "/", h =>
-                    {
-                        h.Username("user");
-                        h.Password("user");
-                    });
-                    cfg.ConfigureEndpoints(context);
-                });
-            });
-
-           /* services.AddOptions<MassTransitHostOptions>().Configure(options =>
-            {
-                options.WaitUntilStarted = true;
-                options.StartTimeout = TimeSpan.FromSeconds(5);
-            });*/
 
             services.ConfigureJwtAuth();
 

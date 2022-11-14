@@ -23,8 +23,6 @@ namespace FridgeManager.FridgesMicroService
         {
             services.ConfigureHealthChecks();
 
-            services.ConfigureCors();
-
             services.ConfigureSqlContext(Configuration);
 
             services.ConfigureUnitOfWork();
@@ -35,7 +33,7 @@ namespace FridgeManager.FridgesMicroService
             
             services.ConfigureFluentValidationFromAssemblyContaining<FridgeForCreationDtoValidator>();
 
-            services.ConfigureMassTransit();
+            services.ConfigureMessageBroker();
 
             services.ConfigureSwagger();
         }
@@ -52,8 +50,6 @@ namespace FridgeManager.FridgesMicroService
             app.UseSerilogRequestLogging();
 
             app.UseHttpsRedirection();
-
-            app.UseCors();
 
             app.UseRouting();
 

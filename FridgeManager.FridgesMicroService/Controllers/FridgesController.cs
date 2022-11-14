@@ -103,7 +103,7 @@ namespace FridgeManager.FridgesMicroService.Controllers
         public async Task<IActionResult> DeleteTestFridge()
         {
             var fridges = await _repository.Fridges
-                .GetByCondition(x => x.Name == "TestFridge", trackChanges: false);
+                .GetByConditionAsync(x => x.Name == "TestFridge", trackChanges: false);
 
             if (fridges.Any())
             {

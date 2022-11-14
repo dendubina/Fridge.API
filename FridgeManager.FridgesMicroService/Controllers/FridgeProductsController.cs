@@ -33,7 +33,7 @@ namespace FridgeManager.FridgesMicroService.Controllers
                 return NotFound();
             }
 
-            var products = await _repository.FridgeProducts.GetFridgeProducts(fridgeId, trackChanges: false);
+            var products = await _repository.FridgeProducts.GetFridgeProductsAsync(fridgeId, trackChanges: false);
 
             return Ok(_mapper.Map<IEnumerable<FridgeProductForReturnDto>>(products));
         }
@@ -58,7 +58,7 @@ namespace FridgeManager.FridgesMicroService.Controllers
 
             var fridgeProduct = _mapper.Map<FridgeProduct>(model);
 
-            await _repository.FridgeProducts.AddProductToFridge(fridgeId, fridgeProduct);
+            await _repository.FridgeProducts.AddProductToFridgeAsync(fridgeId, fridgeProduct);
             await _repository.SaveAsync();
 
             return Ok();
@@ -68,7 +68,7 @@ namespace FridgeManager.FridgesMicroService.Controllers
         public async Task<IActionResult> DeleteProductFromFridge(Guid fridgeId, Guid productId)
         {
             var fridge = await _repository.Fridges.GetFridgeAsync(fridgeId, trackChanges: false);
-            var fridgeProduct = await _repository.FridgeProducts.GetFridgeProduct(fridgeId, productId, trackChanges: false);
+            var fridgeProduct = await _repository.FridgeProducts.GetFridgeProductAsync(fridgeId, productId, trackChanges: false);
 
             if (fridge is not null && fridgeProduct is not null)
             {
@@ -97,7 +97,7 @@ namespace FridgeManager.FridgesMicroService.Controllers
                 return ValidationProblem(ModelState);
             }
 
-            var entity = await _repository.FridgeProducts.GetFridgeProduct(fridgeId, model.ProductId, trackChanges: true);
+            var entity = await _repository.FridgeProducts.GetFridgeProductAsync(fridgeId, model.ProductId, trackChanges: true);
 
             _mapper.Map(model, entity);
             await _repository.SaveAsync();

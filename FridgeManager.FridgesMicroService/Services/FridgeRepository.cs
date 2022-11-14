@@ -29,9 +29,9 @@ namespace FridgeManager.FridgesMicroService.Services
                     .Include(x => x.FridgeModel)
                     .Include(x => x.Products)
                     .ThenInclude(x => x.Product)
-                    .SingleOrDefaultAsync();
+                    .FirstOrDefaultAsync();
 
-        public async Task<IEnumerable<Fridge>> GetByCondition(Expression<Func<Fridge, bool>> expression, bool trackChanges)
+        public async Task<IEnumerable<Fridge>> GetByConditionAsync(Expression<Func<Fridge, bool>> expression, bool trackChanges)
             => await FindByCondition(expression, trackChanges)
                     .Include(x => x.FridgeModel)
                     .Include(x => x.Products)
@@ -53,6 +53,7 @@ namespace FridgeManager.FridgesMicroService.Services
             Create(fridge);
         }
 
-        public void DeleteFridge(Fridge fridge) => Delete(fridge);
+        public void DeleteFridge(Fridge fridge)
+            => Delete(fridge);
     }
 }

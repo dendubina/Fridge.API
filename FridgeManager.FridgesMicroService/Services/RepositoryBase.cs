@@ -9,7 +9,7 @@ namespace FridgeManager.FridgesMicroService.Services
 {
     public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        protected AppDbContext DbContext;
+        protected readonly AppDbContext DbContext;
 
         protected RepositoryBase(AppDbContext repositoryContext)
         {
@@ -17,9 +17,7 @@ namespace FridgeManager.FridgesMicroService.Services
         }
 
         public IQueryable<T> FindAll(bool trackChanges)
-        {
-            return !trackChanges ? DbContext.Set<T>().AsNoTracking() : DbContext.Set<T>();
-        }
+            => trackChanges ? DbContext.Set<T>() : DbContext.Set<T>().AsNoTracking();
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges)
         {
@@ -28,10 +26,13 @@ namespace FridgeManager.FridgesMicroService.Services
             return trackChanges ? query : query.AsNoTracking();
         }
 
-        public void Create(T entity) => DbContext.Set<T>().Add(entity);
+        public void Create(T entity)
+            => DbContext.Set<T>().Add(entity);
 
-        public void Update(T entity) => DbContext.Set<T>().Update(entity);
+        public void Update(T entity)
+            => DbContext.Set<T>().Update(entity);
 
-        public void Delete(T entity) => DbContext.Set<T>().Remove(entity);
+        public void Delete(T entity)
+            => DbContext.Set<T>().Remove(entity);
     }
 }

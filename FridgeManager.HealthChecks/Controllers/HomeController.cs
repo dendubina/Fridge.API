@@ -6,8 +6,6 @@ namespace FridgeManager.HealthChecks.Controllers
     {
 
         public IActionResult Index()
-        {
-            return Redirect("/healthchecks-ui");
-        }
+            => Redirect("/healthchecks-ui");
     }
 }
