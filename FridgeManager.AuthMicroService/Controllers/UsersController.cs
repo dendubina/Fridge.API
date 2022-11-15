@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using FridgeManager.AuthMicroService.EF.Constants;
 using FridgeManager.AuthMicroService.Models;
@@ -85,7 +84,7 @@ namespace FridgeManager.AuthMicroService.Controllers
 
         [HttpPatch]
         [Route("{userId:guid}")]
-        public async Task<IActionResult> Update(Guid userId, [FromBody][Required] UserToUpdate model)
+        public async Task<IActionResult> Update(Guid userId, UserToUpdate model)
         {
             var user = await _userService.FindByIdAsync(userId);
 

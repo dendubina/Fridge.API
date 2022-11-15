@@ -9,8 +9,7 @@ namespace FridgeManager.AuthMicroService.Validators
         public ChangeRoleModelValidator()
         {
             RuleFor(x => x.Role)
-                .NotNull()
-                .NotEmpty()
+                .NotNull().NotEmpty()
                 .IsEnumName(typeof(RoleNames), caseSensitive: false);
         }
     }
