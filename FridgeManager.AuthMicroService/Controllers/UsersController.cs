@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using FridgeManager.AuthMicroService.EF.Constants;
+using FridgeManager.AuthMicroService.Models;
 using FridgeManager.AuthMicroService.Models.DTO;
 using FridgeManager.AuthMicroService.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -36,7 +37,7 @@ namespace FridgeManager.AuthMicroService.Controllers
 
         [HttpPatch]
         [Route("{userId:guid}/[action]")]
-        public async Task<IActionResult> Block(Guid userId)
+        public async Task<IActionResult> ChangeStatus(Guid userId, ChangeStatusModel model)
         {
             var user = await _userService.FindByIdAsync(userId);
 
@@ -45,14 +46,14 @@ namespace FridgeManager.AuthMicroService.Controllers
                 return NotFound();
             }
 
-            await _userService.ChangeStatusAsync(userId, UserStatus.Blocked);
+            await _userService.ChangeStatusAsync(userId, Enum.Parse<UserStatus>(model.Status));
 
             return NoContent();
         }
 
         [HttpPatch]
         [Route("{userId:guid}/[action]")]
-        public async Task<IActionResult> UnBlock(Guid userId)
+        public async Task<IActionResult> AddRole(Guid userId, ChangeRoleModel model)
         {
             var user = await _userService.FindByIdAsync(userId);
 
@@ -61,14 +62,14 @@ namespace FridgeManager.AuthMicroService.Controllers
                 return NotFound();
             }
 
-            await _userService.ChangeStatusAsync(userId, UserStatus.Active);
+            await _userService.AddRoleAsync(userId, Enum.Parse<RoleNames>(model.Role));
 
             return NoContent();
         }
 
         [HttpPatch]
         [Route("{userId:guid}/[action]")]
-        public async Task<IActionResult> AddAdmin(Guid userId)
+        public async Task<IActionResult> RemoveRole(Guid userId, ChangeRoleModel model)
         {
             var user = await _userService.FindByIdAsync(userId);
 
@@ -77,22 +78,8 @@ namespace FridgeManager.AuthMicroService.Controllers
                 return NotFound();
             }
 
-            await _userService.AddRoleAsync(userId, RoleNames.Admin);
-            return NoContent();
-        }
+            await _userService.RemoveRoleAsync(userId, Enum.Parse<RoleNames>(model.Role));
 
-        [HttpPatch]
-        [Route("{userId:guid}/[action]")]
-        public async Task<IActionResult> RemoveAdmin(Guid userId)
-        {
-            var user = await _userService.FindByIdAsync(userId);
-
-            if (user is null)
-            {
-                return NotFound();
-            }
-
-            await _userService.RemoveRoleAsync(userId, RoleNames.Admin);
             return NoContent();
         }
 
