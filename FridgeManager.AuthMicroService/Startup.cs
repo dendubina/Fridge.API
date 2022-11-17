@@ -52,7 +52,7 @@ namespace FridgeManager.AuthMicroService
                 options.User.RequireUniqueEmail = false;
             });
 
-            services.ConfigureJwtAuth();
+            services.ConfigureJwtAuth(Configuration.GetSection("AzureAd"));
 
             services.AddControllers();
 

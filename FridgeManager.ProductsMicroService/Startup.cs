@@ -61,7 +61,7 @@ namespace FridgeManager.ProductsMicroService
                 options.StartTimeout = TimeSpan.FromSeconds(5);
             });*/
 
-            services.ConfigureJwtAuth();
+            services.ConfigureJwtAuth(Configuration.GetSection("AzureAd"));
 
             services.AddControllers();
             

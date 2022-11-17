@@ -11,7 +11,7 @@ namespace FridgeManager.AuthMicroService.Controllers
 {
     [ApiController]
     [Route("/api/[controller]")]
-    [Authorize(Roles = nameof(RoleNames.Admin))]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
