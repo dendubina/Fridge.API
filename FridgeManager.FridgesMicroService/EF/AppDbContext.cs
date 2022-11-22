@@ -1,4 +1,5 @@
-﻿using FridgeManager.FridgesMicroService.EF.Entities;
+﻿using FridgeManager.FridgesMicroService.EF.Configuration;
+using FridgeManager.FridgesMicroService.EF.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace FridgeManager.FridgesMicroService.EF
@@ -17,5 +18,12 @@ namespace FridgeManager.FridgesMicroService.EF
         public DbSet<FridgeProduct> FridgeProducts { get; set; }
 
         public DbSet<Product> Products { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new ProductsConfig());
+        }
     }
 }

@@ -38,7 +38,7 @@ namespace AuthMicroService.Tests.Integration_tests
                 .ReturnsAsync(userProfile);
 
             //Act
-            var response = await _authWebAppClient.PostAsJsonAsync(SignInUrl, new SignInModel { UserName = userProfile.UserName, Password = "somePassword" } );
+            var response = await _authWebAppClient.PostAsJsonAsync(SignInUrl, new SignInModel { Email = userProfile.UserName, Password = "somePassword" } );
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -54,7 +54,7 @@ namespace AuthMicroService.Tests.Integration_tests
                 .ThrowsAsync(new InvalidOperationException());
 
             //Act
-            var response = await _authWebAppClient.PostAsJsonAsync(SignInUrl, new SignInModel { UserName = "someName", Password = "somePassword" });
+            var response = await _authWebAppClient.PostAsJsonAsync(SignInUrl, new SignInModel { Email = "someName", Password = "somePassword" });
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -67,7 +67,7 @@ namespace AuthMicroService.Tests.Integration_tests
         public async Task SignIn_Should_Return_BadRequest_When_UserName_Invalid(string userName)
         {
             //Act
-            var response = await _authWebAppClient.PostAsJsonAsync(SignInUrl, new SignInModel { UserName = userName, Password = "somePassword" });
+            var response = await _authWebAppClient.PostAsJsonAsync(SignInUrl, new SignInModel { Email = userName, Password = "somePassword" });
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -80,7 +80,7 @@ namespace AuthMicroService.Tests.Integration_tests
         public async Task SignIn_Should_Return_BadRequest_When_Password_Invalid(string password)
         {
             //Act
-            var response = await _authWebAppClient.PostAsJsonAsync(SignInUrl, new SignInModel { UserName = "userName", Password = password });
+            var response = await _authWebAppClient.PostAsJsonAsync(SignInUrl, new SignInModel { Email = "userName", Password = password });
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);

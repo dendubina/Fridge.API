@@ -8,6 +8,7 @@ using FridgeManager.FridgesMicroService.Contracts;
 using FridgeManager.FridgesMicroService.DTO.FridgeProducts;
 using FridgeManager.FridgesMicroService.DTO.Fridges;
 using FridgeManager.FridgesMicroService.EF.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FridgeManager.FridgesMicroService.Controllers
@@ -47,6 +48,7 @@ namespace FridgeManager.FridgesMicroService.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateFridge([FromBody][Required] FridgeForCreateDto model)
         {
             var notFoundProducts = await FindProductsThatDoesntExist(model.FridgeProducts);

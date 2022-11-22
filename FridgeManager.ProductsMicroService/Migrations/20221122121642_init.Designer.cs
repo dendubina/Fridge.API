@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Fridge.ProductsService.Migrations
+namespace FridgeManager.ProductsMicroService.Migrations
 {
     [DbContext(typeof(ProductsContext))]
-    [Migration("20220929113749_init")]
+    [Migration("20221122121642_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace Fridge.ProductsService.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Fridge.Shared.Entities.Product", b =>
+            modelBuilder.Entity("FridgeManager.ProductsMicroService.EF.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -44,35 +44,35 @@ namespace Fridge.ProductsService.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5edcdb18-b675-4ccb-ba7f-d68226a939f5"),
+                            Id = new Guid("08361c51-e528-4b91-96c6-d0e100e2da32"),
                             DefaultQuantity = 5,
                             ImageSource = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Assorted_bread.jpg/274px-Assorted_bread.jpg",
                             Name = "Bread"
                         },
                         new
                         {
-                            Id = new Guid("d4473a8a-c8bc-4aa1-9488-2daee630476f"),
+                            Id = new Guid("69f75297-6ea9-41b0-b59b-97788e75d291"),
                             DefaultQuantity = 10,
                             ImageSource = "https://id-test-11.slatic.net/p/70f40d8f77f844671af4a5a11755e7ae.jpg",
                             Name = "Apple"
                         },
                         new
                         {
-                            Id = new Guid("fbfc3635-0579-4eb4-917b-1fcdd789afea"),
+                            Id = new Guid("027e90e0-1bae-47a1-a9e2-5e77d433a2a7"),
                             DefaultQuantity = 15,
                             ImageSource = "https://cdn.yamatoscale.com/wp-content/uploads/2016/04/K%C3%A4se-Scheiben_01_00_OH-1.jpg",
                             Name = "Cheese"
                         },
                         new
                         {
-                            Id = new Guid("71fe1cf5-db7b-4be2-9f6f-b3dcd45f3023"),
+                            Id = new Guid("96895abc-efd8-4741-9d59-d62620a6d573"),
                             DefaultQuantity = 11,
                             ImageSource = "https://4.imimg.com/data4/JX/UQ/ANDROID-47104262/product-500x500.jpeg",
                             Name = "Mashroom"
                         },
                         new
                         {
-                            Id = new Guid("dd36a942-f381-49cf-b66b-b34cd8ebbf7a"),
+                            Id = new Guid("99c007af-d4c8-4db0-9b7a-0b5f1149c113"),
                             DefaultQuantity = 3,
                             ImageSource = "https://preview.free3d.com/img/2017/05/2279485108920518249/e92jihnh-900.jpg",
                             Name = "Fish"
