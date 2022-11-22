@@ -3,6 +3,7 @@ using FridgeManager.AuthMicroService.EF.Entities;
 using FridgeManager.AuthMicroService.Options;
 using FridgeManager.AuthMicroService.Services;
 using FridgeManager.AuthMicroService.Services.Interfaces;
+using FridgeManager.AuthMicroService.Validators;
 using FridgeManager.Shared.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,11 +32,12 @@ namespace FridgeManager.AuthMicroService
             services.Configure<JwtOptions>(Configuration.GetSection(nameof(JwtOptions)));
 
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddDbContext<AppDbContext>(opts =>
                 opts.UseSqlServer(Configuration.GetConnectionString("DockerDb")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -50,7 +52,11 @@ namespace FridgeManager.AuthMicroService
                 options.User.RequireUniqueEmail = false;
             });
 
+            services.ConfigureJwtAuth(Configuration.GetSection("AzureAd"));
+
             services.AddControllers();
+
+            services.ConfigureFluentValidationFromAssemblyContaining<ChangeStatusModelValidator>();
 
             services.ConfigureSwagger();
         }
@@ -68,6 +74,7 @@ namespace FridgeManager.AuthMicroService
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

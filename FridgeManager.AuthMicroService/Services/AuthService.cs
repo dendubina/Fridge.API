@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using FridgeManager.AuthMicroService.EF.Constants;
 using FridgeManager.AuthMicroService.EF.Entities;
 using FridgeManager.AuthMicroService.Models;
 using FridgeManager.AuthMicroService.Options;
@@ -32,7 +33,7 @@ namespace FridgeManager.AuthMicroService.Services
         {
             var user = await _userManager.FindByNameAsync(userData.UserName);
 
-            if (user is null)
+            if (user is null || user.Status == UserStatus.Blocked)
             {
                 throw new InvalidOperationException("User not found");
             }
@@ -44,7 +45,6 @@ namespace FridgeManager.AuthMicroService.Services
                 throw new InvalidOperationException("Invalid user name or password");
             }
 
-            user.LastSignInDate = DateTime.Now;
             await _userManager.UpdateAsync(user);
 
             return await CreateProfile(user);
@@ -56,8 +56,7 @@ namespace FridgeManager.AuthMicroService.Services
             {
                 UserName = userData.UserName,
                 Email = userData.Email,
-                SignUpDate = DateTime.Now,
-                LastSignInDate = DateTime.Now,
+                Status = UserStatus.Active,
             };
 
             var result = await _userManager.CreateAsync(userToCreate, userData.Password);
@@ -69,33 +68,24 @@ namespace FridgeManager.AuthMicroService.Services
                 throw new InvalidOperationException(message);
             }
 
+            await AddDefaultRolesAsync(userToCreate);
             return await CreateProfile(await _userManager.FindByNameAsync(userData.UserName));
         }
 
+        private async Task AddDefaultRolesAsync(ApplicationUser user)
+            => await _userManager.AddToRolesAsync(user, new[] { RoleNames.Admin.ToString(), RoleNames.User.ToString() });
+
         private async Task<UserProfile> CreateProfile(ApplicationUser user)
-        {
-            return new UserProfile
+            => new UserProfile
             {
                 Id = user.Id,
                 UserName = user.UserName,
                 Email = user.Email,
-                SignUpDate = user.SignUpDate,
-                LastSignInDate = user.LastSignInDate,
-                JwtToken = new JwtSecurityTokenHandler().WriteToken(await GenerateJwtToken(user))
+                JwtToken = new JwtSecurityTokenHandler().WriteToken(await GenerateJwtTokenAsync(user))
             };
-        }
 
-        private async Task<JwtSecurityToken> GenerateJwtToken(ApplicationUser user)
+        private async Task<JwtSecurityToken> GenerateJwtTokenAsync(ApplicationUser user)
         {
-            var claims = new List<Claim>
-            {
-                new(ClaimTypes.Name, user.UserName),
-                new(ClaimTypes.Email, user.Email),
-            };
-
-            var roles = await _userManager.GetRolesAsync(user);
-            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
-
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("SECRET", EnvironmentVariableTarget.Machine)));
 
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -103,10 +93,24 @@ namespace FridgeManager.AuthMicroService.Services
             var expires = DateTime.Now.Add(_jwtOptions.TokenExpirationTime);
 
             return new JwtSecurityToken(
-                claims: claims,
+                claims: await GetClaimsAsync(user),
                 expires: expires,
                 signingCredentials: credentials
             );
+        }
+
+        private async Task<IEnumerable<Claim>> GetClaimsAsync(ApplicationUser user)
+        {
+            var claims = new List<Claim>
+            {
+                new(JwtRegisteredClaimNames.Email, user.Email),
+                new(JwtRegisteredClaimNames.UniqueName, user.UserName),
+            };
+
+            var roles = await _userManager.GetRolesAsync(user);
+            claims.AddRange(roles.Select(role => new Claim("role", role)));
+
+            return claims;
         }
     }
 }

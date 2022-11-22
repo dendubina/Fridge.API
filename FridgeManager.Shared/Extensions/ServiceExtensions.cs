@@ -4,10 +4,13 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Identity.Web;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -23,16 +26,12 @@ namespace FridgeManager.Shared.Extensions
             services.AddValidatorsFromAssemblyContaining<T>();
         }
 
-        public static void ConfigureJwtAuth(this IServiceCollection services)
+        public static void ConfigureJwtAuth(this IServiceCollection services, IConfigurationSection azureAdConfigSection = null)
         {
             var secretKey = Environment.GetEnvironmentVariable("SECRET", EnvironmentVariableTarget.Machine);
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
+            services.AddAuthentication()
+                .AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -46,6 +45,26 @@ namespace FridgeManager.Shared.Extensions
                     ClockSkew = TimeSpan.Zero,
                     ValidateLifetime = true,
                 };
+            });
+
+            if (azureAdConfigSection is not null)
+            {
+                services.AddAuthentication()
+                    .AddMicrosoftIdentityWebApi(azureAdConfigSection, jwtBearerScheme: "microsoft");
+            }
+
+            services.AddAuthorization(options =>
+            {
+                var policyBuilder = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme);
+
+                if (azureAdConfigSection is not null)
+                {
+                    policyBuilder.AddAuthenticationSchemes("microsoft");
+                }
+
+                policyBuilder.RequireAuthenticatedUser();
+
+                options.DefaultPolicy = policyBuilder.Build();
             });
         }
 

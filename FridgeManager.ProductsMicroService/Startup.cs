@@ -42,7 +42,7 @@ namespace FridgeManager.ProductsMicroService
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IFileSystem, FileSystem>();
 
-            services.ConfigureJwtAuth();
+            services.ConfigureJwtAuth(Configuration.GetSection("AzureAd"));
 
             services.AddControllers();
             
