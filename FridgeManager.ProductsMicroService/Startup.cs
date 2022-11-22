@@ -1,15 +1,11 @@
 using System.IO.Abstractions;
 using FridgeManager.ProductsMicroService.Contracts;
-using FridgeManager.ProductsMicroService.EF;
 using FridgeManager.ProductsMicroService.Extensions;
-using FridgeManager.ProductsMicroService.Models.Options;
 using FridgeManager.ProductsMicroService.Services;
 using FridgeManager.ProductsMicroService.Validators;
 using FridgeManager.Shared.Extensions;
-using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -18,12 +14,14 @@ namespace FridgeManager.ProductsMicroService
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; }
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            Environment = env;
         }
-
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -37,7 +35,7 @@ namespace FridgeManager.ProductsMicroService
 
             services.ConfigureImageService(Configuration);
 
-            services.ConfigureMessageBroker();
+            services.ConfigureMessageBroker(Configuration, Environment);
 
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IFileSystem, FileSystem>();

@@ -12,12 +12,14 @@ namespace FridgeManager.FridgesMicroService
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; }
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            Environment = env;
         }
-
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -33,7 +35,7 @@ namespace FridgeManager.FridgesMicroService
             
             services.ConfigureFluentValidationFromAssemblyContaining<FridgeForCreationDtoValidator>();
 
-            services.ConfigureMessageBroker();
+            services.ConfigureMessageBroker(Configuration, Environment);
 
             services.ConfigureSwagger();
         }

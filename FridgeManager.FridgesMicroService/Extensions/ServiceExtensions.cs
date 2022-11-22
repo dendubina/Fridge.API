@@ -4,9 +4,11 @@ using FridgeManager.FridgesMicroService.EF;
 using FridgeManager.FridgesMicroService.Services;
 using FridgeManager.FridgesMicroService.Services.Consumers;
 using MassTransit;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace FridgeManager.FridgesMicroService.Extensions
 {
@@ -26,24 +28,37 @@ namespace FridgeManager.FridgesMicroService.Extensions
                 .AddHealthChecks()
                 .AddDbContextCheck<AppDbContext>("Fridges Micro Service DbContext");
 
-        public static void ConfigureMessageBroker(this IServiceCollection services)
+        public static void ConfigureMessageBroker(this IServiceCollection services, IConfiguration config, IWebHostEnvironment env)
         {
             services.AddMassTransit(x =>
             {
                 x.AddConsumer<ProductConsumer>();
 
-                x.UsingRabbitMq((context, cfg) =>
+                if (env.IsDevelopment())
                 {
-                    cfg.Host("localhost", "/", h =>
+                    x.UsingRabbitMq((context, cfg) =>
                     {
-                        h.Username("user");
-                        h.Password("user");
+                        cfg.Host("localhost", "/", h =>
+                        {
+                            h.Username("user");
+                            h.Password("user");
+                        });
+
+                        cfg.UseMessageRetry(r => r.Interval(10, TimeSpan.FromSeconds(10)));
+
+                        cfg.ConfigureEndpoints(context);
                     });
-
-                    cfg.UseMessageRetry(r => r.Interval(10, TimeSpan.FromSeconds(10)));
-
-                    cfg.ConfigureEndpoints(context);
-                });
+                }
+                else
+                {
+                    x.UsingAzureServiceBus((context, cfg) =>
+                    {
+                        cfg.Host(config["BusEndpoint"]);
+                        cfg.UseMessageRetry(r => r.Interval(10, TimeSpan.FromSeconds(10)));
+                        cfg.ConfigureEndpoints(context);
+                    });
+                }
+                
             });
 
             /*services.AddOptions<MassTransitHostOptions>().Configure(options =>
