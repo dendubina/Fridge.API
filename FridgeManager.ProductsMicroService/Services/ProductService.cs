@@ -56,9 +56,6 @@ namespace FridgeManager.ProductsMicroService.Services
         }
 
         private SharedProduct MapSharedProduct(Product product, ActionType operation)
-        {
-            return _mapper.Map<Product, SharedProduct>(product,
-                options => options.AfterMap((_, dest) => dest.ActionType = operation));
-        }
+            => _mapper.Map<Product, SharedProduct>(product, options => options.AfterMap((_, dest) => dest.ActionType = operation));
     }
 }

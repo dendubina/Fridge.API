@@ -9,7 +9,7 @@ namespace FridgeManager.ProductsMicroService.Validators
 {
     public class ProductForManipulationValidator : AbstractValidator<ProductForManipulation>
     {
-        private const double MaxImageSizeMB = 1;
+        private const double MaxImageSizeMb = 1;
 
         private readonly Dictionary<string, List<byte[]>> _fileSignatures = new()
         {
@@ -51,42 +51,36 @@ namespace FridgeManager.ProductsMicroService.Validators
         public ProductForManipulationValidator()
         {
             RuleFor(product => product.Name)
-                .NotEmpty();
+                .NotNull().NotEmpty();
 
             RuleFor(product => product.DefaultQuantity)
                 .GreaterThan(0);
 
             RuleFor(product => product.Image)
                 .Must(IsValidImageExtension).WithMessage("Wrong image extension")
-                .Must(IsValidImageSize).WithMessage($"Image size must be less than {MaxImageSizeMB}MB")
+                .Must(IsValidImageSize).WithMessage($"Image size must be less than {MaxImageSizeMb}MB")
                 .When(product => product.Image is not null);
         }
 
         private bool IsValidImageExtension(IFormFile file)
         {
-            var extension= Path.GetExtension(file.FileName).ToLower();
+            var fileExtension= Path.GetExtension(file.FileName).ToLower();
 
-            if (!_fileSignatures.ContainsKey(extension))
+            if (!_fileSignatures.ContainsKey(fileExtension))
             {
                 return false;
             }
 
-            using (var reader = new BinaryReader(file.OpenReadStream()))
-            {
-                var signatures = _fileSignatures[extension];
+            using var reader = new BinaryReader(file.OpenReadStream());
 
-                var headerBytes = reader.ReadBytes(signatures.Max(m => m.Length));
+            var validSignatures = _fileSignatures[fileExtension];
 
-                if (signatures.Any(signature => headerBytes.Take(signature.Length).SequenceEqual(signature)))
-                {
-                    return true;
-                }
-            }
+            var fileHeaderBytes = reader.ReadBytes(validSignatures.Max(m => m.Length));
 
-            return false;
+            return validSignatures.Any(signature => fileHeaderBytes.Take(signature.Length).SequenceEqual(signature));
         }
 
-        private bool IsValidImageSize(IFormFile file)
-            => !(file.Length > 1048576 * MaxImageSizeMB); // 1 MB * MaxImageSize
+        private static bool IsValidImageSize(IFormFile file)
+            => !(file.Length > 1048576 * MaxImageSizeMb); // 1 MB * MaxImageSize
     }
 }

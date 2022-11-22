@@ -7,7 +7,9 @@ namespace FridgeManager.FridgesMicroService.Validators.Fridge
     {
         public FridgeForUpdateDtoValidator()
         {
-            RuleFor(fridge => fridge.ModelYear).GreaterThan(0).WithMessage("ModelYear must be > 0");
+            RuleFor(fridge => fridge.ModelYear)
+                .GreaterThan(0)
+                .WithMessage("ModelYear must be > 0");
         }
     }
 }

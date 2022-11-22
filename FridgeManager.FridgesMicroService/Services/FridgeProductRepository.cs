@@ -15,23 +15,19 @@ namespace FridgeManager.FridgesMicroService.Services
 
         }
 
-        public async Task<IEnumerable<FridgeProduct>> GetFridgeProducts(Guid fridgeId, bool trackChanges)
-        {
-            return await FindByCondition(x => x.FridgeId.Equals(fridgeId), trackChanges)
-                .Include(x => x.Product)
-                .ToListAsync();
-        }
+        public async Task<IEnumerable<FridgeProduct>> GetFridgeProductsAsync(Guid fridgeId, bool trackChanges)
+            => await FindByCondition(x => x.FridgeId.Equals(fridgeId), trackChanges)
+                    .Include(x => x.Product)
+                    .ToListAsync();
 
-        public async Task<FridgeProduct> GetFridgeProduct(Guid fridgeId, Guid productId, bool trackChanges)
-        {
-            return await FindByCondition(x => x.FridgeId.Equals(fridgeId) && x.ProductId.Equals(productId), trackChanges)
+        public async Task<FridgeProduct> GetFridgeProductAsync(Guid fridgeId, Guid productId, bool trackChanges)
+            => await FindByCondition(x => x.FridgeId.Equals(fridgeId) && x.ProductId.Equals(productId), trackChanges)
                 .Include(x => x.Product)
-                .SingleOrDefaultAsync();
-        }
+                .FirstOrDefaultAsync();
 
-        public async Task AddProductToFridge(Guid fridgeId, FridgeProduct fridgeProduct)
+        public async Task AddProductToFridgeAsync(Guid fridgeId, FridgeProduct fridgeProduct)
         {
-            var productInFridge = await GetFridgeProduct(fridgeId, fridgeProduct.ProductId, trackChanges: true);
+            var productInFridge = await GetFridgeProductAsync(fridgeId, fridgeProduct.ProductId, trackChanges: true);
 
             if (productInFridge is not null)
             {
