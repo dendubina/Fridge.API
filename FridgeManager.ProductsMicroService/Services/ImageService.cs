@@ -24,7 +24,7 @@ namespace FridgeManager.ProductsMicroService.Services
             _environment = webHostEnvironment;
             _fileSystem = fileSystem;
             _options = options.Value;
-            _storageClient = StorageClient.Create(GoogleCredential.FromFile(_options.PathToCredentialFile));
+           // _storageClient = StorageClient.Create(GoogleCredential.FromFile(_options.PathToCredentialFile));
         }
 
         public async Task<string> AddImageGetPath(IFormFile image)
@@ -74,7 +74,7 @@ namespace FridgeManager.ProductsMicroService.Services
         }
 
         public void Dispose()
-            => _storageClient.Dispose();
+            => _storageClient?.Dispose();
 
         private static string GetRandomFileName(IFormFile file) => $"{DateTime.Now.Ticks}{Path.GetExtension(file.FileName)}";
     }

@@ -110,7 +110,6 @@ namespace FridgeMicroService.IntegrationTests.ControllersTests
             //Arrange
             var fridge = _dataFixture
                 .Build<FridgeForCreateDto>()
-                .With(x => x.OwnerName, ownerName)
                 .Create();
 
             //Act

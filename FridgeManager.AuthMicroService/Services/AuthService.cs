@@ -31,7 +31,7 @@ namespace FridgeManager.AuthMicroService.Services
 
         public async Task<UserProfile> SignIn(SignInModel userData)
         {
-            var user = await _userManager.FindByNameAsync(userData.UserName);
+            var user = await _userManager.FindByEmailAsync(userData.Email);
 
             if (user is null || user.Status == UserStatus.Blocked)
             {
@@ -44,8 +44,6 @@ namespace FridgeManager.AuthMicroService.Services
             {
                 throw new InvalidOperationException("Invalid user name or password");
             }
-
-            await _userManager.UpdateAsync(user);
 
             return await CreateProfile(user);
         }
@@ -103,8 +101,8 @@ namespace FridgeManager.AuthMicroService.Services
         {
             var claims = new List<Claim>
             {
-                new(JwtRegisteredClaimNames.Email, user.Email),
-                new(JwtRegisteredClaimNames.UniqueName, user.UserName),
+                new("preferred_username", user.Email),
+                new("name", user.UserName),
             };
 
             var roles = await _userManager.GetRolesAsync(user);

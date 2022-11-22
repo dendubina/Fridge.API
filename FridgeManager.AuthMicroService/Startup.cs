@@ -35,7 +35,7 @@ namespace FridgeManager.AuthMicroService
             services.AddScoped<IUserService, UserService>();
 
             services.AddDbContext<AppDbContext>(opts =>
-                opts.UseSqlServer(Configuration.GetConnectionString("DockerDb")));
+                opts.UseSqlServer(Configuration.GetConnectionString("LocalDb")));
 
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<AppDbContext>()

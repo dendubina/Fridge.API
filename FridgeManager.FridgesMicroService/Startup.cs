@@ -13,6 +13,7 @@ namespace FridgeManager.FridgesMicroService
     public class Startup
     {
         public IConfiguration Configuration { get; }
+
         public IWebHostEnvironment Environment { get; }
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
@@ -30,6 +31,8 @@ namespace FridgeManager.FridgesMicroService
             services.ConfigureUnitOfWork();
 
             services.AddAutoMapper(typeof(Startup));
+
+            services.ConfigureJwtAuth(Configuration.GetSection("AzureAd"));
 
             services.AddControllers();
             

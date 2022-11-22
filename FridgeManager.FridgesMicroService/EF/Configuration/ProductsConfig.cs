@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using FridgeManager.ProductsMicroService.EF.Entities;
+using FridgeManager.FridgesMicroService.EF.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace FridgeManager.ProductsMicroService.Configuration
+namespace FridgeManager.FridgesMicroService.EF.Configuration
 {
-    public class ProductConfig : IEntityTypeConfiguration<Product>
+    public class ProductsConfig : IEntityTypeConfiguration<Product>
     {
         private static readonly List<Product> Products = new()
         {

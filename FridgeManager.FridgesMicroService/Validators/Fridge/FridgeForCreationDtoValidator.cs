@@ -12,10 +12,6 @@ namespace FridgeManager.FridgesMicroService.Validators.Fridge
                 .NotNull()
                 .NotEmpty();
 
-            RuleFor(fridge => fridge.OwnerName)
-                .NotNull()
-                .NotEmpty();
-
             RuleFor(fridge => fridge.ModelName)
                 .NotNull()
                 .NotEmpty();
