@@ -16,27 +16,20 @@ namespace FridgeManager.FridgesMicroService.Services
 
         }
 
-        public async Task<IEnumerable<Product>> GetAllProductsAsync(bool trackChanges)
-        {
-            return await FindAll(trackChanges)
-                        .ToListAsync();
-        }
-
         public async Task<Product> GetProductAsync(Guid productId, bool trackChanges)
-        {
-            return await FindByCondition(x => x.Id.Equals(productId), trackChanges)
-                        .SingleOrDefaultAsync();
-        }
+            => await FindByCondition(x => x.Id.Equals(productId), trackChanges)
+                    .SingleOrDefaultAsync();
 
         public async Task<IEnumerable<Product>> FindByIdsAsync(IEnumerable<Guid> productIds)
-        {
-            return await FindByCondition(x => productIds.Contains(x.Id), trackChanges: false).ToListAsync();
-        }
+            => await FindByCondition(x => productIds.Contains(x.Id), trackChanges: false).ToListAsync();
 
-        public void CreateProduct(Product product) => Create(product);
+        public void CreateProduct(Product product)
+            => Create(product);
 
-        public void DeleteProduct(Product product) => Delete(product);
+        public void DeleteProduct(Product product)
+            => Delete(product);
 
-        public void UpdateProduct(Product product) => DbContext.Products.Update(product);
+        public void UpdateProduct(Product product)
+            => DbContext.Products.Update(product);
     }
 }

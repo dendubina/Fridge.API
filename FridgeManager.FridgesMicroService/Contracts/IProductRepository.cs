@@ -7,8 +7,6 @@ namespace FridgeManager.FridgesMicroService.Contracts
 {
     public interface IProductRepository
     {
-        Task<IEnumerable<Product>> GetAllProductsAsync(bool trackChanges);
-
         Task<Product> GetProductAsync(Guid productId, bool trackChanges);
 
         Task<IEnumerable<Product>> FindByIdsAsync(IEnumerable<Guid> productIds);

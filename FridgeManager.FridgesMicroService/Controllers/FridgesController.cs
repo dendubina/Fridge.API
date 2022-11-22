@@ -49,13 +49,13 @@ namespace FridgeManager.FridgesMicroService.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateFridge([FromBody][Required] FridgeForCreateDto model)
         {
-            var result = await FindProductsThatDoesntExist(model.FridgeProducts);
-            var list = result.ToList();
+            var notFoundProducts = await FindProductsThatDoesntExist(model.FridgeProducts);
 
-            if (list.Any())
+            if (notFoundProducts.Any())
             {
-                var message = string.Join(", ", list.Select(x => x.ToString()));
+                var message = string.Join(", ", notFoundProducts.Select(x => x.ToString()));
                 ModelState.AddModelError(nameof(model.FridgeProducts), $"products with ids {message} not found");
+                return ValidationProblem(ModelState);
             }
 
             var entity = _mapper.Map<Fridge>(model);
@@ -94,6 +94,37 @@ namespace FridgeManager.FridgesMicroService.Controllers
 
             _mapper.Map(model, fridge);
             await _repository.SaveAsync();
+
+            return NoContent();
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [HttpDelete("purge")]
+        public async Task<IActionResult> DeleteTestFridge()
+        {
+            var fridges = await _repository.Fridges
+                .GetByConditionAsync(x => x.Name == "TestFridge", trackChanges: false);
+
+            if (fridges.Any())
+            {
+                _repository.Fridges.DeleteFridge(fridges.First());
+                await _repository.SaveAsync();
+            }
+
+            return NoContent();
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [HttpPut("{id:guid}/purge")]
+        public async Task<IActionResult> UpdateTestFridge(Guid fridgeId, [FromBody][Required] FridgeForUpdateDto model)
+        {
+            var fridge = await _repository.Fridges.GetFridgeAsync(Guid.Parse("859e4d86-bd70-49f5-6927-08dab71f5042"), trackChanges: true);
+
+            if (fridge is not null)
+            {
+                _mapper.Map(model, fridge);
+                await _repository.SaveAsync();
+            }
 
             return NoContent();
         }

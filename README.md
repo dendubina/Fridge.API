@@ -5,8 +5,7 @@
 - MS SQL Server
 - Entity Framework
 - RabbitMQ (MassTransit)
-- Ocelot
-- Serilog, Automapper, FluentValidation, XUnit, FluentAssertions, AutoFixture
+- Ocelot(Gateway), Google.Cloud.Storage.V1, Serilog, Automapper, FluentValidation, XUnit, FluentAssertions, AutoFixture
 
 
 ### Структура базы данных: 

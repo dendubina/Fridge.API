@@ -15,7 +15,8 @@ namespace FridgeManager.HealthChecks
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHealthChecksUI()
+            services
+                .AddHealthChecksUI()
                 .AddInMemoryStorage();
 
             services.AddControllersWithViews();

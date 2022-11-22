@@ -10,15 +10,15 @@ namespace FridgeManager.FridgesMicroService.Validators.Fridge
         {
             RuleFor(fridge => fridge.Name)
                 .NotNull()
-                .Length(3, 20).WithMessage("Name length must be between 3 and 20 chars");
+                .NotEmpty();
 
             RuleFor(fridge => fridge.OwnerName)
                 .NotNull()
-                .Length(3, 20).WithMessage("OwnerName length must be between 3 and 20 chars");
+                .NotEmpty();
 
             RuleFor(fridge => fridge.ModelName)
                 .NotNull()
-                .Length(3, 20).WithMessage("ModelName length must be between 3 and 20 chars");
+                .NotEmpty();
 
             RuleFor(fridge => fridge.ModelYear)
                 .GreaterThan(0)
