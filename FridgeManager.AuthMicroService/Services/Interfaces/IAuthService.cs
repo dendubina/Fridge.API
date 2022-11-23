@@ -5,8 +5,10 @@ namespace FridgeManager.AuthMicroService.Services.Interfaces
 {
     public interface IAuthService
     {
-        Task<UserProfile> SignIn(SignInModel userData);
+        Task<UserProfile> SignInAsync(SignInModel userData);
 
-        Task<UserProfile> SignUp(SignUpModel userData);
+        Task<UserProfile> SignUpAsync(SignUpModel userData);
+
+        Task ConfirmEmailAsync(EmailConfirmModel data);
     }
 }

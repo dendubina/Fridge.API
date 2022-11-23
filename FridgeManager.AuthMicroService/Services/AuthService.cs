@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FridgeManager.AuthMicroService.EF.Constants;
 using FridgeManager.AuthMicroService.EF.Entities;
+using FridgeManager.AuthMicroService.Extensions;
 using FridgeManager.AuthMicroService.Models;
 using FridgeManager.AuthMicroService.Options;
 using FridgeManager.AuthMicroService.Services.Interfaces;
@@ -20,16 +21,18 @@ namespace FridgeManager.AuthMicroService.Services
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IEmailService _emailService;
         private readonly JwtOptions _jwtOptions;
 
-        public AuthService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtOptions> jwtOptions)
+        public AuthService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtOptions> jwtOptions, IEmailService emailService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailService = emailService;
             _jwtOptions = jwtOptions.Value;
         }
 
-        public async Task<UserProfile> SignIn(SignInModel userData)
+        public async Task<UserProfile> SignInAsync(SignInModel userData)
         {
             var user = await _userManager.FindByEmailAsync(userData.Email);
 
@@ -44,11 +47,11 @@ namespace FridgeManager.AuthMicroService.Services
             {
                 throw new InvalidOperationException("Invalid user name or password");
             }
-
+            
             return await CreateProfile(user);
         }
 
-        public async Task<UserProfile> SignUp(SignUpModel userData)
+        public async Task<UserProfile> SignUpAsync(SignUpModel userData)
         {
             var userToCreate = new ApplicationUser
             {
@@ -61,17 +64,38 @@ namespace FridgeManager.AuthMicroService.Services
 
             if (!result.Succeeded)
             {
-                var message = string.Join(Environment.NewLine, result.Errors.Select(x => x.Description));
+                var message = result.GetErrorMessage();
 
                 throw new InvalidOperationException(message);
             }
 
-            await AddDefaultRolesAsync(userToCreate);
-            return await CreateProfile(await _userManager.FindByNameAsync(userData.UserName));
+            await _userManager.AddDefaultRolesAsync(userToCreate);
+
+            var createdUser = await _userManager.FindByEmailAsync(userData.Email);
+
+            await _emailService.SendConfirmationEmailAsync(userToCreate.Email, createdUser.Id, await _userManager.GenerateEmailConfirmationTokenAsync(createdUser));
+
+            return await CreateProfile(createdUser);
         }
 
-        private async Task AddDefaultRolesAsync(ApplicationUser user)
-            => await _userManager.AddToRolesAsync(user, new[] { RoleNames.Admin.ToString(), RoleNames.User.ToString() });
+        public async Task ConfirmEmailAsync(EmailConfirmModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.UserId.ToString());
+
+            if (user is null)
+            {
+                throw new InvalidOperationException("User not found");
+            }
+
+            var result = await _userManager.ConfirmEmailAsync(user, model.Token);
+
+            if (!result.Succeeded)
+            {
+                var message = result.GetErrorMessage();
+
+                throw new InvalidOperationException(message);
+            }
+        }
 
         private async Task<UserProfile> CreateProfile(ApplicationUser user)
             => new UserProfile

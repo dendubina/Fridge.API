@@ -1,14 +1,10 @@
-using FridgeManager.AuthMicroService.EF;
-using FridgeManager.AuthMicroService.EF.Entities;
-using FridgeManager.AuthMicroService.Options;
+using FridgeManager.AuthMicroService.Extensions;
 using FridgeManager.AuthMicroService.Services;
 using FridgeManager.AuthMicroService.Services.Interfaces;
 using FridgeManager.AuthMicroService.Validators;
 using FridgeManager.Shared.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,42 +13,27 @@ namespace FridgeManager.AuthMicroService
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHealthChecks()
-                .AddDbContextCheck<AppDbContext>("Auth Micro Service DbContext");
-
-            services.Configure<JwtOptions>(Configuration.GetSection(nameof(JwtOptions)));
-
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
 
-            services.AddDbContext<AppDbContext>(opts =>
-                opts.UseSqlServer(Configuration.GetConnectionString("LocalDb")));
+            services.ConfigureSqlContext(Configuration);
 
-            services.AddIdentity<ApplicationUser, ApplicationRole>()
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
+            services.ConfigureHealthChecks();
 
-            services.Configure<IdentityOptions>(options =>
-            {
-                options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 1;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
+            services.ConfigureIdentity(Configuration);
 
-                options.User.RequireUniqueEmail = false;
-            });
+            services.ConfigureJwtAuth();
 
-            services.ConfigureJwtAuth(Configuration.GetSection("AzureAd"));
+            services.ConfigureEmailService(Configuration);
 
             services.AddControllers();
 
