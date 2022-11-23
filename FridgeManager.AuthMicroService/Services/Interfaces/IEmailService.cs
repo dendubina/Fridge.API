@@ -1,10 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using FridgeManager.AuthMicroService.EF.Entities;
 
 namespace FridgeManager.AuthMicroService.Services.Interfaces
 {
     public interface IEmailService
     {
-        Task SendConfirmationEmailAsync(string receiverEmail, Guid userId, string token);
+        Task SendEmailConfirmationMessageAsync(ApplicationUser user);
     }
 }
