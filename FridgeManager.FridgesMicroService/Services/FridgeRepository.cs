@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using FridgeManager.FridgesMicroService.Contracts;
+using FridgeManager.FridgesMicroService.DTO.Request;
 using FridgeManager.FridgesMicroService.EF;
 using FridgeManager.FridgesMicroService.EF.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -17,12 +18,24 @@ namespace FridgeManager.FridgesMicroService.Services
             
         }
 
-        public async Task<IEnumerable<Fridge>> GetAllFridgesAsync(bool trackChanges)
-            => await FindAll(trackChanges)
-                    .Include(x => x.FridgeModel)
-                    .Include(x => x.Products)
-                    .ThenInclude(x => x.Product)
-                    .ToListAsync();
+        public async Task<IEnumerable<Fridge>> GetAllFridgesAsync(FridgeRequestParameters parameters, bool trackChanges)
+        {
+            var query = FindAll(trackChanges);
+
+            if (!string.IsNullOrWhiteSpace(parameters.OwnerEmail))
+            {
+                query = query.Where(x => x.OwnerEmail == parameters.OwnerEmail);
+            }
+
+            return await query
+                .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+                .Take(parameters.PageSize)
+                .Include(x => x.FridgeModel)
+                .Include(x => x.Products)
+                .ThenInclude(x => x.Product)
+                .ToListAsync();
+        }
+            
 
         public async Task<Fridge> GetFridgeAsync(Guid fridgeId, bool trackChanges)
             => await FindByCondition(x => x.Id.Equals(fridgeId), trackChanges)

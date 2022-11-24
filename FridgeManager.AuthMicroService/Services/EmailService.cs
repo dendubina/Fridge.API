@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using FridgeManager.AuthMicroService.Services.Interfaces;
 using System.Threading.Tasks;
 using FridgeManager.AuthMicroService.EF.Entities;
@@ -13,9 +12,9 @@ namespace FridgeManager.AuthMicroService.Services
 {
     public class EmailService : IEmailService
     {
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly EmailOptions _options;
         private readonly ISmtpClient _client;
-        private readonly UserManager<ApplicationUser> _userManager;
 
         public EmailService(IOptions<EmailOptions> options, ISmtpClient client, UserManager<ApplicationUser> userManager)
         {
@@ -30,7 +29,7 @@ namespace FridgeManager.AuthMicroService.Services
             await _client.ConnectAsync(_options.Host, _options.Port);
             await _client.AuthenticateAsync(_options.UserName, _options.Password);
 
-            var confirmationUrl = $"{_options.RedirectBaseAddress}/?userId={user.Id}&emailToken={await _userManager.GenerateEmailConfirmationTokenAsync(user)}";
+            var confirmationUrl = $"{_options.RedirectBaseAddress}/users/{user.Id}/emailConfirmation?emailToken={await _userManager.GenerateEmailConfirmationTokenAsync(user)}";
 
             var message = new MimeMessage
             {

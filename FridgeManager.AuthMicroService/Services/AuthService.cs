@@ -73,7 +73,7 @@ namespace FridgeManager.AuthMicroService.Services
 
             var createdUser = await _userManager.FindByEmailAsync(userData.Email);
 
-            await _emailService.SendConfirmationEmailAsync(userToCreate.Email, createdUser.Id, await _userManager.GenerateEmailConfirmationTokenAsync(createdUser));
+            await _emailService.SendEmailConfirmationMessageAsync(createdUser);
 
             return await CreateProfile(createdUser);
         }

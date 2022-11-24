@@ -7,7 +7,9 @@ using AutoMapper;
 using FridgeManager.FridgesMicroService.Contracts;
 using FridgeManager.FridgesMicroService.DTO.FridgeProducts;
 using FridgeManager.FridgesMicroService.DTO.Fridges;
+using FridgeManager.FridgesMicroService.DTO.Request;
 using FridgeManager.FridgesMicroService.EF.Entities;
+using FridgeManager.Shared.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,9 +29,9 @@ namespace FridgeManager.FridgesMicroService.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetFridges()
+        public async Task<IActionResult> GetFridges([FromQuery] FridgeRequestParameters parameters)
         {
-            var fridges = await _repository.Fridges.GetAllFridgesAsync(trackChanges: false);
+            var fridges = await _repository.Fridges.GetAllFridgesAsync(parameters, trackChanges: false);
 
             return Ok(_mapper.Map<IEnumerable<FridgeForReturnDto>>(fridges));
         }
@@ -39,7 +41,7 @@ namespace FridgeManager.FridgesMicroService.Controllers
         {
             var fridge = await _repository.Fridges.GetFridgeAsync(id, trackChanges: false);
 
-            if (fridge == null)
+            if (fridge is null)
             {
                 return NotFound();
             }
@@ -61,6 +63,8 @@ namespace FridgeManager.FridgesMicroService.Controllers
             }
 
             var entity = _mapper.Map<Fridge>(model);
+            entity.OwnerName = User.GetUserName();
+            entity.OwnerEmail = User.GetUserEmail();
 
              _repository.Fridges.CreateFridge(entity);
             await _repository.SaveAsync();
