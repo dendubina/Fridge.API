@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using FridgeManager.ReportAzureFunction.Models;
@@ -35,23 +36,57 @@ namespace FridgeManager.ReportAzureFunction.Services
                 Subject = "Weekly fridges report"
             };
 
-            await using var report = _reportGenerator.GenerateReport(user, null);
+            using var report = _reportGenerator.GenerateReport(user, GetSampleFridges());
 
-            var attachment = new MimePart("application", "pdf")
+            var attachment = new MimePart(report.MediaType, report.SubMediaType)
             {
-                Content = new MimeContent(report),
+                Content = new MimeContent(report.Content),
                 FileName = "Weekly report.pdf"
             };
 
             message.Body = attachment;
 
-           // await _smtpClient.SendAsync(message);
+            await _smtpClient.SendAsync(message);
         }
 
         public void Dispose()
         {
             _smtpClient.DisconnectAsync(quit: true);
             _smtpClient.Dispose();
+        }
+
+        private static IEnumerable<Fridge> GetSampleFridges()
+        {
+            return new List<Fridge>()
+            {
+                new Fridge()
+                {
+                    ModelName = "modelNae",
+                    Name = "fridge name",
+                    ModelYear = 1234,
+
+                    Products = new List<Product>
+                    {
+                        new Product()
+                        {
+                            ProductName = "apple",
+                            Quantity = 1,
+                        },
+                        new Product()
+                        {
+                            ProductName = "kartoshka",
+                            Quantity = 5,
+                        }
+                    }
+                },
+                new Fridge()
+                {
+                    ModelName = "modelNae2",
+                    Name = "fridge name2",
+                    ModelYear = 12342,
+                    Products = new List<Product>(),
+                }
+            };
         }
     }
 }

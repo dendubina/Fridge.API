@@ -16,7 +16,8 @@ namespace FridgeManager.ReportAzureFunction
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            builder.Services.AddOptions<AdminCredentials>()
+            builder.Services
+                .AddOptions<AdminCredentials>()
                 .Configure<IConfiguration>((settings, configuration) =>
                 {
                     configuration.GetSection(nameof(AdminCredentials)).Bind(settings);

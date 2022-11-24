@@ -9,7 +9,7 @@ namespace FridgeManager.ReportAzureFunction.Services
 {
     internal class ReportGenerator : IReportGenerator
     {
-        public Stream GenerateReport(User user, IEnumerable<Fridge> fridges)
+        public ReportGenerationResult GenerateReport(User user, IEnumerable<Fridge> fridges)
         {
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
             var htmlLoadOptions = new HtmlLoadOptions();
@@ -18,12 +18,12 @@ namespace FridgeManager.ReportAzureFunction.Services
 
             var document = DocumentModel.Load(htmlStream, htmlLoadOptions);
 
-            var result = new MemoryStream();
+            var content = new MemoryStream();
 
-            // document.Save(result, new PdfSaveOptions());
+            // document.Save(content, new PdfSaveOptions());
             document.Save("D://Output.pdf");
 
-            return result;
+            return new ReportGenerationResult("application", "pdf", content);
         }
 
         private static string CreateHtmlReport(User user, IEnumerable<Fridge> fridges)
@@ -41,11 +41,7 @@ namespace FridgeManager.ReportAzureFunction.Services
                                 {
                                   text-align: center;
                                   border: 1px solid seagreen;
-                                }
-                            .products-table
-                                {
-                                  border: 1px solid sandybrown;
-                                }
+                                }                            
                             .report-header
                                 {
                                   text-align: center;
@@ -56,46 +52,46 @@ namespace FridgeManager.ReportAzureFunction.Services
 
             builder.Append($@"
                     <body>
-                    <div class='report-header'>Hello, {user.UserName}, this is your weekly report</div>
-<table class='report-table'>
-<tr>
-          <th>Fridge Name</th>
-          <th>Fridge Model</th>
-          <th>Products</th>
-</tr>
+                    <div class='report-header'>Hello, {user.UserName}, here is your weekly report</div>
+                        <table class='report-table'>
+                        <tr>
+                            <th>Fridge Name</th>
+                            <th>Fridge Model</th>
+                            <th>Products</th>
+                        </tr>
 ");
 
             foreach (var fridge in fridges)
             {
                 builder.Append($@"
-<tr>
-<td>{fridge.Name}</td>
-<td>{fridge.ModelName} {fridge.ModelYear}</td>
-</tr>
-");
-                builder.Append(@"<table></table>");
+                        <tr>
+                            <td>{fridge.Name}</td>
+                            <td>{fridge.ModelName} {fridge.ModelYear}</td>");
+
+                builder.Append(@"
+                        <td>
+                        <table>
+                            <tr>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                            </tr>");
+
+                foreach (var product in fridge.Products)
+                {
+                    builder.Append($@"
+                            <tr>
+                                <td>{product.ProductName}</td>
+                                <td>{product.Quantity}</td>
+                            </tr>");
+                }
+
+                builder.Append(@"
+                    </table>
+                     </td>
+                     </tr>
+                    </table>");
             }
 
-            
-            
-            builder.Append(@"      
-          <table>
-            <tr>
-              <th>Name</th>
-              <th>Quantity</th>              
-            </tr>
-            <tr>
-              <td>somename</td>
-              <td>1</td>
-            </tr>
-          </table>
-         </td>
-        </tr>
-        
-      </table>
-</body>
-</html>
-");
             return builder.ToString();
         }
     }
