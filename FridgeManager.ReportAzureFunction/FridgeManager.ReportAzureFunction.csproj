@@ -7,7 +7,11 @@
     <None Remove=".gitignore" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="DinkToPdf" Version="1.0.8" />
+    <PackageReference Include="GemBox.Document" Version="35.0.1163" />
+    <PackageReference Include="MailKit" Version="3.4.2" />
     <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.1.3" />
   </ItemGroup>
   <ItemGroup>
