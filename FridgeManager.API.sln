@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32602.291
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeManager.OcelotApiGateway", "FridgeManager.OcelotApiGateway\FridgeManager.OcelotApiGateway.csproj", "{D79A5A0F-116E-4944-A3A6-1E2F7FCC041E}"
 EndProject
@@ -17,9 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeManager.Shared", "Fri
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthMicroService.Tests", "AuthMicroService.Tests\AuthMicroService.Tests.csproj", "{5814BF37-75AB-49C3-8645-A91A7E309BA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FridgeMicroService.IntegrationTests", "FridgeMicroService.IntegrationTests\FridgeMicroService.IntegrationTests.csproj", "{1FDDE8C5-488B-4F37-8502-4D748B92F4D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeMicroService.IntegrationTests", "FridgeMicroService.IntegrationTests\FridgeMicroService.IntegrationTests.csproj", "{1FDDE8C5-488B-4F37-8502-4D748B92F4D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FridgeManager.ProductsMicroService.Tests", "FridgeManager.ProductsMicroService.Tests\FridgeManager.ProductsMicroService.Tests.csproj", "{6C837C3C-6A9A-4EC0-949C-A4A52EFD6470}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgeManager.ProductsMicroService.Tests", "FridgeManager.ProductsMicroService.Tests\FridgeManager.ProductsMicroService.Tests.csproj", "{6C837C3C-6A9A-4EC0-949C-A4A52EFD6470}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FridgeManager.ReportAzureFunction", "FridgeManager.ReportAzureFunction\FridgeManager.ReportAzureFunction.csproj", "{EBF9DEC4-6E51-463B-B36B-993CF11D8D39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,7 +65,10 @@ Global
 		{6C837C3C-6A9A-4EC0-949C-A4A52EFD6470}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C837C3C-6A9A-4EC0-949C-A4A52EFD6470}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C837C3C-6A9A-4EC0-949C-A4A52EFD6470}.Release|Any CPU.Build.0 = Release|Any CPU
-
+		{EBF9DEC4-6E51-463B-B36B-993CF11D8D39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBF9DEC4-6E51-463B-B36B-993CF11D8D39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBF9DEC4-6E51-463B-B36B-993CF11D8D39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBF9DEC4-6E51-463B-B36B-993CF11D8D39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
