@@ -34,7 +34,7 @@ namespace AuthMicroService.Tests.Integration_tests
             //Arrange
             var userProfile = _dataFixture.Create<UserProfile>();
             _authWebAppFixture.AuthServiceMock
-                .Setup(x => x.SignIn(It.IsAny<SignInModel>()))
+                .Setup(x => x.SignInAsync(It.IsAny<SignInModel>()))
                 .ReturnsAsync(userProfile);
 
             //Act
@@ -50,7 +50,7 @@ namespace AuthMicroService.Tests.Integration_tests
         {
             //Arrange
             _authWebAppFixture.AuthServiceMock
-                .Setup(x => x.SignIn(It.IsAny<SignInModel>()))
+                .Setup(x => x.SignInAsync(It.IsAny<SignInModel>()))
                 .ThrowsAsync(new InvalidOperationException());
 
             //Act
@@ -98,7 +98,7 @@ namespace AuthMicroService.Tests.Integration_tests
                 .Create();
 
             _authWebAppFixture.AuthServiceMock
-                .Setup(x => x.SignUp(It.IsAny<SignUpModel>()))
+                .Setup(x => x.SignUpAsync(It.IsAny<SignUpModel>()))
                 .ReturnsAsync(userProfile);
 
             //Act
@@ -116,7 +116,7 @@ namespace AuthMicroService.Tests.Integration_tests
             var model = CreateValidSignUpModel();
 
             _authWebAppFixture.AuthServiceMock
-                .Setup(x => x.SignUp(It.IsAny<SignUpModel>()))
+                .Setup(x => x.SignUpAsync(It.IsAny<SignUpModel>()))
                 .ThrowsAsync(new InvalidOperationException());
 
             //Act

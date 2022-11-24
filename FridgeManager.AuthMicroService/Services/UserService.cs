@@ -76,6 +76,7 @@ namespace FridgeManager.AuthMicroService.Services
                 UserName = user.UserName,
                 Email = user.Email,
                 Status = user.Status,
+                EmailConfirmed = user.EmailConfirmed,
                 Roles = user.UserRoles.Select(x => x.Role.Name),
             });
     }

@@ -13,16 +13,14 @@ namespace FridgeManager.AuthMicroService.Controllers
         private readonly IAuthService _authService;
 
         public AccountController(IAuthService authService)
-        {
-            _authService = authService;
-        }
+            => _authService = authService;
 
         [HttpPost]
         public async Task<IActionResult> SignIn(SignInModel model)
         {
             try
             {
-                return Ok(await _authService.SignIn(model));
+                return Ok(await _authService.SignInAsync(model));
             }
             catch (InvalidOperationException e)
             {
@@ -37,7 +35,23 @@ namespace FridgeManager.AuthMicroService.Controllers
         {
             try
             {
-                return Ok(await _authService.SignUp(model));
+                return Ok(await _authService.SignUpAsync(model));
+            }
+            catch (InvalidOperationException e)
+            {
+                ModelState.AddModelError(string.Empty, e.Message);
+
+                return ValidationProblem(ModelState);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ConfirmEmail(EmailConfirmModel model)
+        {
+            try
+            {
+                await _authService.ConfirmEmailAsync(model);
+                return Ok();
             }
             catch (InvalidOperationException e)
             {
