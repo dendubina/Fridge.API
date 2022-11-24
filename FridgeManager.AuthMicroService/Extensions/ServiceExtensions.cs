@@ -52,7 +52,7 @@ namespace FridgeManager.AuthMicroService.Extensions
             services.Configure<EmailOptions>(config.GetSection(nameof(EmailOptions)));
 
             services.AddScoped<ISmtpClient, SmtpClient>();
-            services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IConfirmationMessageService, EmailService>();
         }
 
         public static void ConfigureMessageBroker(this IServiceCollection services, IConfiguration config, IWebHostEnvironment env)

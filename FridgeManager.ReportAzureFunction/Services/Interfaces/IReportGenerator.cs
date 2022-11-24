@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.IO;
 using FridgeManager.ReportAzureFunction.Models;
 
 namespace FridgeManager.ReportAzureFunction.Services.Interfaces
 {
     internal interface IReportGenerator
     {
-        Task GenerateReportAsync(User user, IEnumerable<Fridge> fridges);
+        Stream GenerateReport(User user, IEnumerable<Fridge> fridges);
     }
 }

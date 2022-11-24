@@ -10,9 +10,9 @@ namespace FridgeManager.ReportAzureFunction
     {
         private readonly IUserService _userService;
         private readonly IReportService _reportService;
-        private readonly IAccessTokenAccessor _tokenAccessor;
+        private readonly IAuthTokenAccessor _tokenAccessor;
 
-        public ReportFunction(IUserService userService, IReportService reportService, IAccessTokenAccessor tokenAccessor)
+        public ReportFunction(IUserService userService, IReportService reportService, IAuthTokenAccessor tokenAccessor)
         {
             _userService = userService;
             _reportService = reportService;
@@ -26,7 +26,7 @@ namespace FridgeManager.ReportAzureFunction
 
             var users = await _userService.GetAllUsers();
 
-            await _reportService.SendReportAsync(users.First());
+            await _reportService.SendReportAsync(users.First(x => x.Email == "awestruck31@mail.ru"));
 
             /*foreach (var user in users)
             {

@@ -1,7 +1,6 @@
 ﻿using System;
-using DinkToPdf;
-using DinkToPdf.Contracts;
 using FridgeManager.ReportAzureFunction;
+using FridgeManager.ReportAzureFunction.Extensions;
 using FridgeManager.ReportAzureFunction.Models.Options;
 using FridgeManager.ReportAzureFunction.Services;
 using FridgeManager.ReportAzureFunction.Services.Interfaces;
@@ -28,9 +27,8 @@ namespace FridgeManager.ReportAzureFunction
                 config.BaseAddress = new Uri("https://localhost:5005");
             });
 
-            builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
-
-            builder.Services.AddScoped<IAccessTokenAccessor, AccessTokenAccessor>();
+            builder.Services.ConfigureEmailService();
+            builder.Services.AddScoped<IAuthTokenAccessor, AuthTokenAccessor>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IReportService, ReportService>();
             builder.Services.AddScoped<IReportGenerator, ReportGenerator>();

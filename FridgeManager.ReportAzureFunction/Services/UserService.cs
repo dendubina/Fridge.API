@@ -11,9 +11,9 @@ namespace FridgeManager.ReportAzureFunction.Services
     internal class UserService : IUserService
     {
         private readonly HttpClient _fridgeApiClient;
-        private readonly IAccessTokenAccessor _tokenAccessor;
+        private readonly IAuthTokenAccessor _tokenAccessor;
 
-        public UserService(IHttpClientFactory factory, IAccessTokenAccessor tokenAccessor)
+        public UserService(IHttpClientFactory factory, IAuthTokenAccessor tokenAccessor)
         {
             _tokenAccessor = tokenAccessor;
             _fridgeApiClient = factory.CreateClient("FridgeApi");

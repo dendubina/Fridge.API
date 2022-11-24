@@ -2,7 +2,7 @@
 
 namespace FridgeManager.ReportAzureFunction.Services.Interfaces
 {
-    internal interface IAccessTokenAccessor
+    internal interface IAuthTokenAccessor
     {
         Task<string> GetAccessTokenAsync();
     }

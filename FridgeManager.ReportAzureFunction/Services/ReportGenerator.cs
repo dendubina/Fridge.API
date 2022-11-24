@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
-using DinkToPdf.Contracts;
 using FridgeManager.ReportAzureFunction.Models;
 using FridgeManager.ReportAzureFunction.Services.Interfaces;
 using GemBox.Document;
@@ -11,51 +9,76 @@ namespace FridgeManager.ReportAzureFunction.Services
 {
     internal class ReportGenerator : IReportGenerator
     {
-        private readonly IConverter _converter;
-
-        public ReportGenerator(IConverter converter)
-        {
-            _converter = converter;
-        }
-
-        public Task GenerateReportAsync(User user, IEnumerable<Fridge> fridges)
+        public Stream GenerateReport(User user, IEnumerable<Fridge> fridges)
         {
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
-
             var htmlLoadOptions = new HtmlLoadOptions();
 
-            using (var htmlStream = new MemoryStream(htmlLoadOptions.Encoding.GetBytes(GetReport())))
-            {
-                var document = DocumentModel.Load(htmlStream, htmlLoadOptions);
+            using var htmlStream = new MemoryStream(htmlLoadOptions.Encoding.GetBytes(CreateHtmlReport(user, fridges)));
 
-                document.Save("D://Output.pdf");
-            }
+            var document = DocumentModel.Load(htmlStream, htmlLoadOptions);
 
-            return Task.CompletedTask;
+            var result = new MemoryStream();
+
+            // document.Save(result, new PdfSaveOptions());
+            document.Save("D://Output.pdf");
+
+            return result;
         }
 
-        private string GetReport()
+        private static string CreateHtmlReport(User user, IEnumerable<Fridge> fridges)
         {
             var builder = new StringBuilder();
 
             builder.Append(@"
-        <div>
-        <h3>Your pdf report</h3>
-        </div>
-      <table>
-        <tr>
+                    <html>
+                        <style>
+                            table
+                                {
+                                    margin: 0 auto;
+                                }
+                            .report-table
+                                {
+                                  text-align: center;
+                                  border: 1px solid seagreen;
+                                }
+                            .products-table
+                                {
+                                  border: 1px solid sandybrown;
+                                }
+                            .report-header
+                                {
+                                  text-align: center;
+                                  color: green;
+                                  padding-bottom: 10px;
+                                }
+                        </style>");
+
+            builder.Append($@"
+                    <body>
+                    <div class='report-header'>Hello, {user.UserName}, this is your weekly report</div>
+<table class='report-table'>
+<tr>
           <th>Fridge Name</th>
           <th>Fridge Model</th>
           <th>Products</th>
-        </tr>
-        <tr>
-         <td>
-          someName
-         </td>
-         <td>
-          someModel
-         </td>
-         <td>
+</tr>
+");
+
+            foreach (var fridge in fridges)
+            {
+                builder.Append($@"
+<tr>
+<td>{fridge.Name}</td>
+<td>{fridge.ModelName} {fridge.ModelYear}</td>
+</tr>
+");
+                builder.Append(@"<table></table>");
+            }
+
+            
+            
+            builder.Append(@"      
           <table>
             <tr>
               <th>Name</th>
@@ -70,6 +93,8 @@ namespace FridgeManager.ReportAzureFunction.Services
         </tr>
         
       </table>
+</body>
+</html>
 ");
             return builder.ToString();
         }

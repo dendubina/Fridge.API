@@ -26,7 +26,7 @@ namespace FridgeManager.AuthMicroService.Services
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IPublishEndpoint _publishEndpoint;
-        private readonly IEmailService _emailService;
+        private readonly IConfirmationMessageService _emailService;        
         private readonly JwtOptions _jwtOptions;
 
         public AuthService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtOptions> jwtOptions, IEmailService emailService, IPublishEndpoint publishEndpoint)

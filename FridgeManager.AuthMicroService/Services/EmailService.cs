@@ -10,7 +10,7 @@ using MimeKit;
 
 namespace FridgeManager.AuthMicroService.Services
 {
-    public class EmailService : IEmailService
+    public class EmailService : IConfirmationMessageService
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly EmailOptions _options;
@@ -23,7 +23,7 @@ namespace FridgeManager.AuthMicroService.Services
             _userManager = userManager;
         }
 
-        public async Task SendEmailConfirmationMessageAsync(ApplicationUser user)
+        public async Task SendConfirmationMessageAsync(ApplicationUser user)
         {
 
             await _client.ConnectAsync(_options.Host, _options.Port);
