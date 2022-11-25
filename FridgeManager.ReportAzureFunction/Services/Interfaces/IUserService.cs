@@ -6,6 +6,6 @@ namespace FridgeManager.ReportAzureFunction.Services.Interfaces
 {
     internal interface IUserService
     {
-        Task<IEnumerable<User>> GetAllUsers();
+        Task<IEnumerable<User>> GetAllUsersAsync();
     }
 }

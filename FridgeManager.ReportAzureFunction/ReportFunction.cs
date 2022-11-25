@@ -1,37 +1,38 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
+using FridgeManager.ReportAzureFunction.Models;
 using FridgeManager.ReportAzureFunction.Services.Interfaces;
 using Microsoft.Azure.WebJobs;
 
-namespace FridgeManager.ReportAzureFunction
+namespace FridgeManager.ReportAzureFunction;
+
+internal class ReportFunction
 {
-    internal class ReportFunction
+    private readonly IUserService _userService;
+    private readonly IReportService _reportService;
+    private readonly IFridgeService _fridgeService;
+
+    public ReportFunction(IUserService userService, IReportService reportService, IFridgeService fridgeService)
     {
-        private readonly IUserService _userService;
-        private readonly IReportService _reportService;
-        private readonly IAuthTokenAccessor _tokenAccessor;
+        _userService = userService;
+        _reportService = reportService;
+        _fridgeService = fridgeService;
+    }
 
-        public ReportFunction(IUserService userService, IReportService reportService, IAuthTokenAccessor tokenAccessor)
+    [FunctionName("ReportFunction")]
+    public async Task RunAsync([TimerTrigger("0 0 * * 0", RunOnStartup = true)] TimerInfo myTimer)
+    {
+        var users = await _userService.GetAllUsersAsync();
+
+        foreach (var user in users.Where(x => x.EmailConfirmed))
         {
-            _userService = userService;
-            _reportService = reportService;
-            _tokenAccessor = tokenAccessor;
-        }
+            var result = await _fridgeService.GetUserFridges(user);
+            var userFridges = result as Fridge[] ?? result.ToArray();
 
-        [FunctionName("ReportFunction")]
-        public async Task RunAsync([TimerTrigger("0 0 * * 0", RunOnStartup = true)] TimerInfo myTimer)
-        {
-            Console.WriteLine(await _tokenAccessor.GetAccessTokenAsync());
-
-            var users = await _userService.GetAllUsers();
-
-            await _reportService.SendReportAsync(users.First(x => x.Email == "awestruck31@mail.ru"));
-
-            /*foreach (var user in users)
+            if (userFridges.Any())
             {
-                await _reportService.SendReportAsync(user);
-            }*/
+                await _reportService.SendReportAsync(user, userFridges);
+            }
         }
     }
 }

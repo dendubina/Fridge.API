@@ -29,10 +29,13 @@ namespace FridgeManager.ReportAzureFunction
             });
 
             builder.Services.ConfigureEmailService();
+
+            builder.Services.ConfigureReportGenerator();
+
             builder.Services.AddScoped<IAuthTokenAccessor, AuthTokenAccessor>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IReportService, ReportService>();
-            builder.Services.AddScoped<IReportGenerator, ReportGenerator>();
+            builder.Services.AddScoped<IFridgeService, FridgeService>();
         }
     }
 }

@@ -3,7 +3,7 @@ using System.IO;
 
 namespace FridgeManager.ReportAzureFunction.Models
 {
-    internal class ReportGenerationResult : IDisposable
+    internal class Report : IDisposable
     {
         public string MediaType { get; }
 
@@ -11,7 +11,7 @@ namespace FridgeManager.ReportAzureFunction.Models
 
         public Stream Content { get; }
 
-        public ReportGenerationResult(string mediaType, string subMediaType, Stream content)
+        public Report(string mediaType, string subMediaType, Stream content)
         {
             MediaType = mediaType;
             SubMediaType = subMediaType;

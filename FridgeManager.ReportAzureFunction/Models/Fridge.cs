@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace FridgeManager.ReportAzureFunction.Models
 {
@@ -17,6 +18,7 @@ namespace FridgeManager.ReportAzureFunction.Models
 
         public int ModelYear { get; set; }
 
+        [JsonPropertyName("fridgeProducts")]
         public IEnumerable<Product> Products { get; set; }
     }
 }

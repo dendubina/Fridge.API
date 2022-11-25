@@ -27,7 +27,7 @@ namespace FridgeManager.ReportAzureFunction.Services
             _smtpClient.Authenticate(_emailOptions.UserName, _emailOptions.Password);
         }
 
-        public async Task SendReportAsync(User user)
+        public async Task SendReportAsync(User user, IEnumerable<Fridge> userFridges)
         {
             var message = new MimeMessage
             {
@@ -36,7 +36,7 @@ namespace FridgeManager.ReportAzureFunction.Services
                 Subject = "Weekly fridges report"
             };
 
-            using var report = _reportGenerator.GenerateReport(user, GetSampleFridges());
+            using var report = _reportGenerator.GenerateReport(user, userFridges);
 
             var attachment = new MimePart(report.MediaType, report.SubMediaType)
             {
@@ -53,40 +53,6 @@ namespace FridgeManager.ReportAzureFunction.Services
         {
             _smtpClient.DisconnectAsync(quit: true);
             _smtpClient.Dispose();
-        }
-
-        private static IEnumerable<Fridge> GetSampleFridges()
-        {
-            return new List<Fridge>()
-            {
-                new Fridge()
-                {
-                    ModelName = "modelNae",
-                    Name = "fridge name",
-                    ModelYear = 1234,
-
-                    Products = new List<Product>
-                    {
-                        new Product()
-                        {
-                            ProductName = "apple",
-                            Quantity = 1,
-                        },
-                        new Product()
-                        {
-                            ProductName = "kartoshka",
-                            Quantity = 5,
-                        }
-                    }
-                },
-                new Fridge()
-                {
-                    ModelName = "modelNae2",
-                    Name = "fridge name2",
-                    ModelYear = 12342,
-                    Products = new List<Product>(),
-                }
-            };
         }
     }
 }
