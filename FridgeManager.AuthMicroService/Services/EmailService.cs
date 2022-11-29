@@ -25,7 +25,6 @@ namespace FridgeManager.AuthMicroService.Services
 
         public async Task SendConfirmationMessageAsync(ApplicationUser user)
         {
-
             await _client.ConnectAsync(_options.Host, _options.Port);
             await _client.AuthenticateAsync(_options.UserName, _options.Password);
 
