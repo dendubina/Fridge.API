@@ -36,9 +36,13 @@ namespace FridgeManager.AuthMicroService.Services
                 query = query.Where(x => x.EmailConfirmed);
             }
 
+            if (parameters.MailingConfirmed)
+            {
+                query = query.Where(x => x.MailingConfirmed);
+            }
+
             return await SelectUserToReturn(query).ToListAsync();
         }
-           
 
         public async Task ChangeStatusAsync(Guid userId, UserStatus status)
         {
@@ -88,6 +92,7 @@ namespace FridgeManager.AuthMicroService.Services
                 Email = user.Email,
                 Status = user.Status,
                 EmailConfirmed = user.EmailConfirmed,
+                MailingConfirmed = user.MailingConfirmed,
                 Roles = user.UserRoles.Select(x => x.Role.Name),
             });
     }

@@ -14,10 +14,12 @@ namespace FridgeManager.AuthMicroService
     public class Startup
     {
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; }
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -38,6 +40,8 @@ namespace FridgeManager.AuthMicroService
             services.AddControllers();
 
             services.ConfigureFluentValidationFromAssemblyContaining<ChangeStatusModelValidator>();
+
+            services.ConfigureMessageBroker(Configuration, Environment);
 
             services.ConfigureSwagger();
         }

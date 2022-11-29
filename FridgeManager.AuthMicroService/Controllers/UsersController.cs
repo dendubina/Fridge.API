@@ -4,6 +4,7 @@ using FridgeManager.AuthMicroService.EF.Constants;
 using FridgeManager.AuthMicroService.Models.DTO;
 using FridgeManager.AuthMicroService.Models.Request;
 using FridgeManager.AuthMicroService.Services.Interfaces;
+using FridgeManager.Shared.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,7 @@ namespace FridgeManager.AuthMicroService.Controllers
             _userService = userService;
         }
 
+        [Authorize(Roles = nameof(RoleNames.Admin))]
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery]UserRequestParameters parameters)
             => Ok(await _userService.GetAllAsync(parameters));
@@ -31,9 +33,15 @@ namespace FridgeManager.AuthMicroService.Controllers
         {
             var user = await _userService.FindByIdAsync(userId);
 
+            if (!User.IsInRole(nameof(RoleNames.Admin)) || User.GetUserId() != userId.ToString())
+            {
+                return Forbid();
+            }
+
             return user is null ? NotFound() : Ok(user);
         }
 
+        [Authorize(Roles = nameof(RoleNames.Admin))]
         [HttpPatch]
         [Route("{userId:guid}/[action]")]
         public async Task<IActionResult> ChangeStatus(Guid userId, ChangeStatusModel model)
@@ -50,6 +58,7 @@ namespace FridgeManager.AuthMicroService.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = nameof(RoleNames.Admin))]
         [HttpPatch]
         [Route("{userId:guid}/[action]")]
         public async Task<IActionResult> AddRole(Guid userId, ChangeRoleModel model)
@@ -66,6 +75,7 @@ namespace FridgeManager.AuthMicroService.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = nameof(RoleNames.Admin))]
         [HttpPatch]
         [Route("{userId:guid}/[action]")]
         public async Task<IActionResult> RemoveRole(Guid userId, ChangeRoleModel model)
@@ -87,6 +97,11 @@ namespace FridgeManager.AuthMicroService.Controllers
         public async Task<IActionResult> Update(Guid userId, UserToUpdate model)
         {
             var user = await _userService.FindByIdAsync(userId);
+
+            if (!User.IsInRole(nameof(RoleNames.Admin)) || User.GetUserId() != userId.ToString())
+            {
+                return Forbid();
+            }
 
             if (user is null)
             {

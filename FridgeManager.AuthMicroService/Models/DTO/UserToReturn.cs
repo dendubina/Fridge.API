@@ -14,6 +14,8 @@ namespace FridgeManager.AuthMicroService.Models.DTO
 
         public bool EmailConfirmed { get; set; }
 
+        public bool MailingConfirmed { get; set; }
+
         public UserStatus Status { get; set; }
 
         public IEnumerable<string> Roles { get; set; }

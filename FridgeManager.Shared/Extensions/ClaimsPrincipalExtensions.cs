@@ -10,5 +10,8 @@ namespace FridgeManager.Shared.Extensions
 
         public static string GetUserEmail(this ClaimsPrincipal claimsPrincipal)
             => claimsPrincipal.Claims.First(x => x.Type == "preferred_username").ToString();
+
+        public static string GetUserId(this ClaimsPrincipal claimsPrincipal)
+            => claimsPrincipal.Claims.First(x => x.Type == "id").Value.ToString();
     }
 }

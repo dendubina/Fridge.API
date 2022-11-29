@@ -4,10 +4,13 @@ using FridgeManager.AuthMicroService.Options;
 using FridgeManager.AuthMicroService.Services;
 using FridgeManager.AuthMicroService.Services.Interfaces;
 using MailKit.Net.Smtp;
+using MassTransit;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace FridgeManager.AuthMicroService.Extensions
 {
@@ -50,6 +53,39 @@ namespace FridgeManager.AuthMicroService.Extensions
 
             services.AddScoped<ISmtpClient, SmtpClient>();
             services.AddScoped<IEmailService, EmailService>();
+        }
+
+        public static void ConfigureMessageBroker(this IServiceCollection services, IConfiguration config, IWebHostEnvironment env)
+        {
+            services.AddMassTransit(x =>
+            {
+                if (env.IsDevelopment())
+                {
+                    x.UsingRabbitMq((context, cfg) =>
+                    {
+                        cfg.Host("localhost", "/", h =>
+                        {
+                            h.Username("user");
+                            h.Password("user");
+                        });
+                        cfg.ConfigureEndpoints(context);
+                    });
+                }
+                else
+                {
+                    x.UsingAzureServiceBus((context, cfg) =>
+                    {
+                        cfg.Host(config["BusEndpoint"]);
+                        cfg.ConfigureEndpoints(context);
+                    });
+                }
+            });
+
+            /* services.AddOptions<MassTransitHostOptions>().Configure(options =>
+             {
+                 options.WaitUntilStarted = true;
+                 options.StartTimeout = TimeSpan.FromSeconds(5);
+             });*/
         }
     }
 }

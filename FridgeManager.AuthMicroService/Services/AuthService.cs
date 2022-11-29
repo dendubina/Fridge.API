@@ -12,6 +12,9 @@ using FridgeManager.AuthMicroService.Models;
 using FridgeManager.AuthMicroService.Models.Request;
 using FridgeManager.AuthMicroService.Options;
 using FridgeManager.AuthMicroService.Services.Interfaces;
+using FridgeManager.Shared.Models;
+using FridgeManager.Shared.Models.Constants;
+using MassTransit;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -22,14 +25,16 @@ namespace FridgeManager.AuthMicroService.Services
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IPublishEndpoint _publishEndpoint;
         private readonly IEmailService _emailService;
         private readonly JwtOptions _jwtOptions;
 
-        public AuthService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtOptions> jwtOptions, IEmailService emailService)
+        public AuthService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtOptions> jwtOptions, IEmailService emailService, IPublishEndpoint publishEndpoint)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailService = emailService;
+            _publishEndpoint = publishEndpoint;
             _jwtOptions = jwtOptions.Value;
         }
 
@@ -75,6 +80,7 @@ namespace FridgeManager.AuthMicroService.Services
 
             var createdUser = await _userManager.FindByEmailAsync(userData.Email);
 
+            await _publishEndpoint.Publish(CreateSharedUser(createdUser, ActionType.Create));
             await _emailService.SendEmailConfirmationMessageAsync(createdUser);
 
             return await CreateProfile(createdUser);
@@ -97,6 +103,8 @@ namespace FridgeManager.AuthMicroService.Services
 
                 throw new InvalidOperationException(message);
             }
+
+            await _publishEndpoint.Publish(CreateSharedUser(user, ActionType.Update));
         }
 
         private async Task<UserProfile> CreateProfile(ApplicationUser user)
@@ -106,6 +114,17 @@ namespace FridgeManager.AuthMicroService.Services
                 UserName = user.UserName,
                 Email = user.Email,
                 JwtToken = new JwtSecurityTokenHandler().WriteToken(await GenerateJwtTokenAsync(user))
+            };
+
+        private SharedUser CreateSharedUser(ApplicationUser user, ActionType actionType)
+            => new SharedUser
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                EmailConfirmed = user.EmailConfirmed,
+                MailingConfirmed = user.MailingConfirmed,
+                ActionType = actionType,
             };
 
         private async Task<JwtSecurityToken> GenerateJwtTokenAsync(ApplicationUser user)
@@ -129,6 +148,7 @@ namespace FridgeManager.AuthMicroService.Services
             {
                 new("preferred_username", user.Email),
                 new("name", user.UserName),
+                new("id", user.Id.ToString()),
             };
 
             var roles = await _userManager.GetRolesAsync(user);
