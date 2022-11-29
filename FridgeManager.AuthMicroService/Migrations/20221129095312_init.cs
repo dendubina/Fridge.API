@@ -156,17 +156,17 @@ namespace FridgeManager.AuthMicroService.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("0f2e668f-9378-47a7-8aaf-831b46921073"), "fd658cd7-7695-4584-9e42-f6dbd245d469", "User", "USER" });
+                values: new object[] { new Guid("0f2e668f-9378-47a7-8aaf-831b46921073"), "8ea1ec39-7c96-4916-9ba4-9c1c244c9f6c", "User", "USER" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("71efaeea-3b0b-49e4-a0fe-136bb7c1d29c"), "bc6b577c-a361-4ab9-8606-cc8db61e567e", "Admin", "ADMIN" });
+                values: new object[] { new Guid("71efaeea-3b0b-49e4-a0fe-136bb7c1d29c"), "7d527720-e39c-4cc8-82cc-dda545aafd60", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("eaebb81d-d857-4928-82a2-2528d9148aa4"), "e8272450-45c8-41ce-90ab-f6dc9396864e", "Tester", "TESTER" });
+                values: new object[] { new Guid("eaebb81d-d857-4928-82a2-2528d9148aa4"), "9de2381e-ba49-4fe0-bada-02ac2cbbc6b9", "Tester", "TESTER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

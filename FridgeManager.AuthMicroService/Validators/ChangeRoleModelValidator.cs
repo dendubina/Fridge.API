@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using FridgeManager.AuthMicroService.EF.Constants;
-using FridgeManager.AuthMicroService.Models;
+using FridgeManager.AuthMicroService.Models.Request;
 
 namespace FridgeManager.AuthMicroService.Validators
 {

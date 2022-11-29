@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using FridgeManager.AuthMicroService.Models;
+using FridgeManager.AuthMicroService.Models.Request;
 using FridgeManager.AuthMicroService.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

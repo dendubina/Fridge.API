@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using FridgeManager.AuthMicroService.EF.Constants;
-using FridgeManager.AuthMicroService.Models;
 using FridgeManager.AuthMicroService.Models.DTO;
+using FridgeManager.AuthMicroService.Models.Request;
 using FridgeManager.AuthMicroService.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,8 +22,8 @@ namespace FridgeManager.AuthMicroService.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
-            => Ok(await _userService.GetAllAsync());
+        public async Task<IActionResult> GetAll([FromQuery]UserRequestParameters parameters)
+            => Ok(await _userService.GetAllAsync(parameters));
 
         [HttpGet]
         [Route("{userId:guid}")]

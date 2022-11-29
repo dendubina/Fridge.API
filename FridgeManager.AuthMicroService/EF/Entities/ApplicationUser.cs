@@ -9,6 +9,8 @@ namespace FridgeManager.AuthMicroService.EF.Entities
     {
         public UserStatus Status { get; set; }
 
+        public bool MailingConfirmed { get; set; }
+
         public ICollection<UserRole> UserRoles { get; set; }
     }
 }

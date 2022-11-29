@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FridgeManager.AuthMicroService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221112061508_init")]
-    partial class init
+    [Migration("20221129095934_added-mailing-confirm-property-for-users")]
+    partial class addedmailingconfirmpropertyforusers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -52,21 +52,21 @@ namespace FridgeManager.AuthMicroService.Migrations
                         new
                         {
                             Id = new Guid("0f2e668f-9378-47a7-8aaf-831b46921073"),
-                            ConcurrencyStamp = "fd658cd7-7695-4584-9e42-f6dbd245d469",
+                            ConcurrencyStamp = "a9e22f61-9d3d-4a94-be1c-931bae76beb5",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = new Guid("71efaeea-3b0b-49e4-a0fe-136bb7c1d29c"),
-                            ConcurrencyStamp = "bc6b577c-a361-4ab9-8606-cc8db61e567e",
+                            ConcurrencyStamp = "e99944be-3992-49c2-8dbe-63513b3417ae",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("eaebb81d-d857-4928-82a2-2528d9148aa4"),
-                            ConcurrencyStamp = "e8272450-45c8-41ce-90ab-f6dc9396864e",
+                            ConcurrencyStamp = "909bbe49-bb28-443a-b473-79ab421ed836",
                             Name = "Tester",
                             NormalizedName = "TESTER"
                         });
@@ -97,6 +97,9 @@ namespace FridgeManager.AuthMicroService.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("MailingConfirmed")
+                        .HasColumnType("bit");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)

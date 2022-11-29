@@ -8,6 +8,7 @@ using AuthMicroService.Tests.Integration_tests.Fixtures;
 using AutoFixture;
 using FluentAssertions;
 using FridgeManager.AuthMicroService.Models;
+using FridgeManager.AuthMicroService.Models.Request;
 using Moq;
 using Xunit;
 

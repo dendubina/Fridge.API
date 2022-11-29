@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using FridgeManager.AuthMicroService.Models;
+using FridgeManager.AuthMicroService.Models.Request;
 
 namespace FridgeManager.AuthMicroService.Services.Interfaces
 {

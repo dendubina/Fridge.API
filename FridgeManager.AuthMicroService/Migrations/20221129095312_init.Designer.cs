@@ -4,14 +4,16 @@ using FridgeManager.AuthMicroService.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FridgeManager.AuthMicroService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221129095312_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,21 +52,21 @@ namespace FridgeManager.AuthMicroService.Migrations
                         new
                         {
                             Id = new Guid("0f2e668f-9378-47a7-8aaf-831b46921073"),
-                            ConcurrencyStamp = "a9e22f61-9d3d-4a94-be1c-931bae76beb5",
+                            ConcurrencyStamp = "8ea1ec39-7c96-4916-9ba4-9c1c244c9f6c",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = new Guid("71efaeea-3b0b-49e4-a0fe-136bb7c1d29c"),
-                            ConcurrencyStamp = "e99944be-3992-49c2-8dbe-63513b3417ae",
+                            ConcurrencyStamp = "7d527720-e39c-4cc8-82cc-dda545aafd60",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("eaebb81d-d857-4928-82a2-2528d9148aa4"),
-                            ConcurrencyStamp = "909bbe49-bb28-443a-b473-79ab421ed836",
+                            ConcurrencyStamp = "9de2381e-ba49-4fe0-bada-02ac2cbbc6b9",
                             Name = "Tester",
                             NormalizedName = "TESTER"
                         });
@@ -95,9 +97,6 @@ namespace FridgeManager.AuthMicroService.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
-
-                    b.Property<bool>("MailingConfirmed")
-                        .HasColumnType("bit");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)

@@ -9,6 +9,7 @@ using FridgeManager.AuthMicroService.EF.Constants;
 using FridgeManager.AuthMicroService.EF.Entities;
 using FridgeManager.AuthMicroService.Extensions;
 using FridgeManager.AuthMicroService.Models;
+using FridgeManager.AuthMicroService.Models.Request;
 using FridgeManager.AuthMicroService.Options;
 using FridgeManager.AuthMicroService.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -58,6 +59,7 @@ namespace FridgeManager.AuthMicroService.Services
                 UserName = userData.UserName,
                 Email = userData.Email,
                 Status = UserStatus.Active,
+                MailingConfirmed = true,
             };
 
             var result = await _userManager.CreateAsync(userToCreate, userData.Password);

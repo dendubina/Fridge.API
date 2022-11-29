@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using FridgeManager.AuthMicroService.Models;
+using FridgeManager.AuthMicroService.Models.Request;
 
 namespace FridgeManager.AuthMicroService.Validators
 {

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FridgeManager.AuthMicroService.EF.Constants;
 using FridgeManager.AuthMicroService.EF.Entities;
 using FridgeManager.AuthMicroService.Models.DTO;
+using FridgeManager.AuthMicroService.Models.Request;
 using FridgeManager.AuthMicroService.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -26,8 +27,18 @@ namespace FridgeManager.AuthMicroService.Services
             return SelectUserToReturn(query).FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<UserToReturn>> GetAllAsync()
-            => await SelectUserToReturn(_userManager.Users).ToListAsync();
+        public async Task<IEnumerable<UserToReturn>> GetAllAsync(UserRequestParameters parameters)
+        {
+            var query = _userManager.Users;
+
+            if (parameters.EmailConfirmed)
+            {
+                query = query.Where(x => x.EmailConfirmed);
+            }
+
+            return await SelectUserToReturn(query).ToListAsync();
+        }
+           
 
         public async Task ChangeStatusAsync(Guid userId, UserStatus status)
         {
