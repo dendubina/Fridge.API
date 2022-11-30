@@ -63,10 +63,9 @@ namespace FridgeManager.FridgesMicroService.Controllers
             }
 
             var entity = _mapper.Map<Fridge>(model);
-            entity.OwnerName = User.GetUserName();
-            entity.OwnerEmail = User.GetUserEmail();
+            entity.OwnerId = new Guid(User.GetUserId());
 
-             _repository.Fridges.CreateFridge(entity);
+            _repository.Fridges.CreateFridge(entity);
             await _repository.SaveAsync();
 
             var fridgeToReturn = _mapper.Map<FridgeForReturnDto>(entity);

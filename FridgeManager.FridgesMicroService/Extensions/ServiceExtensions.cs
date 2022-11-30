@@ -33,6 +33,7 @@ namespace FridgeManager.FridgesMicroService.Extensions
             services.AddMassTransit(x =>
             {
                 x.AddConsumer<ProductConsumer>();
+                x.AddConsumer<UsersConsumer>();
 
                 if (env.IsDevelopment())
                 {

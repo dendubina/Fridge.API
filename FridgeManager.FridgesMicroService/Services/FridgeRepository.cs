@@ -22,14 +22,25 @@ namespace FridgeManager.FridgesMicroService.Services
         {
             var query = FindAll(trackChanges);
 
+            if (parameters.OwnerEmailConfirmed)
+            {
+                query = query.Where(x => x.Owner.EmailConfirmed);
+            }
+
+            if (parameters.OwnerMailingConfirmed)
+            {
+                query = query.Where(x => x.Owner.MailingConfirmed);
+            }
+
             if (!string.IsNullOrWhiteSpace(parameters.OwnerEmail))
             {
-                query = query.Where(x => x.OwnerEmail == parameters.OwnerEmail);
+                query = query.Where(x => x.Owner.Email == parameters.OwnerEmail);
             }
 
             return await query
                 .Skip((parameters.PageNumber - 1) * parameters.PageSize)
                 .Take(parameters.PageSize)
+                .Include(x => x.Owner)
                 .Include(x => x.FridgeModel)
                 .Include(x => x.Products)
                 .ThenInclude(x => x.Product)

@@ -19,6 +19,8 @@ namespace FridgeManager.FridgesMicroService.EF
 
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<Owner> Owners { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

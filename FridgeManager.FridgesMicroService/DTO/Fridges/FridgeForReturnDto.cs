@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using FridgeManager.FridgesMicroService.DTO.FridgeProducts;
+using FridgeManager.FridgesMicroService.DTO.Owner;
 
 namespace FridgeManager.FridgesMicroService.DTO.Fridges
 {
@@ -17,5 +18,7 @@ namespace FridgeManager.FridgesMicroService.DTO.Fridges
         public int ModelYear { get; set; }
 
         public IEnumerable<FridgeProductForReturnDto> FridgeProducts { get; set; }
+
+        public OwnerForReturnDto Owner { get; set; }
     }
 }

@@ -7,6 +7,9 @@ using FridgeManager.AuthMicroService.EF.Entities;
 using FridgeManager.AuthMicroService.Models.DTO;
 using FridgeManager.AuthMicroService.Models.Request;
 using FridgeManager.AuthMicroService.Services.Interfaces;
+using FridgeManager.Shared.Models;
+using FridgeManager.Shared.Models.Constants;
+using MassTransit;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,9 +18,13 @@ namespace FridgeManager.AuthMicroService.Services
     public class UserService : IUserService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        readonly IPublishEndpoint _publishEndpoint;
 
-        public UserService(UserManager<ApplicationUser> userManager)
-            => _userManager = userManager;
+        public UserService(UserManager<ApplicationUser> userManager, IPublishEndpoint publishEndpoint)
+        {
+            _userManager = userManager;
+            _publishEndpoint = publishEndpoint;
+        }
 
         public Task<UserToReturn> FindByIdAsync(Guid userId)
         {
@@ -82,6 +89,8 @@ namespace FridgeManager.AuthMicroService.Services
 
                 throw new InvalidOperationException(message);
             }
+
+            await _publishEndpoint.Publish(CreateSharedUser(entityUser));
         }
 
         private static IQueryable<UserToReturn> SelectUserToReturn(IQueryable<ApplicationUser> query)
@@ -95,5 +104,16 @@ namespace FridgeManager.AuthMicroService.Services
                 MailingConfirmed = user.MailingConfirmed,
                 Roles = user.UserRoles.Select(x => x.Role.Name),
             });
+
+        private SharedUser CreateSharedUser(ApplicationUser user)
+            => new()
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                EmailConfirmed = user.EmailConfirmed,
+                Email = user.Email,
+                MailingConfirmed = user.MailingConfirmed,
+                ActionType = ActionType.Update,
+            };
     }
 }

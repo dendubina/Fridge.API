@@ -13,10 +13,10 @@ namespace FridgeManager.FridgesMicroService.EF.Entities
         public string Name { get; set; }
 
         [Required]
-        public string OwnerName { get; set; }
+        [ForeignKey(nameof(Owner))]
+        public Guid OwnerId { get; set; }
 
-        [Required] 
-        public string OwnerEmail { get; set; }
+        public Owner Owner { get; set; }
 
         [Required]
         [ForeignKey(nameof(FridgeModel))]
