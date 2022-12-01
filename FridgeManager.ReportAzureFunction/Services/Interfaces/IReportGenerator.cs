@@ -5,6 +5,6 @@ namespace FridgeManager.ReportAzureFunction.Services.Interfaces
 {
     internal interface IReportGenerator
     {
-         Report GenerateReport(User user, IEnumerable<Fridge> fridges);
+         Report GenerateReport(Owner user, IEnumerable<Fridge> fridges);
     }
 }

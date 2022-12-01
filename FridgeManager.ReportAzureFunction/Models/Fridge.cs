@@ -10,13 +10,11 @@ namespace FridgeManager.ReportAzureFunction.Models
 
         public string Name { get; set; }
 
-        public string OwnerName { get; set; }
-
-        public string OwnerEmail { get; set; }
-
         public string ModelName { get; set; }
 
         public int ModelYear { get; set; }
+
+        public Owner Owner { get; set; }
 
         [JsonPropertyName("fridgeProducts")]
         public IEnumerable<Product> Products { get; set; }

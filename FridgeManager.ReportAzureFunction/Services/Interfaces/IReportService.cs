@@ -6,6 +6,6 @@ namespace FridgeManager.ReportAzureFunction.Services.Interfaces
 {
     internal interface IReportService
     {
-        Task SendReportAsync(User user, IEnumerable<Fridge> userFridges);
+        Task SendReportAsync(Owner user, IEnumerable<Fridge> userFridges);
     }
 }

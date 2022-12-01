@@ -9,7 +9,7 @@ namespace FridgeManager.ReportAzureFunction.Services
 {
     internal class ReportGenerator : IReportGenerator
     {
-        public Report GenerateReport(User user, IEnumerable<Fridge> fridges)
+        public Report GenerateReport(Owner user, IEnumerable<Fridge> fridges)
         {
             var htmlLoadOptions = new HtmlLoadOptions();
 
@@ -25,7 +25,7 @@ namespace FridgeManager.ReportAzureFunction.Services
             return new Report("application", "pdf", content);
         }
 
-        private static string CreateHtmlReport(User user, IEnumerable<Fridge> fridges)
+        private static string CreateHtmlReport(Owner user, IEnumerable<Fridge> fridges)
         {
             var stringBuilder = new StringBuilder();
 

@@ -27,7 +27,7 @@ namespace FridgeManager.ReportAzureFunction.Services
             _smtpClient.Authenticate(_emailOptions.UserName, _emailOptions.Password);
         }
 
-        public async Task SendReportAsync(User user, IEnumerable<Fridge> userFridges)
+        public async Task SendReportAsync(Owner user, IEnumerable<Fridge> userFridges)
         {
             var message = new MimeMessage
             {

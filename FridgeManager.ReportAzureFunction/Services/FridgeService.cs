@@ -17,9 +17,9 @@ namespace FridgeManager.ReportAzureFunction.Services
             _fridgeApiClient = factory.CreateClient("FridgeApi");
         }
 
-        public async Task<IEnumerable<Fridge>> GetUserFridges(User user)
+        public async Task<IEnumerable<Fridge>> GetFridgesForReport()
         {            
-            var response = await _fridgeApiClient.GetAsync($"/api/fridges?ownerEmail={user.Email}");
+            var response = await _fridgeApiClient.GetAsync($"/api/fridges?ownerEmailConfirmed=true&OwnerMailingConfirmed=true");
 
             var options = new JsonSerializerOptions
             {

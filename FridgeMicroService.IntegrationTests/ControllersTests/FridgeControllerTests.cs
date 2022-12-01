@@ -50,7 +50,6 @@ namespace FridgeMicroService.IntegrationTests.ControllersTests
                 Id = fridgeId,
                 Name = "MyFridge",
                 ModelName = "ModelName",
-                OwnerName = "Denis",
                 ModelYear = 2000,
                 FridgeProducts = new[]
                 {
