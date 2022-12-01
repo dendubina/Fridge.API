@@ -43,7 +43,7 @@ namespace FridgeManager.AuthMicroService.Extensions
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
 
-                options.User.RequireUniqueEmail = false;
+                options.User.RequireUniqueEmail = true;
             });
         }
 

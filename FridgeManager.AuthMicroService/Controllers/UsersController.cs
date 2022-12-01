@@ -33,12 +33,12 @@ namespace FridgeManager.AuthMicroService.Controllers
         {
             var user = await _userService.FindByIdAsync(userId);
 
-            if (!User.IsInRole(nameof(RoleNames.Admin)) || User.GetUserId() != userId.ToString())
+            if (User.IsInRole(nameof(RoleNames.Admin)) || User.GetUserId() == userId.ToString())
             {
-                return Forbid();
+                return user is null ? NotFound() : Ok(user);
             }
 
-            return user is null ? NotFound() : Ok(user);
+            return Forbid();
         }
 
         [Authorize(Roles = nameof(RoleNames.Admin))]
@@ -98,15 +98,15 @@ namespace FridgeManager.AuthMicroService.Controllers
         {
             var user = await _userService.FindByIdAsync(userId);
 
-            if (!User.IsInRole(nameof(RoleNames.Admin)) || User.GetUserId() != userId.ToString())
-            {
-                return Forbid();
-            }
-
             if (user is null)
             {
                 return NotFound();
             }
+
+            if (!User.IsInRole(nameof(RoleNames.Admin)) && User.GetUserId() != userId.ToString())
+            {
+                return Forbid();
+            } 
 
             try
             {

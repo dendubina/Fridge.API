@@ -24,7 +24,8 @@ namespace FridgeManager.OcelotApiGateway
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder =>
-                    builder.AllowAnyOrigin()
+                    builder
+                        .AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader());
             });

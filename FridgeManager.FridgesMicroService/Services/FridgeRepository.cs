@@ -46,7 +46,6 @@ namespace FridgeManager.FridgesMicroService.Services
                 .ThenInclude(x => x.Product)
                 .ToListAsync();
         }
-            
 
         public async Task<Fridge> GetFridgeAsync(Guid fridgeId, bool trackChanges)
             => await FindByCondition(x => x.Id.Equals(fridgeId), trackChanges)

@@ -80,6 +80,7 @@ namespace FridgeManager.AuthMicroService.Services
 
             entityUser.UserName = user.UserName;
             entityUser.Email = user.Email;
+            entityUser.MailingConfirmed = user.MailingConfirmed;
 
             var result = await _userManager.UpdateAsync(entityUser);
 
