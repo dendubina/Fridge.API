@@ -11,8 +11,6 @@ namespace FridgeManager.FridgesMicroService.DTO.Fridges
 
         public string Name { get; set; }
 
-        public string OwnerName { get; set; }
-
         public string ModelName { get; set; }
 
         public int ModelYear { get; set; }

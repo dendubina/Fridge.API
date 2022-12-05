@@ -26,14 +26,14 @@ namespace FridgeManager.AuthMicroService.Services
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IPublishEndpoint _publishEndpoint;
-        private readonly IEmailService _emailService;
+        private readonly IConfirmationMessageService _confirmationMessageService;        
         private readonly JwtOptions _jwtOptions;
 
-        public AuthService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtOptions> jwtOptions, IEmailService emailService, IPublishEndpoint publishEndpoint)
+        public AuthService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtOptions> jwtOptions, IConfirmationMessageService emailService, IPublishEndpoint publishEndpoint)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailService = emailService;
+            _confirmationMessageService = emailService;
             _publishEndpoint = publishEndpoint;
             _jwtOptions = jwtOptions.Value;
         }
@@ -81,7 +81,7 @@ namespace FridgeManager.AuthMicroService.Services
             var createdUser = await _userManager.FindByEmailAsync(userData.Email);
 
             await _publishEndpoint.Publish(CreateSharedUser(createdUser, ActionType.Create));
-            await _emailService.SendEmailConfirmationMessageAsync(createdUser);
+            await _confirmationMessageService.SendConfirmationMessageAsync(createdUser);
 
             return await CreateProfile(createdUser);
         }

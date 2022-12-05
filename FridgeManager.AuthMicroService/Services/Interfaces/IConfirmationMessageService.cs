@@ -3,8 +3,8 @@ using FridgeManager.AuthMicroService.EF.Entities;
 
 namespace FridgeManager.AuthMicroService.Services.Interfaces
 {
-    public interface IEmailService
+    public interface IConfirmationMessageService
     {
-        Task SendEmailConfirmationMessageAsync(ApplicationUser user);
+        Task SendConfirmationMessageAsync(ApplicationUser user);
     }
 }
