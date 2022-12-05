@@ -19,7 +19,7 @@ namespace FridgeManager.ReportAzureFunction.Services
 
         public async Task<IEnumerable<Fridge>> GetFridgesForReport()
         {            
-            var response = await _fridgeApiClient.GetAsync($"/api/fridges?ownerEmailConfirmed=true&OwnerMailingConfirmed=true");
+            var response = await _fridgeApiClient.GetAsync("/api/fridges?ownerEmailConfirmed=true&OwnerMailingConfirmed=true");
 
             var options = new JsonSerializerOptions
             {
