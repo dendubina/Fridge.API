@@ -9,9 +9,13 @@ using FridgeManager.FridgesMicroService.DTO.FridgeProducts;
 using FridgeManager.FridgesMicroService.DTO.Fridges;
 using FridgeManager.FridgesMicroService.DTO.Request;
 using FridgeManager.FridgesMicroService.EF.Entities;
+using FridgeManager.FridgesMicroService.Extensions;
+using FridgeManager.FridgesMicroService.Services.Options;
 using FridgeManager.Shared.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using StackExchange.Redis;
 
 namespace FridgeManager.FridgesMicroService.Controllers
 {
@@ -21,11 +25,15 @@ namespace FridgeManager.FridgesMicroService.Controllers
     {
         private readonly IUnitOfWork _repository;
         private readonly IMapper _mapper;
+        private readonly IDatabase _redis;
+        private readonly RedisOptions _redisOptions;
 
-        public FridgesController(IUnitOfWork repository, IMapper mapper)
+        public FridgesController(IUnitOfWork repository, IMapper mapper, IConnectionMultiplexer muxer, IOptions<RedisOptions> redisOpts)
         {
             _repository = repository;
             _mapper = mapper;
+            _redis = muxer.GetDatabase();
+            _redisOptions = redisOpts.Value;
         }
 
         [HttpGet]
@@ -47,6 +55,23 @@ namespace FridgeManager.FridgesMicroService.Controllers
             }
 
             return Ok(_mapper.Map<FridgeForReturnDto>(fridge));
+        }
+
+        [HttpGet("leaderboard")]
+        public async Task<IActionResult> GetLeaderBoard([FromQuery][Range(1, int.MaxValue)] int fridgesCount = 10)
+        {
+            var cachedFridges = await _redis.GetCachedListFromJsonAsync<FridgeLeaderBoardDto>(_redisOptions.LeaderBoardKey);
+
+            if (cachedFridges.Count() <= fridgesCount)
+            {
+                return Ok(cachedFridges.Take(fridgesCount));
+            }
+
+            var fridges = await _repository.Fridges.GetLeaderBoardAsync(fridgesCount);
+
+            await _redis.SetListToJsonStringAsync(_redisOptions.LeaderBoardKey, _redisOptions.LeaderBoardExpire, fridges);
+
+            return Ok(fridges);
         }
 
         [HttpPost]

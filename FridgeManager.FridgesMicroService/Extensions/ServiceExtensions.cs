@@ -3,12 +3,14 @@ using FridgeManager.FridgesMicroService.Contracts;
 using FridgeManager.FridgesMicroService.EF;
 using FridgeManager.FridgesMicroService.Services;
 using FridgeManager.FridgesMicroService.Services.Consumers;
+using FridgeManager.FridgesMicroService.Services.Options;
 using MassTransit;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using StackExchange.Redis;
 
 namespace FridgeManager.FridgesMicroService.Extensions
 {
@@ -67,6 +69,15 @@ namespace FridgeManager.FridgesMicroService.Extensions
                 options.WaitUntilStarted = true;
                 options.StartTimeout = TimeSpan.FromSeconds(5);
             });*/
+        }
+
+        public static void ConfigureRedis(this IServiceCollection services, IConfiguration config)
+        {
+            services.Configure<RedisOptions>(config.GetSection(nameof(RedisOptions)));
+
+            var opts = config.GetSection(nameof(RedisOptions)).Get<RedisOptions>();
+
+            services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect($"{opts.Host}:{opts.Port}"));
         }
     }
 }
