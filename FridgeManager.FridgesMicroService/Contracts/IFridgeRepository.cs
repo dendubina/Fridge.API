@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using FridgeManager.FridgesMicroService.DTO.Fridges;
 using FridgeManager.FridgesMicroService.DTO.Request;
 using FridgeManager.FridgesMicroService.EF.Entities;
 
@@ -14,6 +15,8 @@ namespace FridgeManager.FridgesMicroService.Contracts
         Task<Fridge> GetFridgeAsync(Guid fridgeId, bool trackChanges);
 
         Task<IEnumerable<Fridge>> GetByConditionAsync(Expression<Func<Fridge, bool>> expression, bool trackChanges);
+
+        Task<IEnumerable<FridgeLeaderBoardDto>> GetLeaderBoardAsync(int fridgesCount);
 
         void CreateFridge(Fridge fridge);
 

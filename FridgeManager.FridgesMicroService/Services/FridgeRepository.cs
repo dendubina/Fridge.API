@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using FridgeManager.FridgesMicroService.Contracts;
+using FridgeManager.FridgesMicroService.DTO.Fridges;
 using FridgeManager.FridgesMicroService.DTO.Request;
 using FridgeManager.FridgesMicroService.EF;
 using FridgeManager.FridgesMicroService.EF.Entities;
@@ -60,6 +61,18 @@ namespace FridgeManager.FridgesMicroService.Services
                     .Include(x => x.Products)
                     .ThenInclude(x => x.Product)
                     .ToListAsync();
+
+        public async Task<IEnumerable<FridgeLeaderBoardDto>> GetLeaderBoardAsync(int fridgesCount)
+            => await FindAll(trackChanges: false)
+                .OrderByDescending(x => x.Products.Sum(y => y.Quantity))
+                .Take(fridgesCount)
+                .Select(x => new FridgeLeaderBoardDto()
+                {
+                    FridgeName = x.Name,
+                    OwnerName = x.Owner.UserName,
+                    ProductsCount = x.Products.Sum(y => y.Quantity),
+                })
+                .ToListAsync();
 
         public void CreateFridge(Fridge fridge)
         {
