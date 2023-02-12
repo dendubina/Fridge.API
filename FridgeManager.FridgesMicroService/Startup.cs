@@ -40,6 +40,8 @@ namespace FridgeManager.FridgesMicroService
 
             services.ConfigureMessageBroker(Configuration, Environment);
 
+            services.ConfigureRedis(Configuration);
+
             services.ConfigureSwagger();
         }
 
