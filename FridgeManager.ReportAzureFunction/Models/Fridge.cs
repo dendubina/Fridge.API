@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace FridgeManager.ReportAzureFunction.Models
+namespace ReportAzureFunction.Models
 {
     internal class Fridge
     {

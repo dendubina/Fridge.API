@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
-using FridgeManager.AuthMicroService.EF.Constants;
-using FridgeManager.AuthMicroService.Models.DTO;
-using FridgeManager.AuthMicroService.Models.Request;
-using FridgeManager.AuthMicroService.Services.Interfaces;
+using AuthService.EF.Constants;
+using AuthService.Models.DTO;
+using AuthService.Models.Request;
+using AuthService.Services.Interfaces;
 using FridgeManager.Shared.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FridgeManager.AuthMicroService.Controllers
+namespace AuthService.Controllers
 {
     [ApiController]
     [Route("/api/[controller]")]

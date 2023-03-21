@@ -1,8 +1,8 @@
-﻿using FluentValidation;
-using FridgeManager.AuthMicroService.EF.Constants;
-using FridgeManager.AuthMicroService.Models.Request;
+﻿using AuthService.EF.Constants;
+using AuthService.Models.Request;
+using FluentValidation;
 
-namespace FridgeManager.AuthMicroService.Validators
+namespace AuthService.Validators
 {
     public class ChangeRoleModelValidator : AbstractValidator<ChangeRoleModel>
     {

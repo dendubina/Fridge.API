@@ -1,11 +1,11 @@
 ﻿using System;
-using FridgeManager.AuthMicroService.EF.Config;
-using FridgeManager.AuthMicroService.EF.Entities;
+using AuthService.EF.Config;
+using AuthService.EF.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace FridgeManager.AuthMicroService.EF
+namespace AuthService.EF
 {
     public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid, IdentityUserClaim<Guid>, UserRole, IdentityUserLogin<Guid>, IdentityRoleClaim<Guid>, IdentityUserToken<Guid>>
     {

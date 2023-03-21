@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using FridgeManager.ReportAzureFunction.Models;
-using FridgeManager.ReportAzureFunction.Services.Interfaces;
 using GemBox.Document;
+using ReportAzureFunction.Models;
+using ReportAzureFunction.Services.Interfaces;
 
-namespace FridgeManager.ReportAzureFunction.Services
+namespace ReportAzureFunction.Services
 {
     internal class ReportGenerator : IReportGenerator
     {

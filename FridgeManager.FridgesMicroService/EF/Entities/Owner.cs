@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FridgeManager.FridgesMicroService.EF.Entities
+namespace FridgesService.EF.Entities
 {
     public class Owner
     {

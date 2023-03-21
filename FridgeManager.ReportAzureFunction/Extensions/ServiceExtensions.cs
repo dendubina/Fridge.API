@@ -1,12 +1,12 @@
-﻿using FridgeManager.ReportAzureFunction.Models.Options;
-using FridgeManager.ReportAzureFunction.Services;
-using FridgeManager.ReportAzureFunction.Services.Interfaces;
-using GemBox.Document;
+﻿using GemBox.Document;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ReportAzureFunction.Models.Options;
+using ReportAzureFunction.Services;
+using ReportAzureFunction.Services.Interfaces;
 
-namespace FridgeManager.ReportAzureFunction.Extensions;
+namespace ReportAzureFunction.Extensions;
 
 internal static class ServiceExtensions
 {

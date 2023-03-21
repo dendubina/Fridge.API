@@ -1,4 +1,4 @@
-﻿namespace FridgeManager.FridgesMicroService.DTO.Owner
+﻿namespace FridgesService.DTO.Owner
 {
     public class OwnerForReturnDto
     {

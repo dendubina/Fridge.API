@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace FridgeManager.ProductsMicroService.Models
+namespace ProductsService.Models
 {
     public class ProductForManipulation
     {

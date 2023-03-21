@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FridgeManager.FridgesMicroService.Services.Options
+namespace FridgesService.Services.Options
 {
     public class RedisOptions
     {

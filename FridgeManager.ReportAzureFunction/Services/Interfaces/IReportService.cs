@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using FridgeManager.ReportAzureFunction.Models;
+using ReportAzureFunction.Models;
 
-namespace FridgeManager.ReportAzureFunction.Services.Interfaces
+namespace ReportAzureFunction.Services.Interfaces
 {
     internal interface IReportService
     {

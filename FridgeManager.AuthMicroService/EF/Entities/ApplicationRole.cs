@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
-namespace FridgeManager.AuthMicroService.EF.Entities
+namespace AuthService.EF.Entities
 {
     public class ApplicationRole : IdentityRole<Guid>
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FridgeManager.AuthMicroService.Models.DTO
+namespace AuthService.Models.DTO
 {
     public class UserToUpdate
     {

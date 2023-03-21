@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FridgeManager.FridgesMicroService.EF.Entities;
+using FridgesService.EF.Entities;
 
-
-namespace FridgeManager.FridgesMicroService.Contracts
+namespace FridgesService.Contracts
 {
     public interface IFridgeProductRepository
     {

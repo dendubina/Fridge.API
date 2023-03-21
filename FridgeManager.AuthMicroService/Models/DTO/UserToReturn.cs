@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using FridgeManager.AuthMicroService.EF.Constants;
+using AuthService.EF.Constants;
 
-namespace FridgeManager.AuthMicroService.Models.DTO
+namespace AuthService.Models.DTO
 {
     public class UserToReturn
     {

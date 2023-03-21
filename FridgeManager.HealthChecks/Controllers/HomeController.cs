@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace FridgeManager.HealthChecks.Controllers
+namespace HealthChecks.Controllers
 {
     public class HomeController : Controller
     {

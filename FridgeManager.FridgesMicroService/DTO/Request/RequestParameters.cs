@@ -1,4 +1,4 @@
-﻿namespace FridgeManager.FridgesMicroService.DTO.Request
+﻿namespace FridgesService.DTO.Request
 {
     public class RequestParameters
     {

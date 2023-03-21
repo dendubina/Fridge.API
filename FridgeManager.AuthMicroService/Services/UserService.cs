@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FridgeManager.AuthMicroService.EF.Constants;
-using FridgeManager.AuthMicroService.EF.Entities;
-using FridgeManager.AuthMicroService.Models.DTO;
-using FridgeManager.AuthMicroService.Models.Request;
-using FridgeManager.AuthMicroService.Services.Interfaces;
+using AuthService.EF.Constants;
+using AuthService.EF.Entities;
+using AuthService.Models.DTO;
+using AuthService.Models.Request;
+using AuthService.Services.Interfaces;
 using FridgeManager.Shared.Models;
 using FridgeManager.Shared.Models.Constants;
 using MassTransit;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace FridgeManager.AuthMicroService.Services
+namespace AuthService.Services
 {
     public class UserService : IUserService
     {

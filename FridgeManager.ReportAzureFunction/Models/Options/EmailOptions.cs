@@ -1,4 +1,4 @@
-﻿namespace FridgeManager.ReportAzureFunction.Models.Options
+﻿namespace ReportAzureFunction.Models.Options
 {
     internal class EmailOptions
     {

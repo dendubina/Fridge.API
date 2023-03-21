@@ -1,14 +1,14 @@
 ﻿using System.Text;
-using FridgeManager.AuthMicroService.Services.Interfaces;
 using System.Threading.Tasks;
-using FridgeManager.AuthMicroService.EF.Entities;
-using FridgeManager.AuthMicroService.Options;
+using AuthService.EF.Entities;
+using AuthService.Options;
+using AuthService.Services.Interfaces;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using MimeKit;
 
-namespace FridgeManager.AuthMicroService.Services
+namespace AuthService.Services
 {
     public class EmailService : IConfirmationMessageService
     {

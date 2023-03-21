@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FridgeManager.AuthMicroService\FridgeManager.AuthMicroService.csproj" />
+    <ProjectReference Include="..\FridgeManager.AuthMicroService\AuthService.csproj" />
   </ItemGroup>
 
 </Project>

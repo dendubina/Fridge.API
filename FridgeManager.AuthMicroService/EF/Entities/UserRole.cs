@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Identity;
 
-namespace FridgeManager.AuthMicroService.EF.Entities
+namespace AuthService.EF.Entities
 {
     public class UserRole : IdentityUserRole<Guid>
     {

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace FridgeManager.HealthChecks
+namespace HealthChecks
 {
     public class Program
     {

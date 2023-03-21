@@ -1,4 +1,4 @@
-﻿namespace FridgeManager.AuthMicroService.Options
+﻿namespace AuthService.Options
 {
     public class EmailOptions
     {

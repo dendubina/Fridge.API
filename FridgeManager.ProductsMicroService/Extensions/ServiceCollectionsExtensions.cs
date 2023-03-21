@@ -1,15 +1,15 @@
-﻿using FridgeManager.ProductsMicroService.Contracts;
-using FridgeManager.ProductsMicroService.EF;
-using FridgeManager.ProductsMicroService.Models.Options;
-using FridgeManager.ProductsMicroService.Services;
-using MassTransit;
+﻿using MassTransit;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProductsService.Contracts;
+using ProductsService.EF;
+using ProductsService.Models.Options;
+using ProductsService.Services;
 
-namespace FridgeManager.ProductsMicroService.Extensions
+namespace ProductsService.Extensions
 {
     public static class ServiceCollectionsExtensions
     {

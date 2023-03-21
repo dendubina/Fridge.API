@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using FridgeManager.FridgesMicroService.DTO.FridgeProducts;
-using FridgeManager.FridgesMicroService.DTO.Owner;
+using FridgesService.DTO.FridgeProducts;
+using FridgesService.DTO.Owner;
 
-namespace FridgeManager.FridgesMicroService.DTO.Fridges
+namespace FridgesService.DTO.Fridges
 {
     public class FridgeForReturnDto
     {

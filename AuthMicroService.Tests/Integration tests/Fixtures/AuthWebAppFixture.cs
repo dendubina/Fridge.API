@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Http;
+using AuthService.Services.Interfaces;
 using FridgeManager.AuthMicroService;
-using FridgeManager.AuthMicroService.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
-namespace AuthMicroService.Tests.Integration_tests.Fixtures
+namespace AuthService.IntegrationTests.Integration_tests.Fixtures
 {
     public class AuthWebAppFixture : IDisposable
     {

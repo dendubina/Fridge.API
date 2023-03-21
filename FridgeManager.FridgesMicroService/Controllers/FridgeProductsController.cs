@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using AutoMapper;
-using FridgeManager.FridgesMicroService.Contracts;
-using FridgeManager.FridgesMicroService.DTO.FridgeProducts;
-using FridgeManager.FridgesMicroService.EF.Entities;
+using FridgesService.Contracts;
+using FridgesService.DTO.FridgeProducts;
+using FridgesService.EF.Entities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FridgeManager.FridgesMicroService.Controllers
+namespace FridgesService.Controllers
 {
     [Route("api/fridges/{fridgeId:guid}/products")]
     [ApiController]

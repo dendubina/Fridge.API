@@ -1,13 +1,13 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
-using FridgeManager.FridgesMicroService.Contracts;
-using FridgeManager.FridgesMicroService.EF.Entities;
 using FridgeManager.Shared.Models;
 using FridgeManager.Shared.Models.Constants;
+using FridgesService.Contracts;
+using FridgesService.EF.Entities;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 
-namespace FridgeManager.FridgesMicroService.Services.Consumers
+namespace FridgesService.Services.Consumers
 {
     public class ProductConsumer : IConsumer<SharedProduct>
     {

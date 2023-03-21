@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace FridgeManager.FridgesMicroService.Contracts
+namespace FridgesService.Contracts
 {
     public interface IRepositoryBase<T>
     {

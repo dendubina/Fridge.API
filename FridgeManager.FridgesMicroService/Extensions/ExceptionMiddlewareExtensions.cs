@@ -1,10 +1,10 @@
 ﻿using System.Net;
-using FridgeManager.FridgesMicroService.DTO;
+using FridgesService.DTO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 
-namespace FridgeManager.FridgesMicroService.Extensions
+namespace FridgesService.Extensions
 {
     public static class ExceptionMiddlewareExtensions
     {

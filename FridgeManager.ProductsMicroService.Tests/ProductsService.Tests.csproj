@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FridgeManager.ProductsMicroService\FridgeManager.ProductsMicroService.csproj" />
+    <ProjectReference Include="..\FridgeManager.ProductsMicroService\ProductsService.csproj" />
   </ItemGroup>
 
 </Project>

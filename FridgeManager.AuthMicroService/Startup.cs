@@ -1,7 +1,7 @@
-using FridgeManager.AuthMicroService.Extensions;
-using FridgeManager.AuthMicroService.Services;
-using FridgeManager.AuthMicroService.Services.Interfaces;
-using FridgeManager.AuthMicroService.Validators;
+using AuthService.Extensions;
+using AuthService.Services;
+using AuthService.Services.Interfaces;
+using AuthService.Validators;
 using FridgeManager.Shared.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace FridgeManager.AuthMicroService
+namespace AuthService
 {
     public class Startup
     {
@@ -24,7 +24,7 @@ namespace FridgeManager.AuthMicroService
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IAuthService, Services.AuthService>();
             services.AddScoped<IUserService, UserService>();
 
             services.ConfigureSqlContext(Configuration);

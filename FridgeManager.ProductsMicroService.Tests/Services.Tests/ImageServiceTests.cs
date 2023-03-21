@@ -3,16 +3,16 @@ using System.IO.Abstractions;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using FluentAssertions;
-using FridgeManager.ProductsMicroService.Contracts;
-using FridgeManager.ProductsMicroService.Models.Options;
-using FridgeManager.ProductsMicroService.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Moq;
+using ProductsService.Contracts;
+using ProductsService.Models.Options;
+using ProductsService.Services;
 using Xunit;
 
-namespace FridgeManager.ProductsMicroService.Tests.Services.Tests
+namespace ProductsService.Tests.Services.Tests
 {
     public class ImageServiceTests
     {

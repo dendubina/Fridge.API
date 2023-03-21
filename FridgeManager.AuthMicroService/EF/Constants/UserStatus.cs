@@ -1,4 +1,4 @@
-﻿namespace FridgeManager.AuthMicroService.EF.Constants
+﻿namespace AuthService.EF.Constants
 {
     public enum UserStatus
     {

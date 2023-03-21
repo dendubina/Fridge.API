@@ -6,12 +6,12 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using AutoFixture;
 using FluentAssertions;
-using FridgeManager.FridgesMicroService.DTO.FridgeProducts;
-using FridgeManager.FridgesMicroService.DTO.Fridges;
-using FridgeMicroService.IntegrationTests.Fixtures;
+using FridgeService.IntegrationTests.Fixtures;
+using FridgesService.DTO.FridgeProducts;
+using FridgesService.DTO.Fridges;
 using Xunit;
 
-namespace FridgeMicroService.IntegrationTests.ControllersTests
+namespace FridgeService.IntegrationTests.ControllersTests
 {
     public class FridgeControllerTests : IClassFixture<FridgeMicroServiceFixture>
     {

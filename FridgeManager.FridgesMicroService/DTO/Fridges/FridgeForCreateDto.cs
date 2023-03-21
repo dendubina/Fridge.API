@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using FridgeManager.FridgesMicroService.DTO.FridgeProducts;
+using FridgesService.DTO.FridgeProducts;
 
-namespace FridgeManager.FridgesMicroService.DTO.Fridges
+namespace FridgesService.DTO.Fridges
 {
     public class FridgeForCreateDto 
     {

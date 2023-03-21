@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using FridgeManager.ReportAzureFunction.Models;
-using FridgeManager.ReportAzureFunction.Models.Options;
-using FridgeManager.ReportAzureFunction.Services.Interfaces;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Options;
 using MimeKit;
+using ReportAzureFunction.Models;
+using ReportAzureFunction.Models.Options;
+using ReportAzureFunction.Services.Interfaces;
 
-namespace FridgeManager.ReportAzureFunction.Services
+namespace ReportAzureFunction.Services
 {
     internal class ReportService : IReportService, IDisposable
     {

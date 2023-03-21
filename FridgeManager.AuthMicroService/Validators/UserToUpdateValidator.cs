@@ -1,7 +1,7 @@
-﻿using FluentValidation;
-using FridgeManager.AuthMicroService.Models.DTO;
+﻿using AuthService.Models.DTO;
+using FluentValidation;
 
-namespace FridgeManager.AuthMicroService.Validators
+namespace AuthService.Validators
 {
     public class UserToUpdateValidator : AbstractValidator<UserToUpdate>
     {

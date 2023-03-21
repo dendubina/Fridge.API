@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using FridgeManager.ProductsMicroService.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using ProductsService.EF;
 using Xunit;
 
-namespace FridgeManager.ProductsMicroService.Tests.Fixtures
+namespace ProductsService.Tests.Fixtures
 {
     public class DatabaseFixture : IAsyncLifetime
     {

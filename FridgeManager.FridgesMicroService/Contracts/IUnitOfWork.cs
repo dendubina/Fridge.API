@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace FridgeManager.FridgesMicroService.Contracts
+namespace FridgesService.Contracts
 {
     public interface IUnitOfWork
     {

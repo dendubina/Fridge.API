@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using FridgeManager.FridgesMicroService.Contracts;
-using FridgeManager.FridgesMicroService.EF;
+using FridgesService.Contracts;
+using FridgesService.EF;
 
-namespace FridgeManager.FridgesMicroService.Services
+namespace FridgesService.Services
 {
     public class UnitOfWork : IUnitOfWork
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using FridgeManager.FridgesMicroService.Contracts;
-using FridgeManager.FridgesMicroService.EF;
+using FridgesService.Contracts;
+using FridgesService.EF;
 using Microsoft.EntityFrameworkCore;
 
-namespace FridgeManager.FridgesMicroService.Services
+namespace FridgesService.Services
 {
     public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {

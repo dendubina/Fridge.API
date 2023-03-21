@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FridgeManager.FridgesMicroService.Contracts;
-using FridgeManager.FridgesMicroService.EF;
-using FridgeManager.FridgesMicroService.EF.Entities;
+using FridgesService.Contracts;
+using FridgesService.EF;
+using FridgesService.EF.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace FridgeManager.FridgesMicroService.Services
+namespace FridgesService.Services
 {
     public class FridgeProductRepository : RepositoryBase<FridgeProduct>, IFridgeProductRepository
     {

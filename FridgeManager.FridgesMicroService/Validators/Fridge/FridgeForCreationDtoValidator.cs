@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using FridgeManager.FridgesMicroService.DTO.Fridges;
-using FridgeManager.FridgesMicroService.Validators.FridgeProducts;
+using FridgesService.DTO.Fridges;
+using FridgesService.Validators.FridgeProducts;
 
-namespace FridgeManager.FridgesMicroService.Validators.Fridge
+namespace FridgesService.Validators.Fridge
 {
     public class FridgeForCreationDtoValidator : AbstractValidator<FridgeForCreateDto>
     {

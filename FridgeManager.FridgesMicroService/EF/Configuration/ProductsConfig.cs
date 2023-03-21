@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using FridgeManager.FridgesMicroService.EF.Entities;
+using FridgesService.EF.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace FridgeManager.FridgesMicroService.EF.Configuration
+namespace FridgesService.EF.Configuration
 {
     public class ProductsConfig : IEntityTypeConfiguration<Product>
     {

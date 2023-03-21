@@ -2,15 +2,14 @@
 using System.IO;
 using System.IO.Abstractions;
 using System.Threading.Tasks;
-using FridgeManager.ProductsMicroService.Contracts;
-using FridgeManager.ProductsMicroService.Models.Options;
-using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Storage.V1;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using ProductsService.Contracts;
+using ProductsService.Models.Options;
 
-namespace FridgeManager.ProductsMicroService.Services
+namespace ProductsService.Services
 {
     public class ImageService : IImageService, IDisposable
     {

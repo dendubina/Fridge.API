@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FridgeManager.AuthMicroService.Models.Request
+namespace AuthService.Models.Request
 {
     public class EmailConfirmModel
     {

@@ -1,9 +1,9 @@
 ﻿using System;
-using FridgeManager.FridgesMicroService.Contracts;
-using FridgeManager.FridgesMicroService.EF;
-using FridgeManager.FridgesMicroService.Services;
-using FridgeManager.FridgesMicroService.Services.Consumers;
-using FridgeManager.FridgesMicroService.Services.Options;
+using FridgesService.Contracts;
+using FridgesService.EF;
+using FridgesService.Services;
+using FridgesService.Services.Consumers;
+using FridgesService.Services.Options;
 using MassTransit;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StackExchange.Redis;
 
-namespace FridgeManager.FridgesMicroService.Extensions
+namespace FridgesService.Extensions
 {
     public static class ServiceExtensions
     {

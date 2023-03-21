@@ -3,10 +3,10 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
-using FridgeManager.ReportAzureFunction.Models;
-using FridgeManager.ReportAzureFunction.Services.Interfaces;
+using ReportAzureFunction.Models;
+using ReportAzureFunction.Services.Interfaces;
 
-namespace FridgeManager.ReportAzureFunction.Services
+namespace ReportAzureFunction.Services
 {
     internal class FridgeService : IFridgeService
     {

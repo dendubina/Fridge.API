@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 
-namespace FridgeManager.AuthMicroService.Extensions
+namespace AuthService.Extensions
 {
     public static class IdentityResultExtensions
     {

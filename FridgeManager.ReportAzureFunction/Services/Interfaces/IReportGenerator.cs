@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using FridgeManager.ReportAzureFunction.Models;
+using ReportAzureFunction.Models;
 
-namespace FridgeManager.ReportAzureFunction.Services.Interfaces
+namespace ReportAzureFunction.Services.Interfaces
 {
     internal interface IReportGenerator
     {

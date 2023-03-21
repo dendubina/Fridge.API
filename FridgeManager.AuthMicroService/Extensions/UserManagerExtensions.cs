@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using FridgeManager.AuthMicroService.EF.Constants;
-using FridgeManager.AuthMicroService.EF.Entities;
+using AuthService.EF.Constants;
+using AuthService.EF.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace FridgeManager.AuthMicroService.Extensions
+namespace AuthService.Extensions
 {
     public static class UserManagerExtensions
     {

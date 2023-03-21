@@ -1,9 +1,9 @@
 using System.Linq;
 using System.Threading.Tasks;
-using FridgeManager.ReportAzureFunction.Services.Interfaces;
 using Microsoft.Azure.WebJobs;
+using ReportAzureFunction.Services.Interfaces;
 
-namespace FridgeManager.ReportAzureFunction;
+namespace ReportAzureFunction;
 
 internal class ReportFunction
 {

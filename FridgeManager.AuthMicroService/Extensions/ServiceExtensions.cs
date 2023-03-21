@@ -1,8 +1,8 @@
-﻿using FridgeManager.AuthMicroService.EF;
-using FridgeManager.AuthMicroService.EF.Entities;
-using FridgeManager.AuthMicroService.Options;
-using FridgeManager.AuthMicroService.Services;
-using FridgeManager.AuthMicroService.Services.Interfaces;
+﻿using AuthService.EF;
+using AuthService.EF.Entities;
+using AuthService.Options;
+using AuthService.Services;
+using AuthService.Services.Interfaces;
 using MailKit.Net.Smtp;
 using MassTransit;
 using Microsoft.AspNetCore.Hosting;
@@ -12,7 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace FridgeManager.AuthMicroService.Extensions
+namespace AuthService.Extensions
 {
     public static class ServiceExtensions
     {

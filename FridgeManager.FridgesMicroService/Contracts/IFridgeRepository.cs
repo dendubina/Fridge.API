@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using FridgeManager.FridgesMicroService.DTO.Fridges;
-using FridgeManager.FridgesMicroService.DTO.Request;
-using FridgeManager.FridgesMicroService.EF.Entities;
+using FridgesService.DTO.Fridges;
+using FridgesService.DTO.Request;
+using FridgesService.EF.Entities;
 
-namespace FridgeManager.FridgesMicroService.Contracts
+namespace FridgesService.Contracts
 {
     public interface IFridgeRepository
     {

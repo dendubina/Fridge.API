@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using FridgeManager.ProductsMicroService.Contracts;
-using FridgeManager.ProductsMicroService.EF;
-using FridgeManager.ProductsMicroService.EF.Entities;
 using FridgeManager.Shared.Models;
 using FridgeManager.Shared.Models.Constants;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using ProductsService.Contracts;
+using ProductsService.EF;
+using ProductsService.EF.Entities;
 
-namespace FridgeManager.ProductsMicroService.Services
+namespace ProductsService.Services
 {
     public class ProductService : IProductService
     {

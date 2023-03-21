@@ -1,7 +1,7 @@
-﻿using FluentValidation;
-using FridgeManager.AuthMicroService.Models.Request;
+﻿using AuthService.Models.Request;
+using FluentValidation;
 
-namespace FridgeManager.AuthMicroService.Validators
+namespace AuthService.Validators
 {
     public class SignInModelValidator : AbstractValidator<SignInModel>
     {

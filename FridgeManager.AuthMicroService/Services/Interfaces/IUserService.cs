@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FridgeManager.AuthMicroService.EF.Constants;
-using FridgeManager.AuthMicroService.Models.DTO;
-using FridgeManager.AuthMicroService.Models.Request;
+using AuthService.EF.Constants;
+using AuthService.Models.DTO;
+using AuthService.Models.Request;
 
-namespace FridgeManager.AuthMicroService.Services.Interfaces
+namespace AuthService.Services.Interfaces
 {
     public interface IUserService
     {

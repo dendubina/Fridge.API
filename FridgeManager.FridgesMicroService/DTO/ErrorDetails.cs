@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace FridgeManager.FridgesMicroService.DTO
+namespace FridgesService.DTO
 {
     public class ErrorDetails
     {

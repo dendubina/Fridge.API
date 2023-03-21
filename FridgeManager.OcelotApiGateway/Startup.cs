@@ -8,7 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
-namespace FridgeManager.OcelotApiGateway
+namespace ApiGateway
 {
     public class Startup
     {

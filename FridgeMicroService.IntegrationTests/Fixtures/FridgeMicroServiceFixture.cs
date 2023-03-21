@@ -2,11 +2,11 @@
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using FridgeManager.FridgesMicroService.DTO.Fridges;
-using FridgeMicroService.IntegrationTests.Configuration;
+using FridgeService.IntegrationTests.Configuration;
+using FridgesService.DTO.Fridges;
 using Xunit;
 
-namespace FridgeMicroService.IntegrationTests.Fixtures
+namespace FridgeService.IntegrationTests.Fixtures
 {
     public class FridgeMicroServiceFixture : IAsyncLifetime
     {

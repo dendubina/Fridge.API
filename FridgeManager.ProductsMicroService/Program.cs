@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
-namespace FridgeManager.ProductsMicroService
+namespace ProductsService
 {
     public class Program
     {

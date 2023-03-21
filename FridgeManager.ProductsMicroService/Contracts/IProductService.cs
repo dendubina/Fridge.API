@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FridgeManager.ProductsMicroService.EF.Entities;
+using ProductsService.EF.Entities;
 
-namespace FridgeManager.ProductsMicroService.Contracts
+namespace ProductsService.Contracts
 {
     public interface IProductService
     {

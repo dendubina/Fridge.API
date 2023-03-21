@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using FridgeManager.AuthMicroService.Models;
-using FridgeManager.AuthMicroService.Models.Request;
+using AuthService.Models;
+using AuthService.Models.Request;
 
-namespace FridgeManager.AuthMicroService.Services.Interfaces
+namespace AuthService.Services.Interfaces
 {
     public interface IAuthService
     {

@@ -4,15 +4,15 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using AuthMicroService.Tests.Integration_tests.Fixtures;
+using AuthService.IntegrationTests.Integration_tests.Fixtures;
+using AuthService.Models;
+using AuthService.Models.Request;
 using AutoFixture;
 using FluentAssertions;
-using FridgeManager.AuthMicroService.Models;
-using FridgeManager.AuthMicroService.Models.Request;
 using Moq;
 using Xunit;
 
-namespace AuthMicroService.Tests.Integration_tests
+namespace AuthService.IntegrationTests.Integration_tests
 {
     public class AccountControllerTests : IClassFixture<AuthWebAppFixture>
     {

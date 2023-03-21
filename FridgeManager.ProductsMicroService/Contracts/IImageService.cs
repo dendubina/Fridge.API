@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace FridgeManager.ProductsMicroService.Contracts
+namespace ProductsService.Contracts
 {
     public interface IImageService
     {

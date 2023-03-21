@@ -1,4 +1,4 @@
-﻿namespace FridgeManager.AuthMicroService.Models.Request
+﻿namespace AuthService.Models.Request
 {
     public class UserRequestParameters
     {

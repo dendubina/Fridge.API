@@ -5,13 +5,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using FridgeManager.AuthMicroService.EF.Constants;
-using FridgeManager.AuthMicroService.EF.Entities;
-using FridgeManager.AuthMicroService.Extensions;
-using FridgeManager.AuthMicroService.Models;
-using FridgeManager.AuthMicroService.Models.Request;
-using FridgeManager.AuthMicroService.Options;
-using FridgeManager.AuthMicroService.Services.Interfaces;
+using AuthService.EF.Constants;
+using AuthService.EF.Entities;
+using AuthService.Extensions;
+using AuthService.Models;
+using AuthService.Models.Request;
+using AuthService.Options;
+using AuthService.Services.Interfaces;
 using FridgeManager.Shared.Models;
 using FridgeManager.Shared.Models.Constants;
 using MassTransit;
@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace FridgeManager.AuthMicroService.Services
+namespace AuthService.Services
 {
     public class AuthService : IAuthService
     {

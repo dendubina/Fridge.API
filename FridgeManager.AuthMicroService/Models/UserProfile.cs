@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FridgeManager.AuthMicroService.Models
+namespace AuthService.Models
 {
     public class UserProfile
     {

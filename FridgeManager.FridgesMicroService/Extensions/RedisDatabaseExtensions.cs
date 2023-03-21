@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System;
 using StackExchange.Redis;
 
-namespace FridgeManager.FridgesMicroService.Extensions
+namespace FridgesService.Extensions
 {
     public static class RedisDatabaseExtensions
     {

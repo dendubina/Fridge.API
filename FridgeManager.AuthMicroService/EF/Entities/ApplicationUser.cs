@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using FridgeManager.AuthMicroService.EF.Constants;
+using AuthService.EF.Constants;
 using Microsoft.AspNetCore.Identity;
 
-namespace FridgeManager.AuthMicroService.EF.Entities
+namespace AuthService.EF.Entities
 {
     public class ApplicationUser : IdentityUser<Guid>
     {

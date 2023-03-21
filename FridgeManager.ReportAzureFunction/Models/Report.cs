@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace FridgeManager.ReportAzureFunction.Models
+namespace ReportAzureFunction.Models
 {
     internal class Report : IDisposable
     {

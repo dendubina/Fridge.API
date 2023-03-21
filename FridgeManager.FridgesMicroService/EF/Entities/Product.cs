@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace FridgeManager.FridgesMicroService.EF.Entities
+namespace FridgesService.EF.Entities
 {
     public class Product
     {

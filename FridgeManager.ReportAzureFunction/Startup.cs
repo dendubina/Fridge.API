@@ -1,15 +1,14 @@
 ﻿using System;
-using FridgeManager.ReportAzureFunction;
-using FridgeManager.ReportAzureFunction.Extensions;
-using FridgeManager.ReportAzureFunction.Models.Options;
-using FridgeManager.ReportAzureFunction.Services;
-using FridgeManager.ReportAzureFunction.Services.Interfaces;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Azure.WebJobs.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using ReportAzureFunction;
+using ReportAzureFunction.Extensions;
+using ReportAzureFunction.Services;
+using ReportAzureFunction.Services.Interfaces;
 
 [assembly: WebJobsStartup(typeof(Startup))]
-namespace FridgeManager.ReportAzureFunction
+namespace ReportAzureFunction
 {
     public class Startup : FunctionsStartup
     {

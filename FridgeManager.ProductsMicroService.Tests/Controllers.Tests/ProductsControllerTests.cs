@@ -5,17 +5,17 @@ using AutoFixture.AutoMoq;
 using AutoMapper;
 using FluentAssertions;
 using FluentAssertions.AspNetCore.Mvc;
-using FridgeManager.ProductsMicroService.Contracts;
-using FridgeManager.ProductsMicroService.Controllers;
-using FridgeManager.ProductsMicroService.EF.Entities;
-using FridgeManager.ProductsMicroService.Mapper;
-using FridgeManager.ProductsMicroService.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using ProductsService.Contracts;
+using ProductsService.Controllers;
+using ProductsService.EF.Entities;
+using ProductsService.Mapper;
+using ProductsService.Models;
 using Xunit;
 
-namespace FridgeManager.ProductsMicroService.Tests.Controllers.Tests
+namespace ProductsService.Tests.Controllers.Tests
 {
     public class ProductsControllerTests
     {

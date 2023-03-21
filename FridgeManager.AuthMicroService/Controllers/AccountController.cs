@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using FridgeManager.AuthMicroService.Models.Request;
-using FridgeManager.AuthMicroService.Services.Interfaces;
+using AuthService.Models.Request;
+using AuthService.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FridgeManager.AuthMicroService.Controllers
+namespace AuthService.Controllers
 {
     [ApiController]
     [Route("[action]")]

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using FridgeManager.ProductsMicroService.Mapper;
+using ProductsService.Mapper;
 using Xunit;
 
-namespace FridgeManager.ProductsMicroService.Tests.Mapper.Tests
+namespace ProductsService.Tests.Mapper.Tests
 {
     public class MapperProfileTests
     {

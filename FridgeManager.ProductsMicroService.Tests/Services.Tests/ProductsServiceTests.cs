@@ -5,19 +5,19 @@ using AutoFixture;
 using AutoFixture.Xunit2;
 using AutoMapper;
 using FluentAssertions;
-using FridgeManager.ProductsMicroService.Contracts;
-using FridgeManager.ProductsMicroService.EF;
-using FridgeManager.ProductsMicroService.EF.Entities;
-using FridgeManager.ProductsMicroService.Mapper;
-using FridgeManager.ProductsMicroService.Services;
-using FridgeManager.ProductsMicroService.Tests.Fixtures;
 using FridgeManager.Shared.Models;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using ProductsService.Contracts;
+using ProductsService.EF;
+using ProductsService.EF.Entities;
+using ProductsService.Mapper;
+using ProductsService.Services;
+using ProductsService.Tests.Fixtures;
 using Xunit;
 
-namespace FridgeManager.ProductsMicroService.Tests.Services.Tests
+namespace ProductsService.Tests.Services.Tests
 {
 
     public class ProductsServiceTests : IClassFixture<DatabaseFixture>

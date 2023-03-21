@@ -1,16 +1,16 @@
 using System.IO.Abstractions;
-using FridgeManager.ProductsMicroService.Contracts;
-using FridgeManager.ProductsMicroService.Extensions;
-using FridgeManager.ProductsMicroService.Services;
-using FridgeManager.ProductsMicroService.Validators;
 using FridgeManager.Shared.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProductsService.Contracts;
+using ProductsService.Extensions;
+using ProductsService.Services;
+using ProductsService.Validators;
 
-namespace FridgeManager.ProductsMicroService
+namespace ProductsService
 {
     public class Startup
     {

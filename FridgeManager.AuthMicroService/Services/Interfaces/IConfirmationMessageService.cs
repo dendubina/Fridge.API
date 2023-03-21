@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using FridgeManager.AuthMicroService.EF.Entities;
+using AuthService.EF.Entities;
 
-namespace FridgeManager.AuthMicroService.Services.Interfaces
+namespace AuthService.Services.Interfaces
 {
     public interface IConfirmationMessageService
     {

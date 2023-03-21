@@ -1,4 +1,4 @@
-﻿namespace FridgeManager.ReportAzureFunction.Models
+﻿namespace ReportAzureFunction.Models
 {
     internal class Owner
     {

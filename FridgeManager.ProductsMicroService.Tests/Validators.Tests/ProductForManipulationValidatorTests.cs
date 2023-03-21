@@ -3,13 +3,13 @@ using System.IO;
 using AutoFixture;
 using AutoFixture.Dsl;
 using FluentValidation.TestHelper;
-using FridgeManager.ProductsMicroService.Models;
-using FridgeManager.ProductsMicroService.Validators;
 using Microsoft.AspNetCore.Http;
 using Moq;
+using ProductsService.Models;
+using ProductsService.Validators;
 using Xunit;
 
-namespace FridgeManager.ProductsMicroService.Tests.Validators.Tests
+namespace ProductsService.Tests.Validators.Tests
 {
     public class ProductForManipulationValidatorTests
     {

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using AutoMapper;
-using FridgeManager.ProductsMicroService.Contracts;
-using FridgeManager.ProductsMicroService.EF.Entities;
-using FridgeManager.ProductsMicroService.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProductsService.Contracts;
+using ProductsService.EF.Entities;
+using ProductsService.Models;
 
-namespace FridgeManager.ProductsMicroService.Controllers
+namespace ProductsService.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

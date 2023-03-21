@@ -9,7 +9,7 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
 
-namespace FridgeManager.FridgesMicroService
+namespace FridgesService
 {
     public class Program
     {

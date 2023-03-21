@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using FridgeManager.FridgesMicroService.DTO.FridgeProducts;
-using FridgeManager.FridgesMicroService.DTO.Fridges;
-using FridgeManager.FridgesMicroService.DTO.Owner;
-using FridgeManager.FridgesMicroService.EF.Entities;
 using FridgeManager.Shared.Models;
+using FridgesService.DTO.FridgeProducts;
+using FridgesService.DTO.Fridges;
+using FridgesService.DTO.Owner;
+using FridgesService.EF.Entities;
 
-namespace FridgeManager.FridgesMicroService.MapperProfile
+namespace FridgesService.MapperProfile
 {
     public class MapperProfile : Profile
     {

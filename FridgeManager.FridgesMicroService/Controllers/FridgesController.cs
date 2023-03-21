@@ -4,20 +4,20 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using FridgeManager.FridgesMicroService.Contracts;
-using FridgeManager.FridgesMicroService.DTO.FridgeProducts;
-using FridgeManager.FridgesMicroService.DTO.Fridges;
-using FridgeManager.FridgesMicroService.DTO.Request;
-using FridgeManager.FridgesMicroService.EF.Entities;
-using FridgeManager.FridgesMicroService.Extensions;
-using FridgeManager.FridgesMicroService.Services.Options;
 using FridgeManager.Shared.Extensions;
+using FridgesService.Contracts;
+using FridgesService.DTO.FridgeProducts;
+using FridgesService.DTO.Fridges;
+using FridgesService.DTO.Request;
+using FridgesService.EF.Entities;
+using FridgesService.Extensions;
+using FridgesService.Services.Options;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 
-namespace FridgeManager.FridgesMicroService.Controllers
+namespace FridgesService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

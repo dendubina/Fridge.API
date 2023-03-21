@@ -1,10 +1,10 @@
 ﻿using System;
-using FridgeManager.AuthMicroService.EF.Constants;
-using FridgeManager.AuthMicroService.EF.Entities;
+using AuthService.EF.Constants;
+using AuthService.EF.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace FridgeManager.AuthMicroService.EF.Config
+namespace AuthService.EF.Config
 {
     public class RolesConfig : IEntityTypeConfiguration<ApplicationRole>
     {
