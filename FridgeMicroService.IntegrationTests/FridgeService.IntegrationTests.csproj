@@ -21,8 +21,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\FridgeManager.FridgesMicroService\FridgesService.csproj" />
-  </ItemGroup>
-
 </Project>
