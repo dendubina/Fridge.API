@@ -1,4 +1,4 @@
-## Задание на создание небольшого Web Api проекта
+## Задание на создание небольшого Web проекта используя микросервисную архитектуру
 
 ### Используемые технологии и библиотеки:
 - ASP.NET Core WebApi
@@ -7,11 +7,7 @@
 - Azure Functions
 - RabbitMQ (MassTransit)
 - Redis
-- Ocelot(Gateway), Google.Cloud.Storage.V1, Serilog, Automapper, FluentValidation, XUnit, FluentAssertions, AutoFixture
-
-
-### Структура базы данных: 
-![Alt text](/dbimg.jpg?raw=true "Optional Title")
+- Serilog, Ocelot(Gateway), Google.Cloud.Storage.V1, Serilog, Automapper, FluentValidation, XUnit, Moq, FluentAssertions, AutoFixture
 
 ### Разработанный Api должен содержать как минимум следующие эндпоинты:
 - Получение списка холодильников
@@ -24,7 +20,13 @@
 ### Также:
 - Добавить валидацию всех входных данных
 - Добавить unit tests
-- Добавить возможность сохранять картинки для продуктов
-- Добавить авторизацию и аутентификацию. Ограничить доступ к некоторым ендпоинтам для определенных ролей
+- Добавить возможность сохранять картинки для продуктов в облачном хранилище
+- Добавить авторизацию и аутентификацию(JWT). Также следует добавить поддержку авторизации с учетной записью Microsoft
+- Добавить Azure Function для рассылки еженедельных отчетов пользователям.
+- Добавить кеширование некоторых запросов с помощью Redis
+- Добавить логгирование с помощью Serilog
 - Создать postman коллекцию
 - Разместить MS SQL базу данных на Azure
+
+### Структура базы данных: 
+![Alt text](/dbimg.jpg?raw=true "Optional Title")
